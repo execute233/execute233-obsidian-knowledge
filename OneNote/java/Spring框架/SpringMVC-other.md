@@ -6,8 +6,10 @@
 
 
 我们可以直接将inde×的下一级路径作为请求参数进行处理，也就是说现在的请求参数包含在了请求路径中：
+```python
 @RequestMapping("/index/{str}")
 public String testIndex(@PathVariable String str) {
+```
 System._out_.println(str);
 return "index";
 }
@@ -25,11 +27,13 @@ void postHandle(HttpServletRequest request, HttpServletResponse response, Object
 // 请求完成之后,不管处理请求期间是否发生异常
 void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex);
 接着需要在配置类注册（实现WebMvcConfigurer的配置类）
+```python
 @Override
 public void addInterceptors(InterceptorRegistry registry) {
 registry.addInterceptor(new MainInterceptor())
 .addPathPatterns("/**") // 拦截器匹配路径
 .excludePathPatterns("/home"); // 拦截器不进行拦截的路径
+```
 }
 可以添加多个拦截器，链式调用拦截器order方法设置优先级（按顺序注册则按顺序优先级），如：
 1号拦截器：处理前
@@ -41,37 +45,45 @@ Controller处理
 1号拦截器：完成后
 **异常处理**
 我们可以专门写一个异常处理的Controller，出现指定异常可以转接到此控制器执行
+```python
 @ControllerAdvice
 public class ErrorController {
 @ExceptionHandler
 public ModelAndView handleException(Exception e, Model model) {
 model.addAttribute("e", e);
 return new ModelAndView("error");
+```
 }
 }
 **文件上传与下载**
 需要在ServletInitializer中注册
+```python
 @Override
 protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+```
 // 直接通过registration配置Multipart，必须设置临时上传路径
 // 同时可以设置其他属性
 registration.setMultipartConfig(new MultipartConfigElement("xxx"));
 }
 然后就可以写在Controller了
+```python
 @PostMapping("/upload")
 @ResponseBody
 public String upload(@RequestParam("file") MultipartFile file) throws IOException {
 File fileObj = new File("test.txt");
 file.transferTo(fileObj);
 return "success";
+```
 }
 下载可以直接用HttpServletRespone了
+```python
 @GetMapping("/download")
 @ResponseBody
 public void download(HttpServletResponse response) throws IOException {
 response.setContentType("multipart/form-data");
 try (OutputStream out = response.getOutputStream();
 InputStream in = Files._newInputStream_(Paths._get_("test.txt"))) {
+```
 IOUtils._copy_(in, out);
 } catch (Exception e) {
 e.printStackTrace();

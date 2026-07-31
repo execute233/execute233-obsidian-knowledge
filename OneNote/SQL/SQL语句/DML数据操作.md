@@ -11,5 +11,7 @@ INSERT INTO表名（列名1，列名2) VALUES (值1，值2);
 INSERT INTO 表名（列名1，列名2）VALUES (值1，值2）,（值1，值2），（值1，值2)
 
 我们可以通过UPDATE语句来更新表中的数据
+```sql
 UPDATE 表名 SET 列名=值… WHERE 条件
 DELETE FROM 表名 WHERE 条件
+```

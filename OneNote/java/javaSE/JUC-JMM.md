@@ -24,6 +24,7 @@ JMM（Java Memory Model）内存模型规定如下：
 - 机器指令级别的重排序：现代处理器很高级，能够自主判断和变更机器指令的执行顺序。
 
 比如：
+```java
 private static int a = 0;
 private static int b = 0;
 public static void main(String[] args) {
@@ -31,12 +32,15 @@ new Thread(() -> {
 if(b == 1) {
 if(a == 0) {
 System.out.println("A");
+```
 }else {
 System.out.println("B");
 }
 }
+```java
 }).start();
 new Thread(() -> {
+```
 a = 1;
 b = 1;
 }).start();
@@ -48,12 +52,14 @@ b = 1;
 有序性：即程序执行的顺序按照代码的先后顺序执行。
 
 我们之前说了，如果多线程访问同一个变量，那么这个变量会被线程拷贝到自己的工作内存中进行操作，而不是直接对主内存中的变量本体进行操作，下面这个操作看起来是一个有限循环，但是是无限的：
+```java
 private static int a = 0;
 public static void main(String[] args) throws InterruptedException {
 new Thread(() -> {
 while (a == 0);
 System.out.println("线程结束！");
 }).start();
+```
 
 ```java
         Thread.sleep(1000);

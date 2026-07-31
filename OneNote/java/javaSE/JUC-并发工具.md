@@ -33,10 +33,12 @@ new CountDownLatch(20); // 创建一个初始值为20的计数器锁
 ![[_assets/JUC-并发工具/JUC-并发工具__09-20-37-1.png]]
 
 首先需要new ForkJoinPool，这东西类似于线程池，同样的可以submit，但需要继承RecursiveTask<T>类，其中泛型是返回的结果类型，可以通过自定义方法构造实现传入数据，这里以1到100求和为例
+```java
 public class Main {
 public static void main(String[] args) throws InterruptedException, ExecutionException {
 ForkJoinPool pool = new ForkJoinPool();
 System.out.println(pool.submit(new SubTask(1, 1000)).get());
+```
 }
 
 

@@ -25,13 +25,17 @@ channel.basicPublish("", _QUEUE_NAME_, null, _CONTENT_.getBytes());
 // 上面方法是异步的，如果不需要再发送就需要关闭连接防止阻塞主线程
 connection.close();
 }
+```csharp
 void consumer() throws Exception {
 ConnectionFactory factory = new ConnectionFactory();
+```
 factory.setHost(_HOST_NAME_);
 factory.setUsername(_USER_NAME_);
 factory.setPassword(_PASSWORD_);
+```text
 Connection connection = factory.newConnection();
 Channel channel = connection.createChannel();
+```
 // 消费数据，该方法不会阻塞，参数分别为
 // 消费队列、是否自动确认、消费的回调、消费取消回调
 channel.basicConsume(_QUEUE_NAME_, true

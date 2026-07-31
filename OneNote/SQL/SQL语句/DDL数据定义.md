@@ -22,8 +22,10 @@ DESCRIBE/DESC 表名;
 查洵指定表的建表语句
 SHOW CREATETABLE 表名;
 创建表
+```sql
 CREATE [TEMPORARY] TABLE [IF NOT EXISTS] table (列名 数据类型[列级约束条件]，
 column_name1 type [DEFAULT] [AUTO_INCREMENT] [COMMENT ' '] [{<列约束>}] ,
+```
 …
 ) [table_option] [select_statement];
 

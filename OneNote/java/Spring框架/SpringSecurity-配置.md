@@ -8,13 +8,17 @@ public class SecurityInitializer extends AbstractSecurityWebApplicationInitializ
 // 实际上会自动注册个Filter，其底层就是靠N个过滤器实现
 }
 创建配置类来配置SpringSecurity
+```python
 @Configuration
 @EnableWebSecurity // 开启WebSecurity相关功能
 public class SecurityConfiguration {
+```
 
 }
 接着在根容器添加此配置文件即可
+```python
 @Override
 protected Class<?>[] getRootConfigClasses() {
 return new Class[]{WebConfiguration.class, SecurityConfiguration.class}; // 基本的Spring配置类，一般用于业务配置
+```
 }

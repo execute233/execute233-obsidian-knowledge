@@ -5,12 +5,14 @@
 
 登录实现与跨域处理：
 首先需要配置相关接口：
+```python
 @Bean
 public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 return httpSecurity.authorizeHttpRequests( conf -> {
 conf.anyRequest().authenticated();
 }).formLogin(conf -> {
 conf.loginProcessingUrl("/api/auth/login");
+```
 conf.successHandler(this::onAuthenticationSuccess);
 conf.failureHandler(this::onAuthenticationFailure);
 conf.permitAll();
@@ -18,35 +20,49 @@ conf.permitAll();
 .build();
 }
 // 自定义成功与失败处理器, 其中RestBean是自定义的响应实体类，用于快速封装响应数据
+```python
 @SneakyThrows
 void onAuthenticationSuccess(HttpServletRequest request,
+```
 HttpServletResponse response,
 Authentication authentication) {
+```text
 response.setContentType("application/json");
 response.setCharacterEncoding("UTF-8");
 response.getWriter().write(RestBean._success_(authentication.getName()).asJsonString());
+```
 }
+```python
 @SneakyThrows
 void onAuthenticationFailure(HttpServletRequest request,
+```
 HttpServletResponse response,
 AuthenticationException exception) {
+```text
 response.setContentType("application/json");
 response.setCharacterEncoding("UTF-8");
 response.getWriter().write(RestBean._failure_(exception.getMessage()).asJsonString());
+```
 }
 然后我们可以在这个地址里使用PST表单请求(username:user,password:生成)来测试登录
 由于前后端分离可能是不同的站点，需要允许跨域请求cors，在配置中SercurityFilterChain的返回Bean配置：
+```text
 .cors( conf -> {
 CorsConfiguration cors = new CorsConfiguration();
+```
 // 添加前端站点地址
+```text
 cors.addAllowedOrigin("http://localhost:8080"); // 其实可以*，但为了安全
 cors.setAllowCredentials(true); // 允许带cookie
 cors.addAllowedHeader("*");
 cors.addAllowedMethod("*");
 cors.addExposedHeader("*");
+```
 // 注意是org.springframework.web.cors包下的
+```bash
 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 source.registerCorsConfiguration("/**", cors); // 对所有地址生效
+```
 conf.configurationSource(source);
 })
 为了在不登录情况下访问页面都被跳转登录，我们可以这样处理：
@@ -58,10 +74,13 @@ conf.authenticationEntryPoint(this::handleProcess);
 })
 因为上面几个方法参数极其相似，我们可以写到同一个方法：
 // 授权异常，验证异常，成功与失败处理器
+```python
 @SneakyThrows
 void handleProcess(HttpServletRequest request,
+```
 HttpServletResponse response,
 Object exceptionOrAuthentication){
+```python
 response.setContentType("application/json");
 response.setCharacterEncoding("UTF-8");
 PrintWriter writer = response.getWriter();
@@ -71,6 +90,7 @@ writer.write(RestBean._failure_(403, e.getMessage()).asJsonString());
 writer.write(RestBean._success_(authentication.getName()).asJsonString());
 } else if (exceptionOrAuthentication instanceof Exception e) {
 writer.write(RestBean._failure_(401, e.getMessage()).asJsonString());
+```
 }
 }
 对于
@@ -99,14 +119,18 @@ writer.write(RestBean._failure_(401, e.getMessage()).asJsonString());
 ![[_assets/SpringBoot-前后端分离/SpringBoot-前后端分离__09-24-20-1.png]]
 
 在java使用JWT，可以使用第三方库 java-jwt(com.auth0, 4.3.0),用法如：
+```text
 String jwtKey = "execute233.com:spring-learn:jwt-key"; // jwt-key
 Algorithm algorithm = Algorithm._HMAC256_(jwtKey); // 加密算法对象
+```
 String sign = JWT._create_()
+```text
 .withClaim("id", 1)
 .withClaim("name", "execute233")
 .withClaim("role", "admin")
 .withExpiresAt(new Date(2025, Calendar._DECEMBER_, 11)) // 过期时间
 .sign(algorithm);// 签名
+```
 **Spring-Security整合JWT**
 SpringSecurity中并没有为我们提供预设的JWT校验模块（只有OAuth2模块才有）这里我们只能手动进行整合，JWT可以存放在Cookie或是请求头中，不过不管哪种方式，我们都可以通过Request获取到对应的JWT令牌，这里我们使比较常见的请求头携带JWT的方案，客户端发起的请求中会携带这样的的特殊请求头．
 
@@ -118,10 +142,13 @@ Basic和Bearer是两种不同的身份验证方式。
 - Bearer是一种更安全的身份验证方式，它基于令牌(Token)来验证用户身份。Bearer令牌是由身份验证服务器颁发给客户端的，客户端在每个请求中将令牌放在Authorization请求头的Bearer字段中。服务器会验证令牌的有效性和权限，以确定用户的身份。Bearer令牌通常使用JSONWebToken(JWT)的形式进行传递和验证。
 
 首先完成JWT的相关工具类：
+```python
 import org.springframework.security.core.userdetails.UserDetails;
 public class JwtUtils {
 private static final String _key_ = "execute233.com:spring-learn:jwt-key";
+```
 // 根据用户信息创建令牌
+```java
 public static String createJwt(UserDetails detail) {
 Algorithm algorithm = Algorithm._HMAC256_(_key_);
 Calendar calendar = Calendar._getInstance_();
@@ -133,8 +160,10 @@ return JWT._create_()
 .withExpiresAt(calendar.getTime()) // 过期时间
 .withIssuedAt(now) // 签发时间
 .sign(algorithm); // 签名
+```
 }
 // 根据jwt验证并解析信息
+```python
 public static UserDetails resolveJwt(String token) {
 Algorithm algorithm = Algorithm._HMAC256_(_key_);
 JWTVerifier verifier = JWT._require_(algorithm).build();
@@ -147,31 +176,42 @@ return null;
 return User._withUsername_(claims.get("name").asString())
 .password("") // 不需要密码
 .authorities(claims.get("authorities").asArray(String.class))
+```
 .build();
 }
+```python
 } catch (JWTVerificationException e) {
 return null;
+```
 }
 }
 }
 然后我们要自己写一个JWTAuthenticationFilter加入到Spring默认提供的过滤器链
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 // 继承自OncePerRequestFilter，保证每次请求只经过一次过滤器
+```csharp
 @Override
 protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 throws ServletException, IOException {
 String authorizationString = request.getHeader("Authorization");// 从请求头中获取Authorization字段
+```
 // 判断是否包含JWT并正确
+```python
 if (authorizationString != null && authorizationString.startsWith("Bearer ")) {
 String token = authorizationString.substring(7);
+```
 // 开始解析成USerDetails对象，得到null说明解析失败，JWT有问题
+```python
 UserDetails userDetails = JwtUtils._resolveJwt_(token);
 if (userDetails != null) {
+```
 // 验证没有问题，那么就可以开始创建Authentication了，这里我们跟默认情况保持一致
 // 使用UsernamePasswordAuthenticationToken作为实体，填写相关用户信息进去
 UsernamePasswordAuthenticationToken authentication =
+```csharp
 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+```
 // 把设置好的Authentication塞入SecurityContext表示完成认证
 SecurityContextHolder._getContext_().setAuthentication(authentication);
 }
@@ -182,11 +222,13 @@ filterChain.doFilter(request,response);
 }
 }
 然后配置：
+```csharp
 http.sessionManagement( conf -> {
 conf.sessionCreationPolicy(SessionCreationPolicy._STATELESS_); // Session管理策略设置为无状态
 }).addFilterBefore( // 添加自己写的JWT过滤器到Security链中，要放在UserPasswordAuthenticationFilter之前
 new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class
 ).build();
+```
 记得登录处理时返回token，同时跨域也可以不带Cookie：
 writer.write(RestBean._success_(JwtUtils._createJwt_((User) authentication.getPrincipal())).asJsonString());
 **JWT****退出登录处理**

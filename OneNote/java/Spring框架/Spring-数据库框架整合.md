@@ -8,16 +8,22 @@
 
 首先导入mybatis-spring, ver:3.0.5, spring-jdbc
 然后在Spring配置类sqlSessionTemple()方法打@Bean,一般是
+```python
 SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources._getResourceAsReader_("mybatis-config.xml"));
 return new SqlSessionTemplate(sqlSessionFactory);
+```
 或者自己单独创建DataSource(方便后续更换)，然后返回SqlSessionFactoryBean,如
+```python
 @Bean
 public DataSource dataSource() {
 return new PooledDataSource(…);
+```
 }
+```python
 @Bean
 public SqlSessionTemplate sqlSessionTemplate(DataSource source) throws Exception {
 SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+```
 bean.setDataSource(source);
 return new SqlSessionTemplate(bean.getObject());
 }
@@ -67,6 +73,7 @@ return new DataSourceTransactionManager(dataSource)
 ![[_assets/Spring-数据库框架整合/Spring-数据库框架整合__09-23-39-7.png]]
 
 Spring提供了Test模块，会自动集成JUnit进行测试，导入：
+```xml
 <dependency>
 <groupId>org.junit.jupiter</groupId>
 <artifactId>junit-jupiter</artifactId>
@@ -78,7 +85,10 @@ Spring提供了Test模块，会自动集成JUnit进行测试，导入：
 <artifactId>spring-test</artifactId>
 <version>6.2.11</version>
 </dependency>
+```
 然后测试类打上
+```python
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = 配置类)
+```
 然后这个类就可以直接@Test运行，使用自动装配

@@ -12,8 +12,10 @@ boolean tryLock();
 // 尝试获取锁，但是可以限定超时时间，如果超出时间还没拿到锁返回false，否则返回true，可以响应中断
 boolean tryLock(long time, TimeUnit unit) throws InterruptedException;
 // 释放锁
+```csharp
 void unlock();
 // 暂时可以理解为替代传统的Object的wait()、notify()等操作的工具
+```
 Condition newCondition();
 }
 那么，我们如何像传统的加锁那样，调用对象的wait()和notify()方法呢，并发包提供了Condition接口：
@@ -54,9 +56,11 @@ hasQueueThread(Thread) - 指定线程是否在等待队列中
 读锁：在没有任何线程占用写锁的情况下，同一时间可以有多个线程加读锁。
 写锁：在没有任何线程占用读锁的情况下，同一时间只能有一个线程加写锁。
 读写锁有个专门的接口：
+```csharp
 public interface ReadWriteLock {
 Lock readLock(); // 获取读锁
 Lock writeLock(); // 获取写锁
+```
 }
 有一个实现类ReentrantReadWriteLock(非Lock接口),需要主动获取读锁还是写锁
 多个线程可以同时对读锁加锁，但有读锁状态下不能加写锁，反之亦然

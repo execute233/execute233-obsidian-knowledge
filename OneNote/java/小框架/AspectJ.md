@@ -3,13 +3,16 @@
 实现了AOP代理，通过在编译时修改源码来实现
 配置
 依赖导入
+```xml
 <dependency>
 <groupId>org.aspectj</groupId>
 <artifactId>aspectjrt</artifactId>
 <version>1.9.25</version>
 </dependency>
+```
 
 maven插件导入
+```xml
 <plugin>
 <groupId>org.codehaus.mojo</groupId>
 <artifactId>aspectj-maven-plugin</artifactId>
@@ -24,3 +27,4 @@ maven插件导入
 <encoding>UTF-8</encoding>
 </configuration>
 </plugin>
+```

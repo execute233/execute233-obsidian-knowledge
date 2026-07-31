@@ -2,11 +2,13 @@
 
 **常用模块快速整合**
 导入SpringBoot直接写
+```xml
 <dependency>
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-starter</artifactId>
 <version>3.5.7</version>
 </dependency>
+```
 所有的Spring依赖都是以starter的形式命名的，类似于spring-boot-starter-xxx
 比如一些常见的：
 web：内置Tomcat的SpringMVC模块
@@ -28,6 +30,7 @@ mybatis-spring-boot-start (注意还是得要数据库相关依赖,配置数据�
 - 导出war包：
 
 maven package
+```xml
 <dependency>
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-starter-web</artifactId>
@@ -46,4 +49,5 @@ maven package
 <scope>provided</scope>
 </dependency>
 记得在<project>里设置<packaging>为war包
+```
 运行主类继承SpringBootServletInitializer，实现方法返回参数调用builder使用主类class

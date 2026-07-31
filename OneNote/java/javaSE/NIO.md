@@ -2,34 +2,42 @@
 
 Buffer类及其实现
 Buffer类是缓冲区的实现，类似于Java中的数组，也是用于存放和获取数据的。但是Buffer相比Java中的数组，功能就非常强大了，它包含一系列对于数组的快捷操作
+```csharp
 public abstract class Buffer {
 // 这四个变量的关系: mark <= position <= limit <= capacity
 private int mark = -1;
 private int position = 0;
 private int limit;
 private int capacity;
+```
 // 直接缓冲区实现子类的数据内存地址（之后会讲解）
 long address;}
 Buffer类的子类包含很多基本类型，以XXXBuffer(除了Boolean)命名，但这些也是抽象类，但可以通过静态方法获取对象
 allocate() 申请固定大小的缓冲区，或者通过warp把数组变为缓冲区
 **缓冲区读写操作**
 存数据的有以下四种方法：
+```java
 public abstract IntBuffer put(int i); - 在当前position位置插入数据，由具体子类实现
 public abstract IntBuffer put(int index, int i); - 在指定位置存放数据，也是由具体子类实现
 public final IntBuffer put(int[] src); - 直接存放所有数组中的内容（数组长度不能超出缓冲区大小）
 public IntBuffer put(int[] src, int offset, int length); - 直接存放数组中的内容，同上，但是可以指定存放一段范围
 public IntBuffer put(IntBuffer src); - 直接存放另一个缓冲区中的内容
+```
 读操作也有四个方法：
+```java
 public abstract int get(); - 直接获取当前position位置的数据，由子类实现
 public abstract int get(int index); - 获取指定位置的数据，也是子类实现
 public IntBuffer get(int[] dst) - 将数据读取到给定的数组中
 public IntBuffer get(int[] dst, int offset, int length) - 同上，加了个范围
+```
 **缓冲区的其它操作**
+```java
 public abstract IntBuffer compact() - 压缩缓冲区，由具体实现类实现
 public IntBuffer duplicate() - 复制缓冲区，会直接创建一个新的数据相同的缓冲区
 public abstract IntBuffer slice() - 划分缓冲区，会将原本的容量大小的缓冲区划分为更小的出来进行操作
 public final Buffer rewind() - 重绕缓冲区，其实就是把position归零，然后mark变回-1
 public final Buffer clear() - 将缓冲区清空，所有的变量变回最初的状态
+```
 **通道接口层次**
 
 ![[_assets/NIO/NIO__09-20-40-0.png]]
@@ -159,11 +167,13 @@ try(RandomAccessFile f = new RandomAccessFile("test.txt", "rw");
 多路复用网络通信
 比如以下代码使用了Channel方式实现了网络通信：
 //创建一个新的SocketChannel，一会通过通道进行通信
+```java
 try (SocketChannel channel = SocketChannel.open(new InetSocketAddress("localhost", 8080));
 Scanner scanner = new Scanner(System.in)){
 System.out.println("已连接到服务端！");
 System.out.println("请输入要发送给服务端的内容：");
 String text = scanner.nextLine();
+```
 //直接向通道中写入数据，真舒服
 channel.write(ByteBuffer.wrap(text.getBytes()));
 
@@ -189,37 +199,47 @@ NIO为我们提供的网络IO模型：
 - epoll：采用事件通知方式，当某个连接就绪，能够直接进行精准通知（这是因为在内核实现中epoll是根据每个fd上面的callback函数实现的，只要就绪会会直接回调callback函数，实现精准通知，但是只有Linux支持这种方式），时间复杂度O(1)，Java在Linux环境下正是采用的这种模式进行实现的。
 
 示例如下：
+```python
 try (ServerSocketChannel serverChannel = ServerSocketChannel.open();
 Selector selector = Selector.open()){ //开启一个新的Selector，这玩意也是要关闭释放资源的
 serverChannel.bind(new InetSocketAddress(8080));
+```
 //要使用选择器进行操作，必须使用非阻塞的方式，这样才不会像阻塞IO那样卡在accept()，而是直接通过，让选择器去进行下一步操作
 serverChannel.configureBlocking(false);
 //将选择器注册到ServerSocketChannel中，后面是选择需要监听的时间，只有发生对应事件时才会进行选择，多个事件用 | 连接，注意，并不是所有的Channel都支持以下全部四个事件，可能只支持部分
 //因为是ServerSocketChannel这里我们就监听accept就可以了，等待客户端连接
+```text
 //SelectionKey.OP_CONNECT --- 连接就绪事件，表示客户端与服务器的连接已经建立成功
 //SelectionKey.OP_ACCEPT --- 接收连接事件，表示服务器监听到了客户连接，服务器可以接收这个连接了
 //SelectionKey.OP_READ --- 读 就绪事件，表示通道中已经有了可读的数据，可以执行读操作了
+```
 //SelectionKey.OP_WRITE --- 写 就绪事件，表示已经可以向通道写数据了（这玩意比较特殊，一般情况下因为都是可以写入的，所以可能会无限循环）
 serverChannel.register(selector, SelectionKey.OP_ACCEPT);
 while (true) { //无限循环等待新的用户网络操作
 //每次选择都可能会选出多个已经就绪的网络操作，没有操作时会暂时阻塞
+```cpp
 int count = selector.select();
 System.out.println("监听到 "+count+" 个事件");
 Set<SelectionKey> selectionKeys = selector.selectedKeys();
 Iterator<SelectionKey> iterator = selectionKeys.iterator();
 while (iterator.hasNext()) {
 SelectionKey key = iterator.next();
+```
 //根据不同的事件类型，执行不同的操作即可
+```python
 if(key.isAcceptable()) { //如果当前ServerSocketChannel已经做好准备处理Accept
 SocketChannel channel = serverChannel.accept();
 System.out.println("客户端已连接，IP地址为："+channel.getRemoteAddress());
+```
 //现在连接就建立好了，接着我们需要将连接也注册选择器，比如我们需要当这个连接有内容可读时就进行处理
 channel.configureBlocking(false);
 channel.register(selector, SelectionKey.OP_READ);
 //这样就在连接建立时完成了注册
+```text
 } else if(key.isReadable()) { //如果当前连接有可读的数据并且可以写，那么就开始处理
 SocketChannel channel = (SocketChannel) key.channel();
 ByteBuffer buffer = ByteBuffer.allocate(128);
+```
 channel.read(buffer);
 buffer.flip();
 System.out.println("接收到客户端数据："+new String(buffer.array(), 0, buffer.remaining()));

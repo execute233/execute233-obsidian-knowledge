@@ -1,11 +1,14 @@
 # SpringCache
 
 实现了基于注解的缓存功能，底层可以切换不同缓存实现（EHCache, Caffeine, Redis）
+```xml
 <dependency>
 <groupId>org.springframework.boot</groupId>
 <artifactId>spring-boot-starter-cache</artifactId>
 </dependency>
+```
 配置
+```yaml
 spring:
 data:
 redis:
@@ -25,6 +28,7 @@ key-prefix: CACHE_
 use-key-prefix: true
 # 指定是否缓存空值。
 cache-null-values: true
+```
 有以下常用注解
 
 |   |   |
@@ -35,5 +39,7 @@ cache-null-values: true
 |@CacheEvict|将一条或多条数据从缓存删除|
 |@CacheConfig|用于类级别的缓存配置，可指定默认的缓存名称，键生成器等|
 
+```python
 @CachePut(cacheNames="key前缀"， key="#user.id") // 前缀::id, key是spEL表达式
 @CacheEvict 可以使用allEntries属性将cacheNames::***的所有键删除
+```

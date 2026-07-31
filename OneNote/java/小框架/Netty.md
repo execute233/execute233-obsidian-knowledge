@@ -14,9 +14,11 @@ public abstract class AbstractByteBuf extends ByteBuf {
 ...
 int readerIndex; //index被分为了读和写，是两个指针在同时工作
 int writerIndex;
+```csharp
 private int markedReaderIndex; //mark操作也分两种
 private int markedWriterIndex;
 private int maxCapacity; //最大容量，没错，这玩意能动态扩容
+```
 可以看到，读操作和写操作分别由两个指针在进行维护，每写入一次，writerIndex向后移动一位，每读取一次，也是readerIndex向后移动一位，当然readerIndex不能大于writerIndex，这样就不会像NIO中的ByteBuffer那样还需要进行翻转了。
 
 ![[_assets/Netty/Netty__09-24-55-0.png]]
@@ -67,17 +69,21 @@ EventLoopGroup bossGroup = new NioEventLoopGroup(), workerGroup = new NioEventLo
 ServerBootstrap bootstrap = new ServerBootstrap();
 //可链式，就很棒
 bootstrap
+```python
 .group(bossGroup, workerGroup) //指定事件循环组
 .channel(NioServerSocketChannel.class) //指定为NIO的ServerSocketChannel
 .childHandler(new ChannelInitializer<SocketChannel>() { //注意，这里的SocketChannel不是我们NIO里面的，是Netty的
 @Override
 protected void initChannel(SocketChannel channel) {
+```
 //获取流水线，当我们需要处理客户端的数据时，实际上是像流水线一样在处理，这个流水线上可以有很多Handler
+```python
 channel.pipeline().addLast(new ChannelInboundHandlerAdapter(){ //添加一个Handler，这里使用ChannelInboundHandlerAdapter
 @Override
 public void channelRead(ChannelHandlerContext ctx, Object msg) { //ctx是上下文，msg是收到的消息，默认以ByteBuf形式（也可以是其他形式，后面再说）
 ByteBuf buf = (ByteBuf) msg; //类型转换一下
 System._out_.println(Thread._currentThread_().getName()+" >> data："+buf.toString(StandardCharsets._UTF_8_));
+```
 //通过上下文可以直接发送数据回去，注意要writeAndFlush才能让客户端立即收到
 ctx.writeAndFlush(Unpooled._wrappedBuffer_("已收到！".getBytes()));
 }
@@ -88,10 +94,12 @@ ctx.writeAndFlush(Unpooled._wrappedBuffer_("已收到！".getBytes()));
 bootstrap.bind(8080);
 **Channel****详解**
 Netty中也有自己对应的Channel类型
+```csharp
 public interface Channel extends AttributeMap, ChannelOutboundInvoker, Comparable<Channel> {
 ChannelId id(); //通道ID
 EventLoop eventLoop(); //获取此通道所属的EventLoop，因为一个Channel在它的生命周期内只能注册到一个EventLoop中
 Channel parent(); //Channel是具有层级关系的，这里是返回父Channel
+```
 ChannelConfig config();
 boolean isOpen(); //通道当前的相关状态
 boolean isRegistered();
@@ -104,8 +112,10 @@ boolean isWritable();
 long bytesBeforeUnwritable();
 long bytesBeforeWritable();
 Unsafe unsafe();
+```text
 ChannelPipeline pipeline(); //流水线，之后也会说
 ByteBufAllocator alloc(); //可以直接从Channel拿到ByteBufAllocator的实例，来分配ByteBuf
+```
 Channel read();
 Channel flush(); //刷新，基操
 }

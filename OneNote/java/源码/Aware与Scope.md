@@ -16,17 +16,23 @@ Aware是内置功能，不添加扩展，Spring就能识别
 -> beanPostProcessor -> bean
 这种情况下Configuration里面的注解便会
 */
+```python
 @Override
 public void setBeanName(String name) {
 _log_.info("setBeanName"); // Bean名称设置后
+```
 }
+```python
 @Override
 public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 _log_.info("setApplicationContext"); // 设置ApplicationContext后
+```
 }
+```python
 @Override
 public void afterPropertiesSet() throws Exception {
 _log_.info("afterPropertiesSet"); // Bean初始化后
+```
 }
 }
 Scope

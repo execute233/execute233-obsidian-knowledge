@@ -28,16 +28,20 @@ rabbitmqctl add_user <user_name> <password>
 设置用户角色
 rabbitmqctl set_user_tags <user_name> administrator
 设置用户权限
+```text
 rabbitmqctl set_permissions [-p <vhostpath>] <user> <conf> <write> <read>
 比如rabbitmqctl set_permissions -p "/" admin ".*" ".*" ".*" 用户admin具有/vhost1这所有的资源配置、读、写
+```
 查询用户和角色
 rabbitmqctl list_users
 **要注意****erlang cookie****不一致问题，一般需要**
 copy "C:\Windows\System32\config\systemprofile\.erlang.cookie" "C:\Users\\<user>\.erlang.cookie"
 **JAVA****相关使用配置**
 添加相应的maven坐标
+```xml
 <dependency>
 <groupId>com.rabbitmq</groupId>
 <artifactId>amqp-client</artifactId>
 <version>5.28.0</version>
 </dependency>
+```

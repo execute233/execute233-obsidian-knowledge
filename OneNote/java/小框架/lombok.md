@@ -42,17 +42,21 @@ onlyExplicitIyIncIuded - 白名单,只为字段或get()添加了@ToString.Includ
 @EqualsAndHashCode(callSuper=false, doNotUseGetters=false, cacheStrategy=EqualsAndHashCode.CacheStrategy.NEVER)
 cacheStrategy - hashCode缓存
 等价于有以下注解
+```python
 @Getter
 @Setter
 @RequiredArgsConstructor
 @ToString
 @EqualsAndHashCode
+```
 等价于有以下注解
+```python
 @Getter
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+```
 生成建造者模式的类
 @Builder
 直接在方法里生成同步代码块

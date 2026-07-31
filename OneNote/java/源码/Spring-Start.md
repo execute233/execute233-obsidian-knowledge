@@ -11,13 +11,17 @@ Spring中BeanFactory默认实现是用DefaultListableBeanFactory
 ![[_assets/Spring-Start/Spring-Start__09-26-17-1.png]]
 
 可以通过反射拿到里面的BeanFactory字段
+```text
 ConfigurableApplicationContext context = SpringApplication._run_(SpringLearnApplication.class);
 Field singletonObjects = DefaultSingletonBeanRegistry.class.getDeclaredField("singletonObjects");
+```
 singletonObjects.setAccessible(true);
+```json
 ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
 Map<String, Object> map = (Map<String, Object>) singletonObjects.get(beanFactory);
 map.forEach( (k, v) -> {
 _log_.info(k + ": " + v);
+```
 });
 ApplicationContext比BeanFactory多的功能主要体现在以下接口
 MessageSource（国际化资源处理）
@@ -45,14 +49,18 @@ ApplicationEventPublish（发布事件对象）
 // 发送事件
 context.publishEvent(new ApplicationEvent("test") {});
 我们可以在任意一个Bean中的方法打上@EventListener注解来监听事件
+```python
 @EventListener
 public void test(ApplicationEvent event) {
 Object source = event.getSource();
+```
 }
 BeanFactory的实现
 // 创建BeanFactory
+```text
 DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
 // 得到Bean的定义(class, scope, 初始化, 销毁)
+```
 AbstractBeanDefinition beanDefinition =
 BeanDefinitionBuilder._genericBeanDefinition_(Config.class).setScope("singleton").getBeanDefinition();
 // 添加到BeanFactory
@@ -99,26 +107,34 @@ reader.loadBeanDefinitions(new ClassPathResource("application.xml"));
 AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Config.class);
 基于注解+Web的配置
 AnnotationConfigServletWebServerApplicationContext context =
+```csharp
 new AnnotationConfigServletWebServerApplicationContext(WebConfig.class);
 @Configuration
 static class WebConfig {
 @Bean
 public ServletWebServerFactory servletWebServerFactory() {
 return new TomcatServletWebServerFactory(); // tomcat
+```
 }
+```python
 @Bean
 public DispatcherServlet dispatcherServlet() {
 return new DispatcherServlet(); // dispatcherServlet
+```
 }
+```python
 @Bean
 public DispatcherServletRegistrationBean registrationBean(DispatcherServlet servlet) {
 return new DispatcherServletRegistrationBean(servlet, "/"); // 绑定
+```
 }
+```python
 @Bean("/") // 另类的Controller配置方法，Bean名字就是Web路径
 public Controller controller1() {
 return (Controller) (request, response) -> {
 response.getWriter().print("helloWorld");
 return null;
+```
 };
 }
 }

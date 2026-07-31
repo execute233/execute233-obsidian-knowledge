@@ -1,5 +1,7 @@
 # transform控制父子
 
+```cs
+
 void **Start**()
 {
 // 当前物体绝对/相对位置，绝对/相对旋转，缩放
@@ -38,3 +40,4 @@ transform.RotateAround(Vector3.zero, Vector3.up, 10);
 // 移动，每帧向指定向量移动距离
 transform.Translate(Vector3.forward * 0.1f);
 }
+```

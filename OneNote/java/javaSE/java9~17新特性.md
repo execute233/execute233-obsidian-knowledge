@@ -29,9 +29,11 @@ List<String> immutableList = Collections.unmodifiableList(oldList);
 // 或者使用Google Guava
 List<String> guavaList = ImmutableList.of(xxx);
 可在括号中直接使用变量（或多个），无需再次赋值，如
+```python
 BufferedReader reader1 = Files.newBufferedReader(Paths.get(file1));
 BufferedReader reader2 = Files.newBufferedReader(Paths.get(file2));
 try (reader1; reader2) {
+```
 xxx
 }
 支持局部变量的类型推断，让代码变得简洁
@@ -44,17 +46,21 @@ HttpClient client = HttpClient.newBuilder()
 .build();
 // 构建GET请求
 HttpRequest getRequest = HttpRequest.newBuilder()
+```text
 .uri(URI.create("https://xxxx.cn/"))
 .header("Accept", "application/json")
 .header("User-Agent", "Java-HttpClient")
 .timeout(Duration.ofSeconds(10))
+```
 .GET()
 .build();
 // 构建POST请求
 HttpRequest postRequest = HttpRequest.newBuilder()
+```text
 .uri(URI.create("https://xxxx.cn/"))
 .header("Content-Type", "application/json")
 .POST(HttpRequest.BodyPublishers.ofString(jsonData))
+```
 .build();
 // 同步发送请求
 HttpResponse<String> response = client.send(getRequest, HttpResponse.BodyHandlers.ofString());
@@ -79,24 +85,32 @@ xxxx
 .join();
 可以多个匹配，也可以作为结果赋值，如
 // 简洁写法
+```csharp
 String dayType = switch (day) {
 case MONDAY, TUESDAT, WEDNESDAY, THURSDAY, FRIDAY -> "work day";
 case SATURDAY, SUNDAY -> "rest day";
 default -> "unkown";
+```
 }
 // 支持复杂逻辑的yield关键字
+```cpp
 int score = switch (grade) {
 case 'A' -> {
+```
 xxx
 yield 90;
 }
+```csharp
 case 'B' -> 80;
 default -> 0;
+```
 }
 创建数据包装更简单,自动生成toString和HashCode等方法，直接属性()来调用属性
+```python
 public record Person(String name, int age, String email)
 if (obj instanceof String str) {
 return str.length();
+```
 }
 让类的继承变得更可控与安全
 // 只允许某几个类继承

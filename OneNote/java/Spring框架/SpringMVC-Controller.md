@@ -20,30 +20,38 @@
     - produces：指定返回的内容类型，仅当request中（Accept）包含该指定类型才返回
 
     如果映射的多个前缀相同，可以加在类上作为前缀，如
+```python
     @Controller
     public class TestController {
     @ResponseBody
     @RequestMapping("/test/a")
+```
     String testA() {
     return "a";
     }
+```python
     @ResponseBody
     @RequestMapping("/test/b")
+```
     String testB() {
     return "b";
     }
     }
     可转变为
+```python
     @Controller
     @RequestMapping("/test")
     public class TestController {
     @ResponseBody
     @RequestMapping("/a")
+```
     String testA() {
     return "a";
     }
+```python
     @ResponseBody
     @RequestMapping("/b")
+```
     String testB() {
     return "b";
     }
@@ -55,6 +63,7 @@
 这里使用Thymeleaf为我们提供的视图解析器，直接maven导入thymeleaf-spring6
 配置视图解析器也很简单，只要将对应的ViewResolver注册为Bean即可
 // 需要用ThymeleafViewResolver作为视图解析器，并解析html页面
+```python
 @Bean
 public ThymeleafViewResolver thymeleafViewResolver(SpringTemplateEngine engine) {
 ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -62,21 +71,26 @@ resolver.setOrder(1); // 可以存在多个视图解析器，并且可以为他�
 resolver.setCharacterEncoding("UTF-8");
 resolver.setTemplateEngine(engine); // 设置模版引擎
 return resolver;
+```
 }
 // 配置模版解析器
+```python
 @Bean
 public SpringResourceTemplateResolver templateResolver() {
 SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
 resolver.setSuffix(".html"); // 需要解析的后缀名称
 resolver.setPrefix("/"); // 需要解析的HTML页面文件存放位置，默认是webapp下，如果是类路径需要加classpath:前缀
 return resolver;
+```
 }
 // 配置模版引擎Bean
+```python
 @Bean
 public SpringTemplateEngine SpringTemplateEngine(ITemplateResolver resolver) {
 SpringTemplateEngine engine = new SpringTemplateEngine();
 engine.setTemplateResolver(resolver); // 模版解析器，默认即可
 return engine;
+```
 }
 然后就可以在Controller里使用ModelAndView了
 @RequestMapping("/")
@@ -85,13 +99,17 @@ return new ModelAndView("index"); // 这里写视图名称，返回后会经过�
 }
 由前面的配置可知，这里映射的是web目录下的index.html
 为了使用css js等静态资源，让静态资源通过Tomcat默认的Servelet进行解析，需要让Web配置类实现WebMvcConfiguration接口，会根据重写的方法进一步配置
+```python
 @Override
 public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 configurer.enable(); // 开启默认的Servlet
+```
 }
 
+```python
 @Override
 public void addResourceHandlers(ResourceHandlerRegistry registry) {
+```
 // 配置静态资访问路径
 registry.addResourceHandler("/static/**").addResourceLocations("/static/");
 }

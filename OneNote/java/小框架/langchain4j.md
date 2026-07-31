@@ -17,22 +17,26 @@ userMessage可以很多，可以是文本，图片，视频，音频等，比如
 AIService
 还有一种方式是AiService来编写，该方式比较简单
 同时引入langchain4j本身的包
+```xml
 <dependency>
 <groupId>dev.langchain4j</groupId>
 <artifactId>langchain4j</artifactId>
 <version>1.12.2</version>
 </dependency>
+```
 然后就可以
 
 ![[_assets/langchain4j/langchain4j__09-25-33-3.png]] ![[_assets/langchain4j/langchain4j__09-25-34-4.png]]
 
 如果想要知道话费多少token等信息，返回值改为Result<…>即可
 我们还可以使用starter，打上@AiService注解来自动生成
+```xml
 <dependency>
 <groupId>dev.langchain4j</groupId>
 <artifactId>langchain4j-spring-boot-starter</artifactId>
 <version>${langchain4j.version}</version>
 </dependency>
+```
 
 ![[_assets/langchain4j/langchain4j__09-25-36-5.png]]
 
@@ -43,14 +47,18 @@ AIService
 ![[_assets/langchain4j/langchain4j__09-25-38-6.png]]
 
 还有种是自己实现ChatMemoryStore接口，实现对话持久化
+```csharp
 public interface ChatMemoryStore {
 List<ChatMessage> getMessages(Object memoryId);
 void updateMessages(Object memoryId, List<ChatMessage> messages);
 void deleteMessages(Object memoryId);
+```
 }
 如果有多个用户，可以给对话方法增加memoryId参数和注解
+```python
 @SystemMessage(fromResource = "system-prompt.txt")
 String chat(@MemoryId int memoryId,@UserMessage String userMessage);
+```
 
 // 然后这样构造AIService
 AiCodeHelperService service = AiServices._builder_(AiCodeHelperService.class)
@@ -80,6 +88,7 @@ langchain4j提供了3中RAG实现方式
 
 一般RAG
 // 加载RAG
+```python
 @Configuration
 public class RagConfig {
 @Autowired
@@ -88,6 +97,7 @@ private EmbeddingModel embeddingModel;
 private EmbeddingStore<TextSegment> embeddingStore;
 @Bean
 public ContentRetriever contentRetriever() {
+```
 // 加载文档
 Document document = ClassPathDocumentLoader._loadDocument_("docs.docx", new ApachePoiDocumentParser());
 // 文档切割：按照段落分割，最大1000个字符，最多重叠200个字符
@@ -97,8 +107,10 @@ EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor._builder_()
 .documentSplitter(splitter)
 // 为了提高文档的质量，为每个切割后的文档碎片 TextSegment 添加文档名称作为元信息
 .textSegmentTransformer(textSegment ->
+```text
 TextSegment._from_(textSegment.metadata().getString("file_name") + "\n" + textSegment.text(),
 textSegment.metadata()))
+```
 // 指定使用的向量模型
 .embeddingModel(embeddingModel)
 // 向量存储，这里用内存存储
@@ -110,8 +122,10 @@ ingestor.ingest(document);
 EmbeddingStoreContentRetriever retriever = EmbeddingStoreContentRetriever._builder_()
 .embeddingStore(embeddingStore)
 .embeddingModel(embeddingModel)
+```text
 .maxResults(5) // 最多5条结果
 .minScore(0.75) // 过滤分数小于0.75的结果
+```
 .build();
 return retriever;
 }

@@ -15,6 +15,7 @@ spring-boot-starter-logging // 此依赖项已经被包含了
 配置logback日志
 SpringBoot推荐其配置文件名称命名为logback-spring.xml，可以使用高级Profile功能
 我们可使用默认配置的文件中已有的东西自己配置，如
+```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <!-- 该标签会覆盖spring的默认配置 -->
 <configuration>
@@ -32,11 +33,13 @@ SpringBoot推荐其配置文件名称命名为logback-spring.xml，可以使用�
 <pattern>${CONSOLE_LOG_CHARSET}</pattern>
 </encoder>
 <rollingPolicy class="cn.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+```
 <!-- 日志文件输出路径，以及命名规则 -->
 <fileNamePattern>logs/app-log-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 <!-- 单个日志文件大小上限 -->
 <maxFileSize>10MB</maxFileSize>
 <!-- 到期自动清理日志文件 -->
+```xml
 <cleanHistoryOnStart>true</cleanHistoryOnStart>
 <!-- 保留最近30天的日志文件 -->
 <maxHistory>30</maxHistory>
@@ -50,6 +53,7 @@ SpringBoot推荐其配置文件名称命名为logback-spring.xml，可以使用�
 <appender-ref ref="FILE"/>
 </root>
 </configuration>
+```
 Logback内置的日志字段还是比较少，可以使用其MDC机制获取日志打印上下文
 这个在org.sl4f.MDC中，需要自定义丢key-value（基于ThreadLocal），然后在配置文件中写%X{key}占位符
 自定义Banner
