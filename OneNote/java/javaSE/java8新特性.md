@@ -6,7 +6,7 @@ aliases: [java8新特性]
 
 # java8新特性
 
-1. **Lambda 表达式**
+## Lambda 表达式
 
 **函数式接口**
 使用@FunctionalInterface来创建自定义函数式接口
@@ -17,7 +17,7 @@ aliases: [java8新特性]
 // 使用stream的方式,可让同样的逻辑变得更简洁直观
 ```
 
-1. 对列表分组
+## 对列表分组
 
 在终端操作使用Collectors.partitioningBy（ xxx ），按照某一条件分组
 

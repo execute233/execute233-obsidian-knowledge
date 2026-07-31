@@ -6,7 +6,7 @@ aliases: [SpringMVC-Controller]
 
 # SpringMVC-Controller
 
-1. **Controller 控制器**
+## Controller 控制器
 
 有了SpringMVC之后，我们不必再像之前那样一个请求地址创建一个Servlet了，它使用DispatcherServlet替代Tomcat为我们提供的默认的静态资源Servlet，也就是说，现在所有的请求（除了jsp，因为Tomcat还提供了一个jsp的Servlet）都会经过DispatcherServlet进行处理。
 
