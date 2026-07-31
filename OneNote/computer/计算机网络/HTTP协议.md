@@ -60,17 +60,17 @@ SSE流式传输
 
 客户端发送HTTP请求后，服务端的响应头如下：
 
-![Exported image](Exported%20image%2020260731091830-0.png)
+![[_assets/HTTP协议/HTTP协议__09-18-30-0.png]]
 
 消息格式
 
-![Exported image](Exported%20image%2020260731091832-1.png) ![Exported image](Exported%20image%2020260731091835-2.png)
+![[_assets/HTTP协议/HTTP协议__09-18-32-1.png]] ![[_assets/HTTP协议/HTTP协议__09-18-35-2.png]]
 
 如何标识传输结束？  
 SSE协议只规定了消息格式，没有规定结束时必须发送某个标识码
 
-![Exported image](Exported%20image%2020260731091838-3.png)
+![[_assets/HTTP协议/HTTP协议__09-18-38-3.png]]
 
 Fast API示例：
 
-![Exported image](Exported%20image%2020260731091841-4.png)
+![[_assets/HTTP协议/HTTP协议__09-18-41-4.png]]

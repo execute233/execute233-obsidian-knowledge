@@ -3,7 +3,7 @@
     
 - 简单粗暴,发发发：
 - 报文格式：
-    ![Exported image](Exported%20image%2020260731091821-0.png)-   
+    ![[_assets/UDP协议/UDP协议__09-18-21-0.png]]-   
         
     - 源端囗：占用2个字节，表示UDP报文的源端囗号。
     - 目的端囗：占用2个字节，表示UDP报文的巨的端囗号。
@@ -12,4 +12,4 @@
       
       
     
- ![Exported image](Exported%20image%2020260731091826-1.png)
+ ![[_assets/UDP协议/UDP协议__09-18-26-1.png]]
