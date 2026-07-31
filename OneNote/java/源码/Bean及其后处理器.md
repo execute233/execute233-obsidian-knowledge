@@ -27,7 +27,7 @@ public class MyBeanPostProcessor // 这届接口都实现了BeanPostProcessor
 implements InstantiationAwareBeanPostProcessor, DestructionAwareBeanPostProcessor {
 @Nullable
 @Override
-public Object postProcessBeforeInstantiation(Class\<?\> beanClass, String beanName) throws BeansException {
+public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
 // 实例化之前执行，这里返回的对象会替换原本的bean
 return null;
 }

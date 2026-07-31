@@ -5,6 +5,6 @@
 echo -n "114514"
 -e 启用转义字符解释
 # 输出保存到文件
-echo "normal log" \> log.log
+echo "normal log" > log.log
 # 追加输出到文件
-echo "normal log" \>\> log.log
+echo "normal log" >> log.log

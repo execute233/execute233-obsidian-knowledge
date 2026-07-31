@@ -1,9 +1,9 @@
 Java交互
-\<dependency\>
-\<groupId\>redis.clients\</groupId\>
-\<artifactId\>jedis\</artifactId\>
-\<version\>7.1.0\</version\>
-\</dependency\>
+<dependency>
+<groupId>redis.clients</groupId>
+<artifactId>jedis</artifactId>
+<version>7.1.0</version>
+</dependency>
 代码如下
 // 创建Jedis对象
 Jedis jedis = new Jedis("localhost", 6379);
@@ -16,10 +16,10 @@ jedis.lrange("mylist", 0, -1).forEach(System._out_::println);
 // 使用后关闭连接
 jedis.close();
 SpringBoot交互
-\<dependency\>
-\<groupId\>org.springframework.boot\</groupId\>
-\<artifactId\>spring-boot-starter-data-redis\</artifactId\>
-\</dependency\>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
 默认配置使用本地redis，0号数据库，可配置：
 spring:
 data:
@@ -35,7 +35,7 @@ database: 0
 public class RedisAutoConfiguration {
 @Bean
 @ConditionalOnMissingBean({RedisConnectionDetails.class})
-PropertiesRedisConnectionDetails redisConnectionDetails(RedisProperties properties, ObjectProvider\<SslBundles\> sslBundles) {
+PropertiesRedisConnectionDetails redisConnectionDetails(RedisProperties properties, ObjectProvider<SslBundles> sslBundles) {
 return new PropertiesRedisConnectionDetails(properties, (SslBundles)sslBundles.getIfAvailable());
 }
 
@@ -44,8 +44,8 @@ return new PropertiesRedisConnectionDetails(properties, (SslBundles)sslBundles.g
 name = {"redisTemplate"}
 )
 @ConditionalOnSingleCandidate(RedisConnectionFactory.class)
-public RedisTemplate\<Object, Object\> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-RedisTemplate\<Object, Object\> template = new RedisTemplate();
+public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+RedisTemplate<Object, Object> template = new RedisTemplate();
 template.setConnectionFactory(redisConnectionFactory);
 return template;
 }
@@ -60,18 +60,18 @@ return new StringRedisTemplate(redisConnectionFactory);
 可通过opsFor…获取对应类型(String List Hash…)操作
 // 获取要对应进行操作的值，以StringRedisTemplate为例，操作都是String类型
 // 大多情况下哎跟jedis使用一样
-ValueOperations\<String, String\> ops = template.opsForValue();
-也可以是使用RedisTemplate\<Object, Object\>，设置对应的json序列化器，将POJO转为JSON、存储，同时可以开始事务（需要jdbc），如下：
+ValueOperations<String, String> ops = template.opsForValue();
+也可以是使用RedisTemplate<Object, Object>，设置对应的json序列化器，将POJO转为JSON、存储，同时可以开始事务（需要jdbc），如下：
 @Service
 public class RedisTestService {
 @Resource
-RedisTemplate\<Object, Object\> template;
+RedisTemplate<Object, Object> template;
 
 @PostConstruct
 public void init() {
 template.setEnableTransactionSupport(true);
 // 可以配置序列化器
-template.setValueSerializer(new Jackson2JsonRedisSerializer\<Object\>(Object.class));
+template.setValueSerializer(new Jackson2JsonRedisSerializer<Object>(Object.class));
 }
 @Transactional
 public void test() {

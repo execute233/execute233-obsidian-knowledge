@@ -5,9 +5,9 @@
 首先需要配置相关接口：
 @Bean
 public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-return httpSecurity.authorizeHttpRequests( conf -\> {
+return httpSecurity.authorizeHttpRequests( conf -> {
 conf.anyRequest().authenticated();
-}).formLogin(conf -\> {
+}).formLogin(conf -> {
 conf.loginProcessingUrl("/api/auth/login");
 conf.successHandler(this::onAuthenticationSuccess);
 conf.failureHandler(this::onAuthenticationFailure);
@@ -34,7 +34,7 @@ response.getWriter().write(RestBean._failure_(exception.getMessage()).asJsonStri
 }
 然后我们可以在这个地址里使用PST表单请求(username:user,password:生成)来测试登录
 由于前后端分离可能是不同的站点，需要允许跨域请求cors，在配置中SercurityFilterChain的返回Bean配置：
-.cors( conf -\> {
+.cors( conf -> {
 CorsConfiguration cors = new CorsConfiguration();
 // 添加前端站点地址
 cors.addAllowedOrigin("http://localhost:8080"); // 其实可以*，但为了安全
@@ -48,7 +48,7 @@ source.registerCorsConfiguration("/**", cors); // 对所有地址生效
 conf.configurationSource(source);
 })
 为了在不登录情况下访问页面都被跳转登录，我们可以这样处理：
-exceptionHandling( conf -\> {
+exceptionHandling( conf -> {
 // 授权相关异常处理器
 conf.accessDeniedHandler(this::handleProcess);
 // 验证相关异常处理器
@@ -138,7 +138,7 @@ Algorithm algorithm = Algorithm._HMAC256_(_key_);
 JWTVerifier verifier = JWT._require_(algorithm).build();
 try {
 DecodedJWT verified = verifier.verify(token); // 验证令牌
-Map\<String, Claim\> claims = verified.getClaims(); // 获取令牌中的内容
+Map<String, Claim> claims = verified.getClaims(); // 获取令牌中的内容
 if (new Date().after(claims.get("exp").asDate())) { // 如果是过期令牌返回null
 return null;
 } else { // 重组装为USerDetails对象
@@ -180,7 +180,7 @@ filterChain.doFilter(request,response);
 }
 }
 然后配置：
-http.sessionManagement( conf -\> {
+http.sessionManagement( conf -> {
 conf.sessionCreationPolicy(SessionCreationPolicy._STATELESS_); // Session管理策略设置为无状态
 }).addFilterBefore( // 添加自己写的JWT过滤器到Security链中，要放在UserPasswordAuthenticationFilter之前
 new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class

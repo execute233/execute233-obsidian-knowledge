@@ -14,7 +14,7 @@ channel.queueBind("1", "exchange", "mysql.#");
 // 队列2绑定，绑routing key
 channel.queueBind("2", "exchange", "redis.#");
 // 发送消息...
-for (int i = 0; i \< 1000; i++) {
+for (int i = 0; i < 1000; i++) {
 channel.basicPublish("exchange", "mysql." + i, null, Integer._toString_(i).getBytes());
 TimeUnit._SECONDS_.sleep(1);
 }

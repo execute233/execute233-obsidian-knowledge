@@ -47,7 +47,7 @@ RequestMappingHandlerMapping
 // 用于解析@RequestMapping以及派生注解，生成路径与控制器方法的映射关系，初始化时生成
 RequestMappingHandlerMapping mapping = context.getBean(RequestMappingHandlerMapping.class);
 // 获取映射结果
-Map\<RequestMappingInfo, HandlerMethod\> handlerMethods = mapping.getHandlerMethods();
+Map<RequestMappingInfo, HandlerMethod> handlerMethods = mapping.getHandlerMethods();
 
 // 假设请求来了，获得请求方法 返回处理器执行链对象
 HandlerExecutionChain handlerExecutionChain // 模拟一个请求

@@ -1,7 +1,7 @@
 Buffer类及其实现
 Buffer类是缓冲区的实现，类似于Java中的数组，也是用于存放和获取数据的。但是Buffer相比Java中的数组，功能就非常强大了，它包含一系列对于数组的快捷操作
 public abstract class Buffer {
-// 这四个变量的关系: mark \<= position \<= limit \<= capacity
+// 这四个变量的关系: mark <= position <= limit <= capacity
 private int mark = -1;
 private int position = 0;
 private int limit;
@@ -203,8 +203,8 @@ while (true) { //无限循环等待新的用户网络操作
 //每次选择都可能会选出多个已经就绪的网络操作，没有操作时会暂时阻塞
 int count = selector.select();
 System.out.println("监听到 "+count+" 个事件");
-Set\<SelectionKey\> selectionKeys = selector.selectedKeys();
-Iterator\<SelectionKey\> iterator = selectionKeys.iterator();
+Set<SelectionKey> selectionKeys = selector.selectedKeys();
+Iterator<SelectionKey> iterator = selectionKeys.iterator();
 while (iterator.hasNext()) {
 SelectionKey key = iterator.next();
 //根据不同的事件类型，执行不同的操作即可

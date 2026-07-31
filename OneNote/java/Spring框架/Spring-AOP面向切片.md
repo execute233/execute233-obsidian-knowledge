@@ -1,42 +1,42 @@
 首先要导入pom，一般是
-\<dependency\>
-\<groupId\>org.springframework\</groupId\>
-\<artifactId\>spring-aspects\</artifactId\>
-\<version\>6.2.11\</version\>
-\</dependency\>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-aspects</artifactId>
+<version>6.2.11</version>
+</dependency>
 
 1. XML配置AOP
 2. 接口实现AOP
 3. 注解实现AOP
 
 XML文件应该是这样
-\<?xml version="1.0" encoding="UTF-8"?\>
-\<beans xmlns="http://www.springframework.org/schema/beans"
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:aop="http://www.springframework.org/schema/aop"
 xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/aop
-http://www.springframework.org/schema/aop/spring-aop.xsd"\>
-\<!-- 1. 配置目标对象 --\>
-\<bean id="userService" class="com.example.service.UserServiceImpl"/\>   \<!-- 2. 配置切面 --\>
-\<bean id="loggingAspect" class="com.example.aspect.LoggingAspect"/\>
-\<aop:config\>
-\<!-- 定义切点，指定要切的方法 --\>
-\<aop:pointcut id="serviceMethods"
-expression="execution(* com.example.service.*.*(..))"/\>
-\<!-- 配置切面,引用切面bean id --\>
-\<aop:aspect ref="loggingAspect"\>
+http://www.springframework.org/schema/aop/spring-aop.xsd">
+<!-- 1. 配置目标对象 -->
+<bean id="userService" class="com.example.service.UserServiceImpl"/>   <!-- 2. 配置切面 -->
+<bean id="loggingAspect" class="com.example.aspect.LoggingAspect"/>
+<aop:config>
+<!-- 定义切点，指定要切的方法 -->
+<aop:pointcut id="serviceMethods"
+expression="execution(* com.example.service.*.*(..))"/>
+<!-- 配置切面,引用切面bean id -->
+<aop:aspect ref="loggingAspect">
 切片方法标签
-\</aop:aspect\>
-\</aop:config\>
-\</beans\>
+</aop:aspect>
+</aop:config>
+</beans>
 
-1. \<aop:pointcut/\>
+1. <aop:pointcut/>
 
 id - 指定的id
 
-3. \<aop:aspect\> \<aop:aspect/\>
+3. <aop:aspect> <aop:aspect/>
 
 ref - 指定那个类提供了切片的方法的bean id
 
@@ -48,17 +48,17 @@ expression - 选择切入的方法，有很多种可以选择
 修饰符 包名.类名.方法名(参数)
 
 这里面有好几个内部标签使用，如
-\<aop:after-returning/\>
-\<aop:after-throwing/\>
-\<aop:after method="afterAdvice" pointcut-ref="serviceMethods"/\>
-\<aop:around/\>
+<aop:after-returning/>
+<aop:after-throwing/>
+<aop:after method="afterAdvice" pointcut-ref="serviceMethods"/>
+<aop:around/>
 他们有些共同的属性
 method - 提供了切片方法类里的方法名
 pointcut-ref - 切点id
 如果我们想在切片方法中拿到方法的一些信息，可以在参数列表添加JoinPoint，Spring会自动传入该对象
-还能\<around/\>完全包围方法,切面方法需要ProceedingJoinPoint参数，并要调用proceed()手动执行方法
+还能<around/>完全包围方法,切面方法需要ProceedingJoinPoint参数，并要调用proceed()手动执行方法
 实现切片方法的类需要实现XXXAdvice接口
-只需要在\<aop:aspect\>标签内使用\<aop:advisor advice-ref="实现切面的Bean", pointcut-ref="切点"\>
+只需要在<aop:aspect>标签内使用<aop:advisor advice-ref="实现切面的Bean", pointcut-ref="切点">
 有这些接口可以使用：
 MethodInterceptor(环绕方法),MethodBeforeAdvice,AfterReturningAdvice,ThrowsAdvice
 首先在@Configuration修饰的类启用注解AOP支持，打上@EnableAspectJAutoProxy
@@ -94,7 +94,7 @@ OperationType value = autoFill.value();
 Object[] args = joinPoint.getArgs();
 if (args == null || args.length == 0) return;
 Object entity = args[0];
-Class\<?\> clazz = entity.getClass();
+Class<?> clazz = entity.getClass();
 // 准备数据
 ……
 // 根据注解传参不同赋值

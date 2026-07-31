@@ -67,7 +67,7 @@ ServerBootstrap bootstrap = new ServerBootstrap();
 bootstrap
 .group(bossGroup, workerGroup) //指定事件循环组
 .channel(NioServerSocketChannel.class) //指定为NIO的ServerSocketChannel
-.childHandler(new ChannelInitializer\<SocketChannel\>() { //注意，这里的SocketChannel不是我们NIO里面的，是Netty的
+.childHandler(new ChannelInitializer<SocketChannel>() { //注意，这里的SocketChannel不是我们NIO里面的，是Netty的
 @Override
 protected void initChannel(SocketChannel channel) {
 //获取流水线，当我们需要处理客户端的数据时，实际上是像流水线一样在处理，这个流水线上可以有很多Handler
@@ -75,7 +75,7 @@ channel.pipeline().addLast(new ChannelInboundHandlerAdapter(){ //添加一个Han
 @Override
 public void channelRead(ChannelHandlerContext ctx, Object msg) { //ctx是上下文，msg是收到的消息，默认以ByteBuf形式（也可以是其他形式，后面再说）
 ByteBuf buf = (ByteBuf) msg; //类型转换一下
-System._out_.println(Thread._currentThread_().getName()+" \>\> data："+buf.toString(StandardCharsets._UTF_8_));
+System._out_.println(Thread._currentThread_().getName()+" >> data："+buf.toString(StandardCharsets._UTF_8_));
 //通过上下文可以直接发送数据回去，注意要writeAndFlush才能让客户端立即收到
 ctx.writeAndFlush(Unpooled._wrappedBuffer_("已收到！".getBytes()));
 }
@@ -86,7 +86,7 @@ ctx.writeAndFlush(Unpooled._wrappedBuffer_("已收到！".getBytes()));
 bootstrap.bind(8080);
 **Channel****详解**
 Netty中也有自己对应的Channel类型
-public interface Channel extends AttributeMap, ChannelOutboundInvoker, Comparable\<Channel\> {
+public interface Channel extends AttributeMap, ChannelOutboundInvoker, Comparable<Channel> {
 ChannelId id(); //通道ID
 EventLoop eventLoop(); //获取此通道所属的EventLoop，因为一个Channel在它的生命周期内只能注册到一个EventLoop中
 Channel parent(); //Channel是具有层级关系的，这里是返回父Channel

@@ -11,7 +11,7 @@ if (componentScan != null) {
 // 获取包名属性
 for (String basePackage : componentScan.basePackages()) {
 // 拿到要扫描的包，转换为路径，比如
-// com.execute233.springlearn.controller -\> classpath*:com/execute233/springlearn/controller/**/*.class
+// com.execute233.springlearn.controller -> classpath*:com/execute233/springlearn/controller/**/*.class
 String path = "classpath:" + basePackage.replace('.', '/') + "/**/*.class";
 // 用于缓存类信息的工厂
 CachingMetadataReaderFactory factory = new CachingMetadataReaderFactory();
@@ -41,7 +41,7 @@ ConfigurationClassPostProcessor中@Bean扫描原理
 CachingMetadataReaderFactory factory = new CachingMetadataReaderFactory();
 MetadataReader reader = factory.getMetadataReader(Config.class.getName());
 // 拿到被@Bean修饰的方法
-Set\<MethodMetadata\> methods = reader.getAnnotationMetadata().getAnnotatedMethods(Bean.class.getName());
+Set<MethodMetadata> methods = reader.getAnnotationMetadata().getAnnotatedMethods(Bean.class.getName());
 for (MethodMetadata method : methods) {
 // 这里是工厂方法得到的Bean，就不用指定类名了
 BeanDefinitionBuilder builder = BeanDefinitionBuilder._genericBeanDefinition_();
@@ -57,8 +57,8 @@ Mapper接口的管理
 单个Mapper可以如此管理
 // 返回的是工厂对象，但最后还是Mapper1的Bean
 @Bean
-public MapperFactoryBean\<Mapper1\> mapper1(SqlSessionFactory sqlSessionFactory) {
-MapperFactoryBean\<Mapper1\> factory = new MapperFactoryBean\<\>(Mapper1.class);
+public MapperFactoryBean<Mapper1> mapper1(SqlSessionFactory sqlSessionFactory) {
+MapperFactoryBean<Mapper1> factory = new MapperFactoryBean<>(Mapper1.class);
 factory.setSqlSessionFactory(sqlSessionFactory);
 return factory;
 }

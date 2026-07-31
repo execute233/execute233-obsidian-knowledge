@@ -1,6 +1,6 @@
 ajc增强
 AspectJ代理并不是很广泛，它通过在编译时修改源代码来实现，不依赖于Spring
-另见：小框架 -\> AspectJ
+另见：小框架 -> AspectJ
 agent增强
 在类加载时修改字节码实现，也不依赖Spring
 运行时需要加入VM Options -javaagent:aspectjweaver.jar
@@ -17,7 +17,7 @@ IO._println_("foo");
 // 目标对象
 Target target = new Target();
 ClassLoader classLoader = SpringApplication.class.getClassLoader();
-Foo foo = (Foo) Proxy._newProxyInstance_(classLoader, new Class[]{Foo.class}, (proxy, method, args1) -\> {
+Foo foo = (Foo) Proxy._newProxyInstance_(classLoader, new Class[]{Foo.class}, (proxy, method, args1) -> {
 // 传入参数分别是：代理对象自己、执行的方法、方法参数
 IO._println_("before foo");
 Object result = method.invoke(target, args1);
@@ -29,7 +29,7 @@ proxy增强-cglib
 要注意与目标是子父关系（即不能代理final class）
 Target target = new Target();
 // 参1为父类型，参2是代理方法执行的行为
-Target proxy = (Target) Enhancer._create_(Target.class, (MethodInterceptor) (obj, method, args1, methodProxy) -\> {
+Target proxy = (Target) Enhancer._create_(Target.class, (MethodInterceptor) (obj, method, args1, methodProxy) -> {
 // 代理类自己、当前执行方法、执行参数、可以避免反射调用的代理对象
 IO._println_("before");
 Object result = methodProxy.invoke(target, args1); // 没用反射，需要目标(Spring)
@@ -116,7 +116,7 @@ jdk与cglib的统一
 AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
 pointcut.setExpression("execution(* foo())");
 // 2、准备通知
-MethodInterceptor advice = invocation -\> {
+MethodInterceptor advice = invocation -> {
 IO._println_("before");
 Object result = invocation.proceed();
 IO._println_("after");
@@ -142,7 +142,7 @@ boolean flag2 = pointcut2.matches(Target.class.getMethod("foo"), Target.class);
 // Spring的@Transactional可以加载方法、类、接口，所以AspectJ不能这样实现，类似于下面的步骤
 StaticMethodMatcherPointcut pointcut3 = new StaticMethodMatcherPointcut() {
 @Override
-public boolean matches(Method method, Class\<?\> aClass) {
+public boolean matches(Method method, Class<?> aClass) {
 // 检查方法是否加了@Transactional
 MergedAnnotations annotations = MergedAnnotations._from_(method);
 if (annotations.isPresent(Transactional.class)) {
@@ -174,7 +174,7 @@ static class Config {
 public Advisor advisor() {
 AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
 pointcut.setExpression("execution(* foo())");
-return new DefaultPointcutAdvisor(pointcut, (MethodInterceptor) invocation -\> {
+return new DefaultPointcutAdvisor(pointcut, (MethodInterceptor) invocation -> {
 IO._println_("before");
 Object result = invocation.proceed();
 IO._println_("after");
@@ -194,7 +194,7 @@ AnnotationAwareAspectJAutoProxyCreator creator = context.getBean(AnnotationAware
 // AnnotationAwareAspectJAutoProxyCreator做了以下事情
 // 第一种重要方法：收集可以应用指定类的有资格的Advisor,参1是指定类，参2是bean名
 // 一种是自己写的Advisor，另一种则是@Aspect转为Advisor
-List\<Advisor\> advisors = creator.findEligibleAdvisors(Target.class, "");
+List<Advisor> advisors = creator.findEligibleAdvisors(Target.class, "");
 // 第二种重要方法：内部调用了findEligibleAdvisors，只要返回的集合不为空就表示需要创建代理
 // 分别为：要代理的对象，bean名、cacheKey，这里返回得是得你对象或者原始对象
 Object object = creator.wrapIfNecessary(new Target(), "target1", "taget1");
@@ -209,7 +209,7 @@ Object object = creator.wrapIfNecessary(new Target(), "target1", "taget1");
 @Order(1) // 定义切面顺序，越小越优先，不能用在方法
 static class Aspect1
 在低级切面可以
-DefaultPointcutAdvisor pointcutAdvisor = new DefaultPointcutAdvisor(pointcut, (MethodInterceptor) invocation -\> {
+DefaultPointcutAdvisor pointcutAdvisor = new DefaultPointcutAdvisor(pointcut, (MethodInterceptor) invocation -> {
 IO._println_("before");
 Object result = invocation.proceed();
 IO._println_("after");
@@ -219,7 +219,7 @@ pointcutAdvisor.setOrder(2);
 将高级切面转换为低级切面
 // 要代理对象的实例工厂
 AspectInstanceFactory factory = new SingletonAspectInstanceFactory(new Aspect1());
-ArrayList\<Advisor\> list = new ArrayList\<\>();
+ArrayList<Advisor> list = new ArrayList<>();
 _/**_
 _*_ **@Before** _会被转换为__AspectJMethodBeforeAdvice__的形式，保存了：_
 _*_ _通知代码从哪来、切点是什么，通知对象如何被创建_
@@ -250,7 +250,7 @@ ProxyFactory proxyFactory = new ProxyFactory();
 proxyFactory.setTarget(target);
 proxyFactory.addAdvisors(list);
 // 将说有通知转换为环绕通知
-List\<Object\> methodInterceptorslist =
+List<Object> methodInterceptorslist =
 proxyFactory.getInterceptorsAndDynamicInterceptionAdvice(Target.class.getMethod("foo"), Target.class);
 创建并执行调用链
 // 参数分别为:代理、目标、方法、方法参数、目标类型、转换好的环绕通知
@@ -265,9 +265,9 @@ class MyInvocation implements MethodInvocation {
 private final Object target;
 private final Method method;
 private final Object[] args;
-private final List\<MethodInterceptor\> methodInterceptorList;
+private final List<MethodInterceptor> methodInterceptorList;
 private int count = 1; // 调用次数
-public MyInvocation(Object target, Method method, Object[] args, List\<MethodInterceptor\> methodInterceptorList) {
+public MyInvocation(Object target, Method method, Object[] args, List<MethodInterceptor> methodInterceptorList) {
 this.target = target;
 this.method = method;
 this.args = args;
@@ -280,7 +280,7 @@ public Object[] getArguments() {return args;}
 @Override
 public Object proceed() throws Throwable {
 // 职责是调用每个环绕通知（没有就调用目标）
-if (count \> methodInterceptorList.size()) {
+if (count > methodInterceptorList.size()) {
 // 调用目标结束递归
 return method.invoke(target, args);
 }

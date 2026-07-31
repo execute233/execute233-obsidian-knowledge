@@ -37,4 +37,4 @@ W - 最近的工作日，仅在日期字段有效
 0 0 6 * * ？ 每天早上6点
 0 0 */1 * * 每个小时整点
 0 0 0 1 * ? 每月一号午夜进行
-要编写监听器，我们只需要让Bean继承ApplicationListener\<T\>就可以了，并且将类型指定为对应的Event事件，这样，当发生某个时就会通知我们，比如ContextRefreshedEvent，这个事件会在Spring容器初始化完成会触发一次
+要编写监听器，我们只需要让Bean继承ApplicationListener<T>就可以了，并且将类型指定为对应的Event事件，这样，当发生某个时就会通知我们，比如ContextRefreshedEvent，这个事件会在Spring容器初始化完成会触发一次

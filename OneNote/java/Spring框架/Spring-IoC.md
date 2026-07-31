@@ -10,18 +10,18 @@
 Spring为我们提供了一个IoC容器，用于去存放我们需要使用的对象，我们可以将对象交给IoC容器进行管理。
 
 一般配置文件是xml，这样的一个内容
-\<?xml version="1.0" encoding="UTF-8"?\>
-\<beans xmlns="http://www.springframework.org/schema/beans"
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://www.springframework.org/schema/beans
-[http://www.springframework.org/schema/beans/spring-beans.xsd](http://www.springframework.org/schema/beans/spring-beans.xsd)"\>
+[http://www.springframework.org/schema/beans/spring-beans.xsd](http://www.springframework.org/schema/beans/spring-beans.xsd)">
 
-\<bean class="xxxx"/\>
-\</beans\>
+<bean class="xxxx"/>
+</beans>
 
 可以通过ApplicationContext来获取IoC容器
 
-\<bean\>标签有以下属性
+<bean>标签有以下属性
 class - 必填，全限定类名
 id - 唯一标识符
 name - bean的名称
@@ -32,12 +32,12 @@ destory-method - bean销毁前调用的方法名
 depends-on - 指定当前bean依赖其他bean，控制加载顺序
 parent - 指定继承的bean，但是继承里面的字段
 abstract - 指示这是个抽象的bean，只能被继承使用
-\<bean\>内部可以嵌入\<property\>标签，有以下属性
+<bean>内部可以嵌入<property>标签，有以下属性
 name - 字段名
 value - 相应的值
 ref - 相应的Bean对象名
-如果字段是集合，可以内嵌\<list\>等标签，再内嵌多个\<value\>指定默认值
-\<bean\>内部可以嵌入\<constructor-arg\>标签，来设置构造方法的参数，属性同上
+如果字段是集合，可以内嵌<list>等标签，再内嵌多个<value>指定默认值
+<bean>内部可以嵌入<constructor-arg>标签，来设置构造方法的参数，属性同上
 有多个构造方法时，还有type字段可以指定构造方法
 对bean中的字段自动配置，前面已经提到
 前面property是手动ref来指定装配，但可以使用autowire对bean中的对象字段自动装配。
@@ -48,18 +48,18 @@ constructor
 default
 no
 自己体会
-如果自动装配的目标有多个，则需要指定\<bean\>设置
+如果自动装配的目标有多个，则需要指定<bean>设置
 取消autowire-candidate="false"
 主要primary="true"
 只有单例模式的bean才能被管理生命周期
 参考上面的init-method, destory-method
 继承参考上面的parent
 如
-\<bean class="com.test.bean.StudentFactory" factory-method="getStudent"/\>
+<bean class="com.test.bean.StudentFactory" factory-method="getStudent"/>
 注意，这里的Bean类型需要填写为Student类的工厂类，并且添加factory-method指定对应的工厂方法，但是最后注册的是工厂方法的返回类型，所以说依然是Student的Bean
 如果要使用工厂类对象来得到bean，可以先注册工厂bean，再指定Bean的工厂Bean，如
-\<bean name="studentfactory" class="com.test.bean.StudyFactory"/\>
-\<bean factory-bean="studentfactory" factory-method="getStudent"\>
+<bean name="studentfactory" class="com.test.bean.StudyFactory"/>
+<bean factory-bean="studentfactory" factory-method="getStudent">
 注意，可以直接输入工厂Bean的名称来得到其生产的Bean，要得到工厂Bean则需要名称前加&
 xml太复杂了，但我们可以使用@Configuration来修饰类
 @Configuration修饰类，该类可传给AnnotationConfigApplicationContext使用来获取IoC容器

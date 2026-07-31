@@ -24,7 +24,7 @@ update - 会检查表结构，不匹配就会修改
 validate - 检查表结构是否匹配，不匹配则跑异常
 可以这样管理表（已自动注册为Bean）：
 @Repository
-public interface UserRepository extends JpaRepository\<User, Integer\> {}
+public interface UserRepository extends JpaRepository<User, Integer> {}
 就可以自动装配调用此Bean的方法了
 方法名称拼接自定义SQL
 我们可以在这样的接口里写上有规则的名称，这样的有规则名称会自动转为SQL语句，比如有以下这些方式
@@ -37,11 +37,11 @@ public interface UserRepository extends JpaRepository\<User, Integer\> {}
 |Or|findByLastnameOrFirstname|… where x.lastname = ?1 or x.firstname = ?2|
 |Is, Equals|findByFirstname, findByFirstnameIs, findByFirstnameEquals|… where x.firstname = ?1|
 |Between|findByStartDateBetween|… where x.startDte between ?1 and ?2|
-|LessThan|findByAgeLessThan|… where x.age \< ?1|
-|LessThanEauals|…|… where x.age \<= ?1|
-|GreatThan|findByageGreaterThan|… where x.age \> ?1|
-|GreatThanEqual|…|… where x.age \>= ?1|
-|After|findByStartDateAfter|… where x.startDate \> ?1|
+|LessThan|findByAgeLessThan|… where x.age < ?1|
+|LessThanEauals|…|… where x.age <= ?1|
+|GreatThan|findByageGreaterThan|… where x.age > ?1|
+|GreatThanEqual|…|… where x.age >= ?1|
+|After|findByStartDateAfter|… where x.startDate > ?1|
 |Before|…|…|
 |IsNull, Null|findByage(Is)Null|… where x.age is null|
 |IsNotNull, NotNull|…|…|
@@ -80,7 +80,7 @@ JPQL自定义SQL
 使用JPA我们也可以像Mybatis那样，直接编写SQL语句，不过它是JPQL语言，与原生SQL语句很类似，但是它是面向对象的，当然我们也可以写原生SQL语句。
 比如我们要更新用户表中指定ID用户的密码：
 @Repository
-public interface UserRepository extends JpaRepository\<User, Integer\> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 @Transactional // DML需要事务环境，可以不在这声明，但调用必须在事务环境下
 @Modifying // 表示DML操作
 @Query("==update User set password = ?1 where id = ?2==") // 这里操作的是一个实体类对应的表，参数使用?代表，后面接第n个参数
@@ -88,7 +88,7 @@ int updatePasswordById(String password, Integer id);
 }
 现在使用原生SQL语句：
 @Repository
-public interface UserRepository extends JpaRepository\<User, Integer\> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 @Transactional // DML需要事务环境，可以不在这声明，但调用必须在事务环境下
 @Modifying // 表示DML操作
 // 使用原生SQL，和Mybatis一样

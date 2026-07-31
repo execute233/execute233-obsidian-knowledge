@@ -14,11 +14,11 @@ public void setApplicationContext(ApplicationContext applicationContext) throws 
 // 获取RabbitTemplate
 RabbitTemplate template = applicationContext.getBean(RabbitTemplate.class);
 // 设置ReturnCallback
-template.setReturnsCallback(returnMessage -\> {
+template.setReturnsCallback(returnMessage -> {
 System._out_.println("ReturnCallback: " + returnMessage.getMessage());
 });
 // 设置ConfirmCallback
-template.setConfirmCallback((correlationData, ack, cause) -\> {
+template.setConfirmCallback((correlationData, ack, cause) -> {
 System._out_.println("ConfirmCallback: " + correlationData + " " + ack + " " + cause);
 });
 }

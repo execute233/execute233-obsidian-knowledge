@@ -14,6 +14,6 @@ String password;
 }
 然后是mapper
 @Mapper
-public interface UserMapper extends BaseMapper\<User\> {
+public interface UserMapper extends BaseMapper<User> {
 // 使用方式与JPA极为相似，也一样预设了大量的方法
 }

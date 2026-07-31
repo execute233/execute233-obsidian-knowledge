@@ -42,7 +42,7 @@ POM导入HikariCP, ver:5.01, gropuId: com.zoxxer
 
 ![[_assets/Spring-数据库框架整合/Spring-数据库框架整合__09-23-34-4.png]]
 
-\<environment\>下的\<transaction\>即是管理事务,分为两种：
+<environment>下的<transaction>即是管理事务,分为两种：
 JDBC：使用JDBC的事务管理机制：即利用对应数据库的驱动生成的Connection对象完成事务操作
 MANAGED：让程序容器来实现对事务的管理
 在配置类打上@EnableTransactionManagement启用
@@ -65,17 +65,17 @@ return new DataSourceTransactionManager(dataSource)
 ![[_assets/Spring-数据库框架整合/Spring-数据库框架整合__09-23-39-7.png]]
 
 Spring提供了Test模块，会自动集成JUnit进行测试，导入：
-\<dependency\>
-\<groupId\>org.junit.jupiter\</groupId\>
-\<artifactId\>junit-jupiter\</artifactId\>
-\<version\>5.9.0\</version\>
-\<scope\>test\</scope\>
-\</dependency\>
-\<dependency\>
-\<groupId\>org.springframework\</groupId\>
-\<artifactId\>spring-test\</artifactId\>
-\<version\>6.2.11\</version\>
-\</dependency\>
+<dependency>
+<groupId>org.junit.jupiter</groupId>
+<artifactId>junit-jupiter</artifactId>
+<version>5.9.0</version>
+<scope>test</scope>
+</dependency>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-test</artifactId>
+<version>6.2.11</version>
+</dependency>
 然后测试类打上
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = 配置类)

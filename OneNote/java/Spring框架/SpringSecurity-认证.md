@@ -98,10 +98,10 @@ return User._withUsername_(account.getUsername())
 过滤请求
 @Bean
 public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-return http.authorizeHttpRequests(auth -\> {
+return http.authorizeHttpRequests(auth -> {
 auth.requestMatchers("static/**").permitAll(); // 静态资源全部放行
 auth.anyRequest().authenticated(); // 依然所有请求要验证
-}).formLogin( conf -\> {
+}).formLogin( conf -> {
 // 下面是表单登录配置
 conf.loginPage("/login"); // 登录页
 conf.loginProcessingUrl("/api/auth/login"); // 登录表单提交地址
@@ -110,7 +110,7 @@ conf.permitAll(); // 将登录相关的地址放行
 // 用户名和密码的表单名称，不过默认就是这个，除非有特殊需求
 conf.usernameParameter("username");
 conf.passwordParameter("password");
-}).logout( conf -\> {
+}).logout( conf -> {
 conf.logoutUrl("/doLogout"); // 退出登录地址
 conf.logoutSuccessUrl("/login"); // 退出登录成功后跳转页面
 conf.permitAll();
@@ -120,7 +120,7 @@ conf.permitAll();
 **记住我功能**
 使用本地Cookie存储的方式实现了记住我功能，但是这种方式并不安全，我们可以使用SpringSecurity实现，它提供了携带Token的Cookie，默认保留14天，只需配置SercurityFilterChain的Bean即可
 ……
-.rememberMe( conf -\> {
+.rememberMe( conf -> {
 conf.alwaysRemember(false); // 不开启始终记住，需要配置为用户自行勾选
 conf.rememberMeParameter("remember-me"); // 记住我表单字段，默认就是这个，可以不配置
 conf.rememberMeCookieName("token"); // 记住我cookie名称

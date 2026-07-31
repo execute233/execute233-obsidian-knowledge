@@ -7,32 +7,32 @@
 
 
 配置用的是xml文件，文件一般是这个内容
-\<?xml version="1.0" encoding="UTF-8" ?\>
-\<!DOCTYPE configuration
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-"[http://mybatis.org/dtd/mybatis-3-config.dtd](http://mybatis.org/dtd/mybatis-3-config.dtd)"\>
-\<configuration\>
-\<environments default="development"\>
-\<environment id="development"\>
-\<transactionManager type="JDBC"/\>
-\<dataSource type="POOLED"\>
-\<property name="driver" value="${driver}"/\>
-\<property name="url" value="jdbs:mysql://…:3306/…"/\>
-\<property name="username" value="${mysql.username}"/\>
-\<property name="password" value="${mysql.password}"/\>
-\</dataSource\>
-\</environment\>
-\</environments\>
-\</configuration\>
+"[http://mybatis.org/dtd/mybatis-3-config.dtd](http://mybatis.org/dtd/mybatis-3-config.dtd)">
+<configuration>
+<environments default="development">
+<environment id="development">
+<transactionManager type="JDBC"/>
+<dataSource type="POOLED">
+<property name="driver" value="${driver}"/>
+<property name="url" value="jdbs:mysql://…:3306/…"/>
+<property name="username" value="${mysql.username}"/>
+<property name="password" value="${mysql.password}"/>
+</dataSource>
+</environment>
+</environments>
+</configuration>
 build(各种输入流) // 输入是xml文件
 build(各种输入流，String environment) // 指定环境
 SqlSession中有很多方法可以使用
 由于Mybatis并不知道具体需要执行的SQL语句，以及需要返回哪些数据作为结果，因此同样需要编写配置文件。
-在\<configuration\>中打\<mappers\>打\<mapper\>指定mapper文件,属性有class,resource,url
-\<?xml version="1.0" encoding="UTF-8"?\>
-\<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "[http://mybatis.org/dtd/mybatis-3-mapper.dtd](http://mybatis.org/dtd/mybatis-3-mapper.dtd)"\>
-\<mapper namespace="testMapper"\>
-\<select id="selectStudent" parameterType="int" resultType="你的实体类"\>
+在<configuration>中打<mappers>打<mapper>指定mapper文件,属性有class,resource,url
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "[http://mybatis.org/dtd/mybatis-3-mapper.dtd](http://mybatis.org/dtd/mybatis-3-mapper.dtd)">
+<mapper namespace="testMapper">
+<select id="selectStudent" parameterType="int" resultType="你的实体类">
 SELECT * FROM user WHERE id = #{id}
-\</select\>
-\</mapper\>
+</select>
+</mapper>

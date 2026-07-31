@@ -133,10 +133,10 @@ private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
 int ws = pred.waitStatus;
 if (ws == Node.SIGNAL)
 return true; //已经是SIGNAL，直接true
-if (ws \> 0) { //不能是已经取消的节点，必须找到一个没被取消的
+if (ws > 0) { //不能是已经取消的节点，必须找到一个没被取消的
 do {
 node.prev = pred = pred.prev;
-} while (pred.waitStatus \> 0);
+} while (pred.waitStatus > 0);
 pred.next = node; //直接抛弃被取消的节点
 } else {
 //不是SIGNAL，先CAS设置为SIGNAL（这里没有返回true因为CAS不一定成功，需要下一轮再判断一次）
@@ -213,7 +213,7 @@ return false;
 private void unparkSuccessor(Node node) {
 // 将等待状态waitStatus设置为初始值0
 int ws = node.waitStatus;
-if (ws \< 0)
+if (ws < 0)
 compareAndSetWaitStatus(node, ws, 0);
 
 ```
@@ -337,8 +337,8 @@ return false;
 这里其实是为了进行优化而编写，直接unpark会有两种情况：
 ```
 
-- 如果插入结点前，AQS等待队列的队尾节点就已经被取消，则满足wc \> 0
-- 如果插入node后，AQS内部等待队列的队尾节点已经稳定，满足tail.waitStatus == 0，但在执行ws \>0之后!compareAndSetWaitStatus(p, ws,Node.SIGNAL)之前被取消，则CAS也会失败，满足compareAndSetWaitStatus(p, ws,Node.SIGNAL) == false
+- 如果插入结点前，AQS等待队列的队尾节点就已经被取消，则满足wc > 0
+- 如果插入node后，AQS内部等待队列的队尾节点已经稳定，满足tail.waitStatus == 0，但在执行ws >0之后!compareAndSetWaitStatus(p, ws,Node.SIGNAL)之前被取消，则CAS也会失败，满足compareAndSetWaitStatus(p, ws,Node.SIGNAL) == false
 
 如果这里被提前unpark，那么在await()方法中将可以被直接唤醒，并跳出while循环，直接开始争抢锁，因为前一个等待结点是被取消的状态，没有必要再等它了。
 所以大致流程如下：

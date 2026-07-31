@@ -21,7 +21,7 @@
 
 // 以包含Person(String name, int age, String city)的List对象为例为例
 // 按城市分组
-Map\<String, List\<Person\>\> byCity = people.stream().collect(Collectors.gropingBy(Person::getCity));
+Map<String, List<Person>> byCity = people.stream().collect(Collectors.gropingBy(Person::getCity));
 // 按城市分组并统计年龄
 // 按城市分组并收集姓名
 
@@ -44,23 +44,23 @@ xxx
 });
 在这之后
 // lambda
-button.addActionListener(e -\> xxx);
-Thread t = new Thread( () -\> xxx);
+button.addActionListener(e -> xxx);
+Thread t = new Thread( () -> xxx);
 也有方法引用，只调用一个存在的静态方法且参数最多一个时
 // names 为List对象
 names.forEach(System.out::println);
 java8提供了很多函数式接口来简化操作
-// Predicate\<T\> 用于条件判断
-Predicate\<Integer\> isEven = n -\> n % 2 == 0;
-// Function\<T, R\>用于数据转换，支持函数组合
-Function\<String, Integer\> stringLength = String::length
+// Predicate<T> 用于条件判断
+Predicate<Integer> isEven = n -> n % 2 == 0;
+// Function<T, R>用于数据转换，支持函数组合
+Function<String, Integer> stringLength = String::length
 // Consumer和Supplier用于消费和提供数据
-Consumer\<String\> printer = System.out::println;
-Supplier\<String\> randomI = () -\> UUID.randomUUID().toString();
+Consumer<String> printer = System.out::println;
+Supplier<String> randomI = () -> UUID.randomUUID().toString();
 // BinaryOperator 用于二元操作，如数学运算
-BinaruOperator\<Integer\> max = Integer::max
-List\<String\> result = words.stream()
-.filter(word -\> word.length() \> 5) // 过滤长度大于5的单词
+BinaruOperator<Integer> max = Integer::max
+List<String> result = words.stream()
+.filter(word -> word.length() > 5) // 过滤长度大于5的单词
 .map(String::toUpperCase) // 转换为大写
 .sorted() // 排序
 .collect(Collectors.toList()); // 收集结果
@@ -79,12 +79,12 @@ findFirst() - 查找第一个
 anyMatch() - 是否有匹配的
 reduce() - 归约操作
 stream在开发中的实际应用
-Map\<String, Double\> aygAgeByCity = people.stream()
+Map<String, Double> aygAgeByCity = people.stream()
 .collect(Collectors.groupingBy(
 Person::getCity,
 Collectors.averagingInt(Person::getAge)
 ))
-Map\<String, List\<Sting\>\> aygAgeByCity = people.stream()
+Map<String, List<Sting>> aygAgeByCity = people.stream()
 .collect(Collectors.groupingBy(
 Person::getCity,
 Collectors.mapping(Person::getName, Collectors.toList())

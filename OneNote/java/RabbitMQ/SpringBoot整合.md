@@ -1,9 +1,9 @@
 导入相关依赖
-\<dependency\>
-\<groupId\>org.springframework.boot\</groupId\>
-\<artifactId\>spring-boot-starter-amqp\</artifactId\>
-\<version\>3.5.7\</version\>
-\</dependency\>
+<dependency>
+<groupId>org.springframework.boot</groupId>
+<artifactId>spring-boot-starter-amqp</artifactId>
+<version>3.5.7</version>
+</dependency>
 然后配置
 spring:
 rabbitmq:

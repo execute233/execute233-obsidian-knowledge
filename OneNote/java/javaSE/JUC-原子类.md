@@ -11,4 +11,4 @@ AtomicIntegerArray：原子更新int数组
 AtomicLongArray：原子更新long数组
 AtomicBooleanArray：原子更新boolean数组
 ABA类问题可以使用版本号来解决，java提供了这个类来提供带版本的支持
-AtomicStampedReference\<T \>
+AtomicStampedReference<T >

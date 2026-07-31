@@ -15,22 +15,22 @@ userMessage可以很多，可以是文本，图片，视频，音频等，比如
 AIService
 还有一种方式是AiService来编写，该方式比较简单
 同时引入langchain4j本身的包
-\<dependency\>
-\<groupId\>dev.langchain4j\</groupId\>
-\<artifactId\>langchain4j\</artifactId\>
-\<version\>1.12.2\</version\>
-\</dependency\>
+<dependency>
+<groupId>dev.langchain4j</groupId>
+<artifactId>langchain4j</artifactId>
+<version>1.12.2</version>
+</dependency>
 然后就可以
 
 ![[_assets/langchain4j/langchain4j__09-25-33-3.png]] ![[_assets/langchain4j/langchain4j__09-25-34-4.png]]
 
-如果想要知道话费多少token等信息，返回值改为Result\<…\>即可
+如果想要知道话费多少token等信息，返回值改为Result<…>即可
 我们还可以使用starter，打上@AiService注解来自动生成
-\<dependency\>
-\<groupId\>dev.langchain4j\</groupId\>
-\<artifactId\>langchain4j-spring-boot-starter\</artifactId\>
-\<version\>${langchain4j.version}\</version\>
-\</dependency\>
+<dependency>
+<groupId>dev.langchain4j</groupId>
+<artifactId>langchain4j-spring-boot-starter</artifactId>
+<version>${langchain4j.version}</version>
+</dependency>
 
 ![[_assets/langchain4j/langchain4j__09-25-36-5.png]]
 
@@ -42,8 +42,8 @@ AIService
 
 还有种是自己实现ChatMemoryStore接口，实现对话持久化
 public interface ChatMemoryStore {
-List\<ChatMessage\> getMessages(Object memoryId);
-void updateMessages(Object memoryId, List\<ChatMessage\> messages);
+List<ChatMessage> getMessages(Object memoryId);
+void updateMessages(Object memoryId, List<ChatMessage> messages);
 void deleteMessages(Object memoryId);
 }
 如果有多个用户，可以给对话方法增加memoryId参数和注解
@@ -54,7 +54,7 @@ String chat(@MemoryId int memoryId,@UserMessage String userMessage);
 AiCodeHelperService service = AiServices._builder_(AiCodeHelperService.class)
 .chatModel(chatModel)
 .chatMemory(chatMemory)
-.chatMemoryProvider(memoryId -\> MessageWindowChatMemory._withMaxMessages_(10))
+.chatMemoryProvider(memoryId -> MessageWindowChatMemory._withMaxMessages_(10))
 .build();
 结构化输出
 非常简单，chat方法返回值设置一下就行
@@ -83,7 +83,7 @@ public class RagConfig {
 @Autowired
 private EmbeddingModel embeddingModel;
 @Autowired
-private EmbeddingStore\<TextSegment\> embeddingStore;
+private EmbeddingStore<TextSegment> embeddingStore;
 @Bean
 public ContentRetriever contentRetriever() {
 // 加载文档
@@ -94,7 +94,7 @@ DocumentByParagraphSplitter splitter = new DocumentByParagraphSplitter(1000, 200
 EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor._builder_()
 .documentSplitter(splitter)
 // 为了提高文档的质量，为每个切割后的文档碎片 TextSegment 添加文档名称作为元信息
-.textSegmentTransformer(textSegment -\>
+.textSegmentTransformer(textSegment ->
 TextSegment._from_(textSegment.metadata().getString("file_name") + "\n" + textSegment.text(),
 textSegment.metadata()))
 // 指定使用的向量模型
@@ -151,7 +151,7 @@ SSE流式接口开发
 
 还有另一种方法，使用Flux代替tokenStream
 引入langchain4j-reactor
-直接让chat方法返回Flex\<String\>
+直接让chat方法返回Flex<String>
 构造AiService时调用streamingChatModel
 给前端接口可以
 

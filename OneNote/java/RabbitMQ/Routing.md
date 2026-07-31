@@ -15,7 +15,7 @@ channel.queueBind("1", "exchange", "exception");
 channel.queueBind("2", "exchange", "info");
 channel.queueBind("2", "exchange", "warn");
 // 发送消息...
-for (int i = 0; i \< 1000; i++) {
+for (int i = 0; i < 1000; i++) {
 channel.basicPublish("exchange", "info", null, Integer._toString_(i).getBytes());
 TimeUnit._SECONDS_.sleep(1);
 }

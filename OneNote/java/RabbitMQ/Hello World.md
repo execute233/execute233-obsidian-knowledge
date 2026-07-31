@@ -34,8 +34,8 @@ Channel channel = connection.createChannel();
 // 消费队列、是否自动确认、消费的回调、消费取消回调
 channel.basicConsume(_QUEUE_NAME_, true
 , (consumerTag, message)
--\> IO._println_("接收到消息: " + new String(message.getBody()))
+-> IO._println_("接收到消息: " + new String(message.getBody()))
 , (consumerTag)
--\> IO._println_("取消消费: " + consumerTag));   // 上面方法是异步的，主线程退出仍会监听，不需要再使用则需关闭连接
+-> IO._println_("取消消费: " + consumerTag));   // 上面方法是异步的，主线程退出仍会监听，不需要再使用则需关闭连接
 connection.close();
 }

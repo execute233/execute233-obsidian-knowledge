@@ -25,7 +25,7 @@ JMM（Java Memory Model）内存模型规定如下：
 private static int a = 0;
 private static int b = 0;
 public static void main(String[] args) {
-new Thread(() -\> {
+new Thread(() -> {
 if(b == 1) {
 if(a == 0) {
 System.out.println("A");
@@ -34,7 +34,7 @@ System.out.println("B");
 }
 }
 }).start();
-new Thread(() -\> {
+new Thread(() -> {
 a = 1;
 b = 1;
 }).start();
@@ -48,7 +48,7 @@ b = 1;
 我们之前说了，如果多线程访问同一个变量，那么这个变量会被线程拷贝到自己的工作内存中进行操作，而不是直接对主内存中的变量本体进行操作，下面这个操作看起来是一个有限循环，但是是无限的：
 private static int a = 0;
 public static void main(String[] args) throws InterruptedException {
-new Thread(() -\> {
+new Thread(() -> {
 while (a == 0);
 System.out.println("线程结束！");
 }).start();

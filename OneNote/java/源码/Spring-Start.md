@@ -13,8 +13,8 @@ ConfigurableApplicationContext context = SpringApplication._run_(SpringLearnAppl
 Field singletonObjects = DefaultSingletonBeanRegistry.class.getDeclaredField("singletonObjects");
 singletonObjects.setAccessible(true);
 ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
-Map\<String, Object\> map = (Map\<String, Object\>) singletonObjects.get(beanFactory);
-map.forEach( (k, v) -\> {
+Map<String, Object> map = (Map<String, Object>) singletonObjects.get(beanFactory);
+map.forEach( (k, v) -> {
 _log_.info(k + ": " + v);
 });
 ApplicationContext比BeanFactory多的功能主要体现在以下接口
@@ -58,7 +58,7 @@ beanFactory.registerBeanDefinition("config", beanDefinition);
 // 给BeanFactory添加常用的后处理器，包括注解处理以及事件处理
 AnnotationConfigUtils._registerAnnotationConfigProcessors_(beanFactory);
 // 拿到该BeanFactory里面的所有BeanFactory后处理器
-Collection\<BeanFactoryPostProcessor\> postProcessors = beanFactory.getBeansOfType(BeanFactoryPostProcessor.class).values();
+Collection<BeanFactoryPostProcessor> postProcessors = beanFactory.getBeansOfType(BeanFactoryPostProcessor.class).values();
 // 让每个BeanFactory后处理器去处理这个BeanFactory
 for (BeanFactoryPostProcessor beanFactoryPostProcessor : postProcessors) {
 beanFactoryPostProcessor.postProcessBeanFactory(beanFactory);
@@ -114,7 +114,7 @@ return new DispatcherServletRegistrationBean(servlet, "/"); // 绑定
 }
 @Bean("/") // 另类的Controller配置方法，Bean名字就是Web路径
 public Controller controller1() {
-return (Controller) (request, response) -\> {
+return (Controller) (request, response) -> {
 response.getWriter().print("helloWorld");
 return null;
 };

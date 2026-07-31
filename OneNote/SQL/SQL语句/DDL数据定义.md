@@ -21,7 +21,7 @@ DESCRIBE/DESC 表名;
 SHOW CREATETABLE 表名;
 创建表
 CREATE [TEMPORARY] TABLE [IF NOT EXISTS] table (列名 数据类型[列级约束条件]，
-column_name1 type [DEFAULT] [AUTO_INCREMENT] [COMMENT ' '] [{\<列约束\>}] ,
+column_name1 type [DEFAULT] [AUTO_INCREMENT] [COMMENT ' '] [{<列约束>}] ,
 …
 ) [table_option] [select_statement];
 
@@ -57,7 +57,7 @@ ALTER TABLE table ENGINE=engine_name;
 删除表字段
 ALTER TABLE table DROP column[, DROP other_column]；
 删除字段完整性约束
-ALTER TABLE table DROP CONSTRAINT \<约束名\>；
+ALTER TABLE table DROP CONSTRAINT <约束名>；
 删除主键只需
 ALTER TABLE table DROP PRIMARY KEY;
 删除NOT NULL字段需
