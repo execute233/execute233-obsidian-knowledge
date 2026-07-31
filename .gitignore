@@ -22,3 +22,6 @@ desktop.ini
 
 # ===== 日志 =====
 *.log
+
+# Copilot 自动生成的索引日志(每次扫描都会变化)
+copilot/Copilot-Indexed-Files-*.md
