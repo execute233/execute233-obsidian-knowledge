@@ -1,7 +1,7 @@
 # mb使用
 
-1. 配置
-2. 使用
+## 配置
+## 使用
     1. 先用SqlSessionFactoryBuilder导入配置文件
     2. 得到SqlSessionFactory后，就可以openSession，但要自己关闭，可用try-with-resource
     3. 要在配置文件里引用mapper

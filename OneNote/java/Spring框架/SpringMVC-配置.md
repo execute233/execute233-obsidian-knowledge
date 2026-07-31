@@ -13,9 +13,9 @@ MVC详细解释如下：
 
 **传统 XML 配置**
 
-1. POM添加依赖spring-webmvc
-2. 配置spring的Servlet
-3. 配置Spring上下文,比如spring.xml
+## POM添加依赖spring-webmvc
+## 配置spring的Servlet
+## 配置Spring上下文,比如spring.xml
 
 ```yaml
 <?xml version="1.0" encoding="UTF-8"?>

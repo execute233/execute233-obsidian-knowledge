@@ -9,9 +9,9 @@
 </dependency>
 ```
 
-1. XML配置AOP
-2. 接口实现AOP
-3. 注解实现AOP
+## XML配置AOP
+## 接口实现AOP
+## 注解实现AOP
 
 XML文件应该是这样
 ```xml

@@ -1,7 +1,7 @@
 # DCL数据控制
 
-1. 创建用户
-2. 用户授权
+## 创建用户
+## 用户授权
 
 可以通过CREATE USER来创建用户。
 CREATE USER 用户名[@限制IP] [IDENTIFIED BY 密码]；

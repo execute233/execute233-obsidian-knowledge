@@ -1,10 +1,10 @@
 # Spring-数据库框架整合
 
-1. **整合 Mybatis 框架**：将数据源交给IoC容器管理
-2. HikariCP连接池
-3. MyBatis事务管理
-4. Spring事务管理
-5. JUnit整合
+## **整合 Mybatis 框架**：将数据源交给IoC容器管理
+## HikariCP连接池
+## MyBatis事务管理
+## Spring事务管理
+## JUnit整合
 
 首先导入mybatis-spring, ver:3.0.5, spring-jdbc
 然后在Spring配置类sqlSessionTemple()方法打@Bean,一般是

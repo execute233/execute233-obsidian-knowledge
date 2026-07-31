@@ -7,11 +7,11 @@ curl（Client URL）是一个强大的命令行工具，用于在 Linux/Unix 系
 curl [options] [URL...]
 -O 最常用，下载到文件
 
-2. 请求头相关参数选项
-3. 响应头相关参数选项
-4. cookie
-5. 代理
-6. 数据传输
+## 请求头相关参数选项
+## 响应头相关参数选项
+## cookie
+## 代理
+## 数据传输
 
 ```text
 -H "name: value" 或 --header "name: value" 添加一个http请求头

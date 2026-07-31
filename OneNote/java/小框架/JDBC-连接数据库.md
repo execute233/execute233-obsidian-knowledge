@@ -1,9 +1,9 @@
 # JDBC-连接数据库
 
-1. 从maven导入一般是
-2. 查看依赖是否导入成功
-3. 创建一个数据库的链接，从DriverManager中获取
-4. 不清楚的SQL操作情况下
+## 从maven导入一般是
+## 查看依赖是否导入成功
+## 创建一个数据库的链接，从DriverManager中获取
+## 不清楚的SQL操作情况下
 
 ```xml
 \<dependency\>

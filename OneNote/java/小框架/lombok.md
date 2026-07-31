@@ -1,13 +1,13 @@
 # lombok
 
-1. 类属性相关
-2. 构造方法相关
-3. 打印对象
-4. 比较对象
-5. @Data注解
-6. @Value注解
-7. 建造者模式
-8. 锁处理
+## 类属性相关
+## 构造方法相关
+## 打印对象
+## 比较对象
+## @Data注解
+## @Value注解
+## 建造者模式
+## 锁处理
 
 自动生成Getter方法，修饰字段或类
 @Getter([accessLevel=AccessLevel.PUBLIC, onMethod=[], lazy=false])
