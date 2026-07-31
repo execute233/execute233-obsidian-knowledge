@@ -71,8 +71,9 @@ def scan_topic(topic: str) -> list[tuple[Path, Path, str]]:
 
 def rewrite_note(note: Path, mapping: dict[str, str]) -> None:
     content = read_note(note)
+    slug = slugify(note.name)
     new_content = IMG_PATTERN.sub(
-        lambda m: f"![[{mapping[m.group(1)]}]]" if m.group(1) in mapping else m.group(0),
+        lambda m: f"![[.attachments/{slug}/{mapping[m.group(1)]}]]" if m.group(1) in mapping else m.group(0),
         content,
     )
     note.write_text(new_content, encoding="utf-8")
@@ -97,6 +98,8 @@ def apply(topic: str) -> None:
         if urlname not in mapping:
             mapping[urlname] = Path(new_rel).name
             order.append((note, src, new_rel))
+
+    print(f"\n== {topic} 主题: 移动 {len(order)} 张图、改写 {len(by_note)} 篇笔记 ==\n")
 
     print(f"\n== {topic} 主题: 移动 {len(order)} 张图、改写 {len(by_note)} 篇笔记 ==\n")
     for note, src, new_rel in order:
