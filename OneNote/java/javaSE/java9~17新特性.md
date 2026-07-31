@@ -5,13 +5,13 @@
 
 现在可用List.of(), Set.of(), Map.of() 创建不可变集合
 
-4. **改进的****try-with-resources**
-5. **var****关键字**
-6. **HTTP****客户端****API**
-7. **增强的****switch**
+4. **改进的 try-with-resources**
+5. **var 关键字**
+6. **HTTP 客户端 API**
+7. **增强的 switch**
 8. **Records**
-9. **instanceof****模式匹配，可以在匹配类型时声明变量**
-10. **Sealed****密封类**
+9. **instanceof 模式匹配，可以在匹配类型时声明变量**
+10. **Sealed 密封类**
 
 使用module-info.java定义模块便捷，明确哪些包对外开放，哪些依赖是必须的
 module user.management {

@@ -1,6 +1,6 @@
 # SpringBoot-前后端分离
 
-**基于****Session****的分离（有状态）**
+**基于 Session 的分离（有状态）**
 我们发现，实际上SpringSecurity在登录之后，会利用Session机制记录用户的登录状态，这就要求我们每次请求的时候都需要携带Cookie才可以，因为Cookie中存储了用于识别的JSESSIONID数据。因此，要实现前后端分离，我们只要稍微修改一下可以实现了，这对于小型的单端应用程序非常友好。
 
 登录实现与跨域处理：
@@ -94,7 +94,7 @@ writer.write(RestBean._failure_(401, e.getMessage()).asJsonString());
 }
 }
 对于
-**基于****Token****的分离（无状态）**
+**基于 Token 的分离（无状态）**
 基于Token的前后端分离主打无状态，无状态服务是指在处理每个请求时，服务本身不会维持任何与请求相关的状态信息。每个请求被视为独立的、自包含的操作，服务只关注处理请求本身，而不关心前后请求之间的状态变化。也就是说，用户在发起请求时，服务器不会记录其信息，而是通过用户携带的Token信息来判断是哪一个用户：
 
 无状态服务的优点包括：
@@ -104,7 +104,7 @@ writer.write(RestBean._failure_(401, e.getMessage()).asJsonString());
 3．客户端无需存储会话信息：传统的会话管理方式中，客户端需要存储会话标识，以便在每次请求中携带。而使用Token，客户端只需要保存Token即可，方便了客户端的存储和管理。
 4．跨域支持：Token可以在各个不同的域名之间进行传递和使用，因为Token是通过签名来验证和保护数据完整性的，可以防止未经授权的修改。
 
-**JWT****令牌**
+**JWT 令牌**
 
 ![[_assets/SpringBoot-前后端分离/SpringBoot-前后端分离__09-24-16-0.png]]
 
@@ -231,7 +231,7 @@ new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class
 ```
 记得登录处理时返回token，同时跨域也可以不带Cookie：
 writer.write(RestBean._success_(JwtUtils._createJwt_((User) authentication.getPrincipal())).asJsonString());
-**JWT****退出登录处理**
+**JWT 退出登录处理**
 一种黑名单机制，另一种白名单机制，目前我们以黑名单机制为例：
 我们可以在创建JWT的时候额外创建一个UUID用于记录黑名单，作为JWT的ID属性jti：
 .withJWTId(UUID._randomUUID_().toString())

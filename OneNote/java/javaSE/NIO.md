@@ -109,7 +109,7 @@ public abstract class AbstractInterruptibleChannel implements Channel, Interrupt
         //回到最开始的状态
         buffer.clear();
     }
-**文件传输****FileChannel**
+**文件传输 FileChannel**
 //RandomAccessFile能够支持文件的随机访问，并且实现了数据流
 public class RandomAccessFile implements DataOutput, DataInput, Closeable
 可以使用RandomAccessFile创建

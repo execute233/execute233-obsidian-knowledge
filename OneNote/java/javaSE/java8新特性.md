@@ -1,6 +1,6 @@
 # java8新特性
 
-1. **Lambda****表达式**
+1. **Lambda 表达式**
 
 **函数式接口**
 使用@FunctionalInterface来创建自定义函数式接口

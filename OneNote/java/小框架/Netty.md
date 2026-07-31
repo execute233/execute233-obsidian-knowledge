@@ -52,7 +52,7 @@ UnpooledByteBufAllocator和PooledByteBufAllocator，一个是非池化缓冲区�
 ![[_assets/Netty/Netty__09-25-02-4.png]]
 
 比如我们之前在NIO中使用的transferTo()方法，就是利用了这种机制来实现零拷贝的。
-**Netty****工作模型**
+**Netty 工作模型**
 Netty以主从Reactor多线程模型为基础，构建出了一套高效的工作模型
 
 ![[_assets/Netty/Netty__09-25-07-5.png]]
@@ -92,7 +92,7 @@ ctx.writeAndFlush(Unpooled._wrappedBuffer_("已收到！".getBytes()));
 });
 //最后绑定端口，启动
 bootstrap.bind(8080);
-**Channel****详解**
+**Channel 详解**
 Netty中也有自己对应的Channel类型
 ```csharp
 public interface Channel extends AttributeMap, ChannelOutboundInvoker, Comparable<Channel> {
@@ -163,4 +163,4 @@ void exceptionCaught(ChannelHandlerContext var1, Throwable var2) throws Exceptio
 
 ![[_assets/Netty/Netty__09-25-11-7.png]]
 
-**EventLoop****和任务调度**
+**EventLoop 和任务调度**

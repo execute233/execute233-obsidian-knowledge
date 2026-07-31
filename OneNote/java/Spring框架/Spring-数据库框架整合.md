@@ -1,6 +1,6 @@
 # Spring-数据库框架整合
 
-1. **整合****Mybatis****框架**：将数据源交给IoC容器管理
+1. **整合 Mybatis 框架**：将数据源交给IoC容器管理
 2. HikariCP连接池
 3. MyBatis事务管理
 4. Spring事务管理

@@ -36,7 +36,7 @@ void signal();
 // 同上，但是是唤醒所有等待线程
 void signalAll();
 }
-**可重入锁****ReentrantLock**
+**可重入锁 ReentrantLock**
 简单来说，就是同一个线程，可以反复进行加锁操作：
 假设连续加了n次该锁，其他线程只有当前前程连续释放了n次该锁才能拿到锁
 有几个特有的方法(同样的，Condition也有类似的方法)：

@@ -1,6 +1,6 @@
 # SpringMVC-Controller
 
-1. **Controller****控制器**
+1. **Controller 控制器**
 
 有了SpringMVC之后，我们不必再像之前那样一个请求地址创建一个Servlet了，它使用DispatcherServlet替代Tomcat为我们提供的默认的静态资源Servlet，也就是说，现在所有的请求（除了jsp,因为Tomcat还提供了一个jsp的Servlet)都会经过DispatcherServlet进行处理。
 
@@ -11,7 +11,7 @@
 - 因此，实际上整个过程我们只需要编写对应请求路径的的Contrer以及配置好我们需要的ViewReso|ver即可，之后还可以继续补充添加拦截器，而其他的流程已经由SpringMVC帮助我们完成了。
 
 4. **配置视图解析器和控制器**
-5. **RequestMapping****注解**
+5. **RequestMapping 注解**
     - value：指定路径还可以进行模式匹配
     - method：请求方法的类型，是RequestMethod中的枚举,其实可以@XXXMapping实现等价效果
     - params：指定请求必须带哪些参数，是一个数组。甚至可以在参数前加!表示不允许带这个参数
@@ -124,12 +124,12 @@ defaultValue - 设定默认值，当请求参数缺失时
 如果要用Servlet原本的一些类，可以直接在参数列表写HttpServletRquest，甚至还有HttpServletRespone和HttpSession
 还可以在参数列表使用实体类来封装
 @RequestHeader 用法和上面的一样，不再阐述
-**@CookieValue****和****SessionAttrbutie**
+**@CookieValue 和 SessionAttrbutie**
 都是只能修饰参数列表，来快速拿到东西，用法和上面差不多
 **重定向与请求转发**
 重定向只要返回的视图名前加上 redirect:即可
 请求转发只要返回的视图名前加上 forward:即可
-**Bean****的****Web****作用域**
+**Bean 的 Web 作用域**
 包含以下作用域：
 
 - request：对于每个请求，使用request作用域定义deBean都产生一个新的实例，请求结束后Bean消失

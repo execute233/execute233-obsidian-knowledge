@@ -1,6 +1,6 @@
 # DQL数据查询
 
-```xml
+```sql
 单表查询
 SELECT [ALL|DISTINCT] \<column\> [AS name] [{, \<column2\> [as name2]}]
 FROM table|view [AS name]

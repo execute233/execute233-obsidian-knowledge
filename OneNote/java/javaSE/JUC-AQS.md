@@ -285,7 +285,7 @@ protected final boolean tryRelease(int releases) {
 
 ![[_assets/JUC-AQS/JUC-AQS__09-20-09-1.png]]
 
-**Condition****实现原理**
+**Condition 实现原理**
 通过前面的学习，我们知道`Condition`类实际上就是用于代替传统对象的`wait/notify`操作的，同样可以实现等待`/`通知模式，并且同一把锁下可以创建多个`Condition`对象。那么我们接着来看看，它又是如何实现的呢，我们先从单个`Condition`对象进行分析：
 
 ```java

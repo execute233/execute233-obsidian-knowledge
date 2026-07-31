@@ -1,6 +1,6 @@
 # SpringMVC-配置
 
-**MVC****的三层架构**
+**MVC 的三层架构**
 
 ![[_assets/SpringMVC-配置/SpringMVC-配置__09-23-42-0.png]]
 
@@ -11,7 +11,7 @@ MVC详细解释如下：
 - C则是控制器(Controller)：控制器就相当于Servlet的基本功能，处理请求，返回响应。
 ![[_assets/SpringMVC-配置/SpringMVC-配置__09-23-44-1.png]]
 
-**传统****XML****配置**
+**传统 XML 配置**
 
 1. POM添加依赖spring-webmvc
 2. 配置spring的Servlet
