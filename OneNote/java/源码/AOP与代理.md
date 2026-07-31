@@ -1,3 +1,9 @@
+---
+title: AOP与代理
+tags: [java, 源码]
+aliases: [AOP与代理]
+---
+
 # AOP与代理
 
 ajc增强
@@ -5,7 +11,7 @@ AspectJ代理并不是很广泛，它通过在编译时修改源代码来实现�
 另见：小框架 -> AspectJ
 agent增强
 在类加载时修改字节码实现，也不依赖Spring
-运行时需要加入VM Options -javaagent:aspectjweaver.jar
+运行时需要加入VM Options -javaagent：aspectjweaver.jar
 proxy增强-jdk
 注意jdk代理只能针对接口代理
 ```csharp
@@ -33,23 +39,23 @@ Object result = method.invoke(target, args1);
 IO._println_("after foo");
 return result;
 ```
-});
-foo.foo();
+}）；
+foo.foo（）；
 proxy增强-cglib
 要注意与目标是子父关系（即不能代理final class）
-Target target = new Target();
+Target target = new Target（）；
 // 参1为父类型，参2是代理方法执行的行为
-Target proxy = (Target) Enhancer._create_(Target.class, (MethodInterceptor) (obj, method, args1, methodProxy) -> {
+Target proxy = （Target） Enhancer._create_（Target.class， （MethodInterceptor） （obj， method， args1， methodProxy） -> {
 // 代理类自己、当前执行方法、执行参数、可以避免反射调用的代理对象
 ```python
 IO._println_("before");
-Object result = methodProxy.invoke(target, args1); // 没用反射，需要目标(Spring)
-result = methodProxy.invokeSuper(obj, args1); // 也没用反射，用代理自己
+Object result = methodProxy.invoke(target, args1); // 没用反射,需要目标(Spring)
+result = methodProxy.invokeSuper(obj, args1); // 也没用反射,用代理自己
 IO._println_("after");
 return result;
 ```
-});
-proxy.foo();
+}）；
+proxy.foo（）；
 }
 原理-proxy增强-jdk
 public final class $Proxy2 extends Proxy implements Foo {
@@ -120,7 +126,7 @@ try {
 _foo_ = Target.class.getMethod("foo");
 ```
 // 参数是：目标类、代理类、方法标识符、增强方法名、原始方法名
-_fooProxy_ = MethodProxy._create_(Target.class, $Prox0.class, "()V", "fooProxy", "proxy");
+_fooProxy_ = MethodProxy._create_（Target.class， $Prox0.class， "（）V"， "fooProxy"， "proxy"）；
 }
 ```csharp
 catch (NoSuchMethodException noSuchMethodException) {
@@ -128,7 +134,7 @@ throw new NoSuchMethodError(noSuchMethodException.getMessage());
 ```
 }
 }
-private MethodInterceptor methodInterceptor;
+private MethodInterceptor methodInterceptor；
 
 ```java
 public void setMethodInterceptor(MethodInterceptor methodInterceptor) {
@@ -161,26 +167,26 @@ Object result = invocation.proceed();
 IO._println_("after");
 return result;
 ```
-};
+}；
 // 3、准备切面
-DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, advice);
+DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor（pointcut， advice）；
 // 4、创建代理，会根据情况使用jdk或者cglib代理
-// proxyTargetClass = false时,目标实现了接口，则使用jdk实现，否则cglib
+// proxyTargetClass = false时，目标实现了接口，则使用jdk实现，否则cglib
 // proxyTargetClass = true时，总是使用cglib实现
 ```text
 ProxyFactory factory = new ProxyFactory();
 factory.setTarget(new Target());
 ```
-factory.addAdvisor(advisor);
-Target proxy = (Target) factory.getProxy();
-proxy.foo();
+factory.addAdvisor（advisor）；
+Target proxy = （Target） factory.getProxy（）；
+proxy.foo（）；
 切点匹配
 ```text
 AspectJExpressionPointcut pointcut1 = new AspectJExpressionPointcut();
 pointcut1.setExpression("execution(* foo())");
 boolean flag1 = pointcut1.matches(Target.class.getMethod("foo"), Target.class);// 看下指定的方法是否匹配表达式
 AspectJExpressionPointcut pointcut2 = new AspectJExpressionPointcut();
-pointcut2.setExpression("@annotation(org.springframework.transaction.annotation.Transactional)"); // 匹配注解方法，但是Spring没用这种
+pointcut2.setExpression("@annotation(org.springframework.transaction.annotation.Transactional)"); // 匹配注解方法,但是Spring没用这种
 boolean flag2 = pointcut2.matches(Target.class.getMethod("foo"), Target.class);
 ```
 // Spring的@Transactional可以加载方法、类、接口，所以AspectJ不能这样实现，类似于下面的步骤
@@ -203,9 +209,9 @@ if (annotations.isPresent(Transactional.class)) {
 return true;
 ```
 }
-return false;
+return false；
 }
-};
+}；
 从@Aspect到Advisor
 ```python
 @Aspect // 高级切面类
@@ -235,7 +241,7 @@ Object result = invocation.proceed();
 IO._println_("after");
 return result;
 ```
-});
+}）；
 }
 }
 main
@@ -244,18 +250,18 @@ GenericApplicationContext context = new GenericApplicationContext();
 context.registerBean("aspect", Aspect1.class);
 context.registerBean("context", Config.class);
 ```
-context.registerBean(ConfigurationClassPostProcessor.class);
+context.registerBean（ConfigurationClassPostProcessor.class）；
 // 用于切点解析的BeanPostProcessor，在Bean的依赖注入前和初始化后做了增强
-context.registerBean(AnnotationAwareAspectJAutoProxyCreator.class);
+context.registerBean（AnnotationAwareAspectJAutoProxyCreator.class）；
 AnnotationAwareAspectJAutoProxyCreator做了以下事情
-AnnotationAwareAspectJAutoProxyCreator creator = context.getBean(AnnotationAwareAspectJAutoProxyCreator.class);
+AnnotationAwareAspectJAutoProxyCreator creator = context.getBean（AnnotationAwareAspectJAutoProxyCreator.class）；
 // AnnotationAwareAspectJAutoProxyCreator做了以下事情
-// 第一种重要方法：收集可以应用指定类的有资格的Advisor,参1是指定类，参2是bean名
+// 第一种重要方法：收集可以应用指定类的有资格的Advisor，参1是指定类，参2是bean名
 // 一种是自己写的Advisor，另一种则是@Aspect转为Advisor
-List<Advisor> advisors = creator.findEligibleAdvisors(Target.class, "");
+List<Advisor> advisors = creator.findEligibleAdvisors（Target.class， ""）；
 // 第二种重要方法：内部调用了findEligibleAdvisors，只要返回的集合不为空就表示需要创建代理
 // 分别为：要代理的对象，bean名、cacheKey，这里返回得是得你对象或者原始对象
-Object object = creator.wrapIfNecessary(new Target(), "target1", "taget1");
+Object object = creator.wrapIfNecessary（new Target（）， "target1"， "taget1"）；
 代理的创建时机
 初始化之后（无循环依赖）
 实例创建之后，依赖注入前（有循环依赖时），并暂存在二级缓存
@@ -264,7 +270,7 @@ Object object = creator.wrapIfNecessary(new Target(), "target1", "taget1");
 对于切面，一般是低级切面在外面先被执行，然后高级切面在里面后被执行
 我们可以自己控制执行顺序（高级切面）
 @Aspect // 高级切面类
-@Order(1) // 定义切面顺序，越小越优先，不能用在方法
+@Order（1） // 定义切面顺序，越小越优先，不能用在方法
 static class Aspect1
 在低级切面可以
 ```python
@@ -274,8 +280,8 @@ Object result = invocation.proceed();
 IO._println_("after");
 return result;
 ```
-});
-pointcutAdvisor.setOrder(2);
+}）；
+pointcutAdvisor.setOrder（2）；
 将高级切面转换为低级切面
 // 要代理对象的实例工厂
 ```text
@@ -285,7 +291,7 @@ ArrayList<Advisor> list = new ArrayList<>();
 _/**_
 _*_ **@Before** _会被转换为__AspectJMethodBeforeAdvice__的形式，保存了：_
 _*_ _通知代码从哪来、切点是什么，通知对象如何被创建_
-_*_ _类似的还有__AspectJAroundAdvice(__环绕通知__)__、__AspectJAfterReturningAdvice(__后置通知__)__、__AspectJAfterThrowingAdvice(__环绕通知__)__、__AspectJAfterAdvice(__环绕通知__)_
+_*_ _类似的还有__AspectJAroundAdvice（__环绕通知__）__、__AspectJAfterReturningAdvice（__后置通知__）__、__AspectJAfterThrowingAdvice（__环绕通知__）__、__AspectJAfterAdvice（__环绕通知__）_
 _* **/_
 // 这里假定Aspect1是高级切面对象
 ```python
@@ -297,12 +303,12 @@ if (method.isAnnotationPresent(Before.class)) {
 String expression = method.getAnnotation(Before.class).value();
 AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
 ```
-pointcut.setExpression(expression);
+pointcut.setExpression（expression）；
 // 前置通知，参3是对应的对象实例工厂
-AspectJMethodBeforeAdvice advice = new AspectJMethodBeforeAdvice(method, pointcut, factory);
+AspectJMethodBeforeAdvice advice = new AspectJMethodBeforeAdvice（method， pointcut， factory）；
 // 切面
-DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor(pointcut, advice);
-list.add(advisor);
+DefaultPointcutAdvisor advisor = new DefaultPointcutAdvisor（pointcut， advice）；
+list.add（advisor）；
 }
 // ... @After、@Around、@AfterReturning、@AfterThrowing类似
 }
@@ -315,15 +321,15 @@ list.add(advisor);
 Target target = new Target();
 ProxyFactory proxyFactory = new ProxyFactory();
 ```
-proxyFactory.setTarget(target);
-proxyFactory.addAdvisors(list);
+proxyFactory.setTarget（target）；
+proxyFactory.addAdvisors（list）；
 // 将说有通知转换为环绕通知
 List<Object> methodInterceptorslist =
-proxyFactory.getInterceptorsAndDynamicInterceptionAdvice(Target.class.getMethod("foo"), Target.class);
+proxyFactory.getInterceptorsAndDynamicInterceptionAdvice（Target.class.getMethod（"foo"）， Target.class）；
 创建并执行调用链
-// 参数分别为:代理、目标、方法、方法参数、目标类型、转换好的环绕通知
-MethodInvocation methodInvocation = new ReflectiveMethodInvocation(
-null, target, Target.class.getMethod("foo"), new Object[0], Target.class, methodInterceptorslist);
+// 参数分别为：代理、目标、方法、方法参数、目标类型、转换好的环绕通知
+MethodInvocation methodInvocation = new ReflectiveMethodInvocation（
+null， target， Target.class.getMethod（"foo"）， new Object[0]， Target.class， methodInterceptorslist）；
 // 执行过程里面的通知要拿到当前的调用链，放在了当前线程里
 // 方调用链操作也是环绕通知，由最外层通知执行，比如
 ```text
@@ -354,14 +360,14 @@ public Object[] getArguments() {return args;}
 public Object proceed() throws Throwable {
 ```
 // 职责是调用每个环绕通知（没有就调用目标）
-if (count > methodInterceptorList.size()) {
+if （count > methodInterceptorList.size（）） {
 // 调用目标结束递归
-return method.invoke(target, args);
+return method.invoke（target， args）；
 }
 // 逐一调用通知
-MethodInterceptor interceptor = methodInterceptorList.get(count++ - 1);
+MethodInterceptor interceptor = methodInterceptorList.get（count++ - 1）；
 // 传入本调用链对象，注意里面还会调用proceed方法，从而进入下一个通知
-return interceptor.invoke(this);
+return interceptor.invoke（this）；
 }
 ```python
 @Override
@@ -379,12 +385,12 @@ IO._println_("before: " + x);
 ```
 }
 对于这种动态通知，它使用的不是环绕通知，而是
-record InterceptorAndDynamicMethodMatcher(
-MethodInterceptor interceptor, MethodMatcher matcher) {}
+record InterceptorAndDynamicMethodMatcher（
+MethodInterceptor interceptor， MethodMatcher matcher） {}
 多出了切点就可以解析参数调用了
-MethodInvocation methodInvocation = new ReflectiveMethodInvocation(
+MethodInvocation methodInvocation = new ReflectiveMethodInvocation（
 ```sql
 null, target, Target.class.getMethod("foo", int.class)
 , new Object[]{100}, Target.class, methodInterceptorslist) {};
 ```
-methodInvocation.proceed();
+methodInvocation.proceed（）；

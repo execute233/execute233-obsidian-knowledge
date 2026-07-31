@@ -1,3 +1,9 @@
+---
+title: screen
+tags: [liunx, 第三方命令]
+aliases: [screen]
+---
+
 # screen
 
 screen [-opts] [cmd [args]]
@@ -26,4 +32,4 @@ screen -R [pid/name]
 d：保存会话，后台运行改虚拟终端
 k：关闭对话，等同输入：exit
 c：新建一个虚拟终端
-?：显示所有绑定键盘
+？：显示所有绑定键盘

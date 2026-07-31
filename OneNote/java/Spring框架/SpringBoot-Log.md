@@ -1,3 +1,9 @@
+---
+title: SpringBoot-Log
+tags: [java, Spring框架]
+aliases: [SpringBoot-Log]
+---
+
 # SpringBoot-Log
 
 ![[_assets/SpringBoot-Log/SpringBoot-Log__09-24-09-0.png]]
@@ -11,7 +17,7 @@
 打印项目日志信息
 SpringBoot使用的是Sif4j作为日志门面，Logback作为日志现，对应的依赖为：
 spring-boot-starter-logging // 此依赖项已经被包含了
-然后就可以LoggerFactory.getLogger()了，也可以lombok
+然后就可以LoggerFactory.getLogger（）了，也可以lombok
 配置logback日志
 SpringBoot推荐其配置文件名称命名为logback-spring.xml，可以使用高级Profile功能
 我们可使用默认配置的文件中已有的东西自己配置，如
@@ -34,11 +40,11 @@ SpringBoot推荐其配置文件名称命名为logback-spring.xml，可以使用�
 </encoder>
 <rollingPolicy class="cn.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 ```
-<!-- 日志文件输出路径，以及命名规则 -->
+<！-- 日志文件输出路径，以及命名规则 -->
 <fileNamePattern>logs/app-log-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-<!-- 单个日志文件大小上限 -->
+<！-- 单个日志文件大小上限 -->
 <maxFileSize>10MB</maxFileSize>
-<!-- 到期自动清理日志文件 -->
+<！-- 到期自动清理日志文件 -->
 ```xml
 <cleanHistoryOnStart>true</cleanHistoryOnStart>
 <!-- 保留最近30天的日志文件 -->
@@ -47,7 +53,7 @@ SpringBoot推荐其配置文件名称命名为logback-spring.xml，可以使用�
 <totalSizeCap>50MB</totalSizeCap>
 </rollingPolicy>
 </appender>
-<!-- 指定日志输出级别，和启用的Appender -->
+<!-- 指定日志输出级别,和启用的Appender -->
 <root level="INFO">
 <appender-ref ref="CONSOLE"/>
 <appender-ref ref="FILE"/>

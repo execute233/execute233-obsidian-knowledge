@@ -1,3 +1,9 @@
+---
+title: Spring-数据库框架整合
+tags: [java, Spring框架]
+aliases: [Spring-数据库框架整合]
+---
+
 # Spring-数据库框架整合
 
 ## **整合 Mybatis 框架**：将数据源交给IoC容器管理
@@ -6,13 +12,13 @@
 ## Spring事务管理
 ## JUnit整合
 
-首先导入mybatis-spring, ver:3.0.5, spring-jdbc
-然后在Spring配置类sqlSessionTemple()方法打@Bean,一般是
+首先导入mybatis-spring， ver：3.0.5， spring-jdbc
+然后在Spring配置类sqlSessionTemple（）方法打@Bean，一般是
 ```python
 SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources._getResourceAsReader_("mybatis-config.xml"));
 return new SqlSessionTemplate(sqlSessionFactory);
 ```
-或者自己单独创建DataSource(方便后续更换)，然后返回SqlSessionFactoryBean,如
+或者自己单独创建DataSource（方便后续更换），然后返回SqlSessionFactoryBean，如
 ```python
 @Bean
 public DataSource dataSource() {
@@ -24,11 +30,11 @@ return new PooledDataSource(…);
 public SqlSessionTemplate sqlSessionTemplate(DataSource source) throws Exception {
 SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
 ```
-bean.setDataSource(source);
-return new SqlSessionTemplate(bean.getObject());
+bean.setDataSource（source）；
+return new SqlSessionTemplate（bean.getObject（））；
 }
-后面就可以getBean(SqlSessionTemple)
-POM导入HikariCP, ver:5.01, gropuId: com.zoxxer
+后面就可以getBean（SqlSessionTemple）
+POM导入HikariCP， ver：5.01， gropuId： com.zoxxer
 将前面的dataSource换为HikariDataSource即可
 
 ![[_assets/Spring-数据库框架整合/Spring-数据库框架整合__09-23-23-0.png]]
@@ -50,14 +56,14 @@ POM导入HikariCP, ver:5.01, gropuId: com.zoxxer
 
 ![[_assets/Spring-数据库框架整合/Spring-数据库框架整合__09-23-34-4.png]]
 
-<environment>下的<transaction>即是管理事务,分为两种：
+<environment>下的<transaction>即是管理事务，分为两种：
 JDBC：使用JDBC的事务管理机制：即利用对应数据库的驱动生成的Connection对象完成事务操作
 MANAGED：让程序容器来实现对事务的管理
 在配置类打上@EnableTransactionManagement启用
 写上
 @Bean
-pubilc TransactionManager transactionManager(DataSource dataSource) {
-return new DataSourceTransactionManager(dataSource)
+pubilc TransactionManager transactionManager（DataSource dataSource） {
+return new DataSourceTransactionManager（dataSource）
 }
 便可以使用了
 

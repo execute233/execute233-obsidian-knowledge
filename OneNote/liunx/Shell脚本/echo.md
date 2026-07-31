@@ -1,3 +1,9 @@
+---
+title: echo
+tags: [liunx, Shell脚本]
+aliases: [echo]
+---
+
 # echo
 
 ## 常用选项

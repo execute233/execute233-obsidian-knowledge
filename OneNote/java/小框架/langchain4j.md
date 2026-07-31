@@ -1,3 +1,9 @@
+---
+title: langchain4j
+tags: [java, 小框架]
+aliases: [langchain4j]
+---
+
 # langchain4j
 
 自己引入starter依赖
@@ -61,11 +67,11 @@ String chat(@MemoryId int memoryId,@UserMessage String userMessage);
 ```
 
 // 然后这样构造AIService
-AiCodeHelperService service = AiServices._builder_(AiCodeHelperService.class)
-.chatModel(chatModel)
-.chatMemory(chatMemory)
-.chatMemoryProvider(memoryId -> MessageWindowChatMemory._withMaxMessages_(10))
-.build();
+AiCodeHelperService service = AiServices._builder_（AiCodeHelperService.class）
+.chatModel（chatModel）
+.chatMemory（chatMemory）
+.chatMemoryProvider（memoryId -> MessageWindowChatMemory._withMaxMessages_（10））
+.build（）；
 结构化输出
 非常简单，chat方法返回值设置一下就行
 
@@ -99,35 +105,35 @@ private EmbeddingStore<TextSegment> embeddingStore;
 public ContentRetriever contentRetriever() {
 ```
 // 加载文档
-Document document = ClassPathDocumentLoader._loadDocument_("docs.docx", new ApachePoiDocumentParser());
+Document document = ClassPathDocumentLoader._loadDocument_（"docs.docx"， new ApachePoiDocumentParser（））；
 // 文档切割：按照段落分割，最大1000个字符，最多重叠200个字符
-DocumentByParagraphSplitter splitter = new DocumentByParagraphSplitter(1000, 200);
+DocumentByParagraphSplitter splitter = new DocumentByParagraphSplitter（1000， 200）；
 // 自定义文档加载器，文档转为向量保存在数据库中
-EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor._builder_()
-.documentSplitter(splitter)
+EmbeddingStoreIngestor ingestor = EmbeddingStoreIngestor._builder_（）
+.documentSplitter（splitter）
 // 为了提高文档的质量，为每个切割后的文档碎片 TextSegment 添加文档名称作为元信息
-.textSegmentTransformer(textSegment ->
+.textSegmentTransformer（textSegment ->
 ```text
 TextSegment._from_(textSegment.metadata().getString("file_name") + "\n" + textSegment.text(),
 textSegment.metadata()))
 ```
 // 指定使用的向量模型
-.embeddingModel(embeddingModel)
+.embeddingModel（embeddingModel）
 // 向量存储，这里用内存存储
-.embeddingStore(embeddingStore)
-.build();
+.embeddingStore（embeddingStore）
+.build（）；
 // 加载文档
-ingestor.ingest(document);
+ingestor.ingest（document）；
 // 自定义内容加载器
-EmbeddingStoreContentRetriever retriever = EmbeddingStoreContentRetriever._builder_()
-.embeddingStore(embeddingStore)
-.embeddingModel(embeddingModel)
+EmbeddingStoreContentRetriever retriever = EmbeddingStoreContentRetriever._builder_（）
+.embeddingStore（embeddingStore）
+.embeddingModel（embeddingModel）
 ```text
 .maxResults(5) // 最多5条结果
 .minScore(0.75) // 过滤分数小于0.75的结果
 ```
-.build();
-return retriever;
+.build（）；
+return retriever；
 }
 }
 进阶版RAG
@@ -150,7 +156,7 @@ langchain4j使用的是MCP Server
 
 ![[_assets/langchain4j/langchain4j__09-25-53-14.png]]
 
-拦截器(护轨 Guardrail)
+拦截器（护轨 Guardrail）
 在请求AI前和收到AI响应后执行一些额外的操作
 下面是一个输入拦截器的例子
 

@@ -1,7 +1,13 @@
+---
+title: SpringSecurity-配置
+tags: [java, Spring框架]
+aliases: [SpringSecurity-配置]
+---
+
 # SpringSecurity-配置
 
 导入两个包：
-spring-security-config与spring-security-web,在org.springframework.security
+spring-security-config与spring-security-web，在org.springframework.security
 接着配置初始化器
 public class SecurityInitializer extends AbstractSecurityWebApplicationInitializer {
 // 不重写任何内容
@@ -19,6 +25,6 @@ public class SecurityConfiguration {
 ```python
 @Override
 protected Class<?>[] getRootConfigClasses() {
-return new Class[]{WebConfiguration.class, SecurityConfiguration.class}; // 基本的Spring配置类，一般用于业务配置
+return new Class[]{WebConfiguration.class, SecurityConfiguration.class}; // 基本的Spring配置类,一般用于业务配置
 ```
 }

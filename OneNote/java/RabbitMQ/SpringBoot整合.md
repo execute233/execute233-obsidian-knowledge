@@ -1,3 +1,9 @@
+---
+title: SpringBoot整合
+tags: [java, RabbitMQ]
+aliases: [SpringBoot整合]
+---
+
 # SpringBoot整合
 
 导入相关依赖
@@ -31,7 +37,7 @@ public class RabbitMQConfig {
 public Exchange bootExchange() {
 ```
 // 这个Builder有各种类型的路由可以构建
-return ExchangeBuilder._topicExchange_("exchange").autoDelete().durable(false).build();
+return ExchangeBuilder._topicExchange_（"exchange"）.autoDelete（）.durable（false）.build（）；
 }
 // 队列配置
 ```python

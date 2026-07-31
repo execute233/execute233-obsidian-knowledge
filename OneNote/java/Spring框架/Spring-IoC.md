@@ -1,3 +1,9 @@
+---
+title: Spring-IoC
+tags: [java, Spring框架]
+aliases: [Spring-IoC]
+---
+
 # Spring-IoC
 
 ## IoC（Inversion of Control，控制反转）
@@ -31,15 +37,15 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 class - 必填，全限定类名
 id - 唯一标识符
 name - bean的名称
-scope - bean的作用域,singleton(单例，默认)，prototype
+scope - bean的作用域，singleton（单例，默认），prototype
 lazy-init - 是否懒加载
 init-method - bean初始化后调用的方法名
 destory-method - bean销毁前调用的方法名
 depends-on - 指定当前bean依赖其他bean，控制加载顺序
 parent - 指定继承的bean，但是继承里面的字段
 ```csharp
-abstract - 指示这是个抽象的bean，只能被继承使用
-<bean>内部可以嵌入<property>标签，有以下属性
+abstract - 指示这是个抽象的bean,只能被继承使用
+<bean>内部可以嵌入<property>标签,有以下属性
 ```
 name - 字段名
 value - 相应的值
@@ -60,7 +66,7 @@ no
 取消autowire-candidate="false"
 主要primary="true"
 只有单例模式的bean才能被管理生命周期
-参考上面的init-method, destory-method
+参考上面的init-method， destory-method
 继承参考上面的parent
 如
 <bean class="com.test.bean.StudentFactory" factory-method="getStudent"/>
@@ -74,7 +80,7 @@ no
 xml太复杂了，但我们可以使用@Configuration来修饰类
 @Configuration修饰类，该类可传给AnnotationConfigApplicationContext使用来获取IoC容器
 同时该类可以使用@Import来导入其他配置
-然后，我们可以在被修饰的类里面的成员方法打上@Bean("bean名称")注解，该成员方法返回的对象会自动交由IoC容器管理,同时@Bean也有属性可配置
+然后，我们可以在被修饰的类里面的成员方法打上@Bean（"bean名称"）注解，该成员方法返回的对象会自动交由IoC容器管理，同时@Bean也有属性可配置
 配置该成员方法，可像xml一样用注解配置，如
 ```python
 @Lazy
@@ -88,7 +94,7 @@ public Student getStudent(Teacher teacher) {
 return new Student(teacher);
 ```
 }
-对于类的字段，使用@Autowired(优先byType)/@Resource(优先byName)注解可以自动装配,如果有多个可用的bean来装配，使用@Qualifier来指定要的Bean的名字
+对于类的字段，使用@Autowired（优先byType）/@Resource（优先byName）注解可以自动装配，如果有多个可用的bean来装配，使用@Qualifier来指定要的Bean的名字
 同时可以给Bean类的方法打上注解
 ```python
 @PostConstruct - 构造完毕后
@@ -96,5 +102,5 @@ return new Student(teacher);
 ```
 
 但这样还是太麻烦了，我们可以告诉Spring扫描哪些包下的类是需要自动装配的
-使用@Component("名字")修饰类来表示这个类是个Bean对象，并自动交由IoC管理
+使用@Component（"名字"）修饰类来表示这个类是个Bean对象，并自动交由IoC管理
 可以在@Configuration继续添加@ConponentScan/@ConponentScans来标记扫描的包

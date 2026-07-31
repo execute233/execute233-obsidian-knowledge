@@ -1,3 +1,9 @@
+---
+title: ControllerAdvice之@InitBinder
+tags: [java, 源码]
+aliases: [ControllerAdvice之@InitBinder]
+---
+
 # ControllerAdvice之@InitBinder
 
 ControllerAdvice功能
@@ -8,4 +14,4 @@ ControllerAdvice功能
 @InitBinder 补充自定义类型转换器
 ```
 加在@ControllerAdvice是全局的，加在@Controller是局部的
-(WebDataBinder)
+（WebDataBinder）

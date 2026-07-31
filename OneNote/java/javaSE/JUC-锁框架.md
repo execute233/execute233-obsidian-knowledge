@@ -1,48 +1,54 @@
+---
+title: JUC-锁框架
+tags: [java, javaSE]
+aliases: [JUC-锁框架]
+---
+
 # JUC-锁框架
 
 在JDK 5之后，并发包中新增了Lock接口（以及相关实现类）用来实现锁功能，Lock接口提供了与synchronized关键字类似的同步功能，但需要在使用时手动获取锁和释放锁。
 Locker与Condition接口
 public interface Lock {
 // 获取锁，拿不到锁会阻塞，等待其他线程释放锁，获取到锁后返回
-void lock();
+void lock（）；
 // 同上，但是等待过程中会响应中断
-void lockInterruptibly() throws InterruptedException;
+void lockInterruptibly（） throws InterruptedException；
 // 尝试获取锁，但是不会阻塞，如果能获取到会返回true，不能返回false
-boolean tryLock();
+boolean tryLock（）；
 // 尝试获取锁，但是可以限定超时时间，如果超出时间还没拿到锁返回false，否则返回true，可以响应中断
-boolean tryLock(long time, TimeUnit unit) throws InterruptedException;
+boolean tryLock（long time， TimeUnit unit） throws InterruptedException；
 // 释放锁
 ```csharp
 void unlock();
-// 暂时可以理解为替代传统的Object的wait()、notify()等操作的工具
+// 暂时可以理解为替代传统的Object的wait(),notify()等操作的工具
 ```
-Condition newCondition();
+Condition newCondition（）；
 }
-那么，我们如何像传统的加锁那样，调用对象的wait()和notify()方法呢，并发包提供了Condition接口：
+那么，我们如何像传统的加锁那样，调用对象的wait（）和notify（）方法呢，并发包提供了Condition接口：
 public interface Condition {
 // 与调用锁对象的wait方法一样，会进入到等待状态，但是这里需要调用Condition的signal或signalAll方法进行唤醒
 // （感觉就是和普通对象的wait和notify是对应的）同时，等待状态下是可以响应中断的
-void await() throws InterruptedException;
+void await（） throws InterruptedException；
 // 同上，但不响应中断
-void awaitUninterruptibly();
+void awaitUninterruptibly（）；
 // 等待指定时间，如果在指定时间（纳秒）内被唤醒，会返回剩余时间，如果超时，会返回0或负数，可以响应中断
-long awaitNanos(long nanosTimeout) throws InterruptedException;
+long awaitNanos（long nanosTimeout） throws InterruptedException；
 // 等待指定时间（可以指定时间单位），如果等待时间内被唤醒，返回true，否则返回false，可以响应中断
-boolean await(long time, TimeUnit unit) throws InterruptedException;
+boolean await（long time， TimeUnit unit） throws InterruptedException；
 // 可以指定一个明确的时间点，如果在时间点之前被唤醒，返回true，否则返回false，可以响应中断
-boolean awaitUntil(Date deadline) throws InterruptedException;
+boolean awaitUntil（Date deadline） throws InterruptedException；
 // 唤醒一个处于等待状态的线程，注意还得获得锁才能接着运行
-void signal();
+void signal（）；
 // 同上，但是是唤醒所有等待线程
-void signalAll();
+void signalAll（）；
 }
 **可重入锁 ReentrantLock**
 简单来说，就是同一个线程，可以反复进行加锁操作：
 假设连续加了n次该锁，其他线程只有当前前程连续释放了n次该锁才能拿到锁
-有几个特有的方法(同样的，Condition也有类似的方法)：
-getHoldCount() - 查看当前线程的加锁次数
-getQueueLength() - 获取等待中线程数量的预估值
-hasQueueThread(Thread) - 指定线程是否在等待队列中
+有几个特有的方法（同样的，Condition也有类似的方法）：
+getHoldCount（） - 查看当前线程的加锁次数
+getQueueLength（） - 获取等待中线程数量的预估值
+hasQueueThread（Thread） - 指定线程是否在等待队列中
 **公平锁与非公平锁（如何去拿到锁）：**
 
 - 公平锁：多个线程按照申请锁的顺序去获得锁，线程会直接进入队列去排队，永远都是队列的第一位才能得到锁。
@@ -62,7 +68,7 @@ Lock readLock(); // 获取读锁
 Lock writeLock(); // 获取写锁
 ```
 }
-有一个实现类ReentrantReadWriteLock(非Lock接口),需要主动获取读锁还是写锁
+有一个实现类ReentrantReadWriteLock（非Lock接口），需要主动获取读锁还是写锁
 多个线程可以同时对读锁加锁，但有读锁状态下不能加写锁，反之亦然
 并且，ReentrantReadWriteLock不仅具有读写锁的功能，还保留了可重入锁和公平/非公平机制，比如同一个线程可以重复为写锁加锁，并且必须全部解锁才真正释放锁：
 锁降级与锁升级

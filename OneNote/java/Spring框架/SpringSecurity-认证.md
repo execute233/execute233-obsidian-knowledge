@@ -1,3 +1,9 @@
+---
+title: SpringSecurity-认证
+tags: [java, Spring框架]
+aliases: [SpringSecurity-认证]
+---
+
 # SpringSecurity-认证
 
 **基于内存验证**
@@ -6,25 +12,25 @@
 @Bean
 public UserDetailsService userDetailsService() {
 ```
-UserDetails user = User._withDefaultPasswordEncoder_()
+UserDetails user = User._withDefaultPasswordEncoder_（）
 ```text
 .username("user")
 .password("password")
 .roles("USER")
 ```
-.build();
-UserDetails admin = User._withDefaultPasswordEncoder_()
+.build（）；
+UserDetails admin = User._withDefaultPasswordEncoder_（）
 ```text
 .username("admin")
 .password("password")
 .roles("ADMIN", "USER")
 ```
-.build();
-return new InMemoryUserDetailsManager(user, admin);
+.build（）；
+return new InMemoryUserDetailsManager（user， admin）；
 }
-我们发现，withDefaultPasswordEncoder()这种方法已经被弃用
+我们发现，withDefaultPasswordEncoder（）这种方法已经被弃用
 （谁教你明文存密码的？）
-我们可以使用官方提供的BCrypt工具，将PasswordEncoder在Sercurity配置中注册为Bean即可,于是可把上面修改为
+我们可以使用官方提供的BCrypt工具，将PasswordEncoder在Sercurity配置中注册为Bean即可，于是可把上面修改为
 ```python
 @Bean
 public UserDetailsService userDetailsService(PasswordEncoder encoder) {
@@ -35,15 +41,15 @@ UserDetails user = User
 .password(encoder.encode("password"))
 .roles("USER")
 ```
-.build();
+.build（）；
 UserDetails admin = User
 ```text
 ._withUsername_("admin")
 .password(encoder.encode("password"))
 .roles("ADMIN", "USER")
 ```
-.build();
-return new InMemoryUserDetailsManager(user, admin);
+.build（）；
+return new InMemoryUserDetailsManager（user， admin）；
 }
 这个BCrypt工具生成的格式：
 
@@ -75,7 +81,7 @@ manager.createUser(User._withUsername_("user")
 return manager;
 ```
 }
-无论是InMemoryUserDetailsManager还是现在的JdbcUserDetaiIsManager,他们都是实现自UserDetaiIsManager接囗，这个接囗中有着一套完整的增删改查操作，方便我们直接对用户进行处理：
+无论是InMemoryUserDetailsManager还是现在的JdbcUserDetaiIsManager，他们都是实现自UserDetaiIsManager接囗，这个接囗中有着一套完整的增删改查操作，方便我们直接对用户进行处理：
 ```csharp
 public interface UserDetailsManager extends UserDetailsService {
 void createUser(UserDetails user);
@@ -83,16 +89,16 @@ void updateUser(UserDetails user);
 void deleteUser(String username);
 void changePassword(String oldPassword, String newPassword);
 ```
-boolean userExists(String username);
+boolean userExists（String username）；
 }
-通过使用UserDetailsManager对象，我们就能快速执行用户相关的管理操作，比如我们可以直接在网站上 添加一个快速重置密码的接囗，首先需要配置一下JdbcUserDetaiIsManager,为其添加一个AuthenticationManager用于原密码的校验：
+通过使用UserDetailsManager对象，我们就能快速执行用户相关的管理操作，比如我们可以直接在网站上 添加一个快速重置密码的接囗，首先需要配置一下JdbcUserDetaiIsManager，为其添加一个AuthenticationManager用于原密码的校验：
 ```csharp
 private AuthenticationManager authenticationManager(UserDetailsManager manager, PasswordEncoder encoder) {
 DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 ```
-provider.setUserDetailsService(manager);
-provider.setPasswordEncoder(encoder);
-return new ProviderManager(provider);
+provider.setUserDetailsService（manager）；
+provider.setPasswordEncoder（encoder）；
+return new ProviderManager（provider）；
 }
 ```python
 @Bean
@@ -112,7 +118,7 @@ return manager;
 public class AuthorizeService implements UserDetailsService {
 @Autowired
 ```
-UserMapper userMapper;
+UserMapper userMapper；
 ```python
 @Override
 public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -153,17 +159,17 @@ conf.passwordParameter("password");
 conf.logoutUrl("/doLogout"); // 退出登录地址
 conf.logoutSuccessUrl("/login"); // 退出登录成功后跳转页面
 ```
-conf.permitAll();
-})
-.csrf(AbstractHttpConfigurer::disable).build();
+conf.permitAll（）；
+}）
+.csrf（AbstractHttpConfigurer：：disable）.build（）；
 }
 **记住我功能**
 使用本地Cookie存储的方式实现了记住我功能，但是这种方式并不安全，我们可以使用SpringSecurity实现，它提供了携带Token的Cookie，默认保留14天，只需配置SercurityFilterChain的Bean即可
 ……
 ```text
 .rememberMe( conf -> {
-conf.alwaysRemember(false); // 不开启始终记住，需要配置为用户自行勾选
-conf.rememberMeParameter("remember-me"); // 记住我表单字段，默认就是这个，可以不配置
+conf.alwaysRemember(false); // 不开启始终记住,需要配置为用户自行勾选
+conf.rememberMeParameter("remember-me"); // 记住我表单字段,默认就是这个,可以不配置
 conf.rememberMeCookieName("token"); // 记住我cookie名称
 }).build();
 ```
@@ -174,8 +180,8 @@ public PersistentTokenRepository tokenRepository(DataSource source) {
 JdbcTokenRepositoryImpl repository = new JdbcTokenRepositoryImpl();
 ```
 // 启动时自动创建记住我的表，仅第一次需要，后续不需要
-repository.setCreateTableOnStartup(true);
-repository.setDataSource(source);
-return repository;
+repository.setCreateTableOnStartup（true）；
+repository.setDataSource（source）；
+return repository；
 }
-记得最后要在rememberMe()里设置tokenRepository并设置有效期
+记得最后要在rememberMe（）里设置tokenRepository并设置有效期

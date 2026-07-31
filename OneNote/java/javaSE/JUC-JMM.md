@@ -1,3 +1,9 @@
+---
+title: JUC-JMM
+tags: [java, javaSE]
+aliases: [JUC-JMM]
+---
+
 # JUC-JMM
 
 **Java 内存模型**
@@ -34,16 +40,16 @@ if(a == 0) {
 System.out.println("A");
 ```
 }else {
-System.out.println("B");
+System.out.println（"B"）；
 }
 }
 ```java
 }).start();
 new Thread(() -> {
 ```
-a = 1;
-b = 1;
-}).start();
+a = 1；
+b = 1；
+}）.start（）；
 }
 两种输出结果都有可能
 **volatile 关键字**
@@ -57,7 +63,7 @@ private static int a = 0;
 public static void main(String[] args) throws InterruptedException {
 new Thread(() -> {
 while (a == 0);
-System.out.println("线程结束！");
+System.out.println("线程结束!");
 }).start();
 ```
 
@@ -66,13 +72,13 @@ System.out.println("线程结束！");
         System.out.println("正在修改a的值...");
         a = 1;
     }
-实际上这就是我们之前说的，虽然我们主线程中修改了a的值，但是另一个线程并不知道a的值发生了改变，所以循环中依然是使用旧值在进行判断，因此，普通变量是不具有可见性的。
-我们可以加锁处理，也可以使用volatile关键字修饰变量，此关键字的第一个作用，就是保证变量的可见性。当写一个volatile变量时，JMM会把该线程本地内存中的变量强制刷新到主内存中去，并且这个写会操作会导致其他线程中的volatile变量缓存无效，这样，另一个线程修改了这个变时，当前线程会立即得知，并将工作内存中的变量更新为最新的版本。
-总结一下volatile关键字的三个特性：
+实际上这就是我们之前说的,虽然我们主线程中修改了a的值,但是另一个线程并不知道a的值发生了改变,所以循环中依然是使用旧值在进行判断,因此,普通变量是不具有可见性的.
+我们可以加锁处理,也可以使用volatile关键字修饰变量,此关键字的第一个作用,就是保证变量的可见性.当写一个volatile变量时,JMM会把该线程本地内存中的变量强制刷新到主内存中去,并且这个写会操作会导致其他线程中的volatile变量缓存无效,这样,另一个线程修改了这个变时,当前线程会立即得知,并将工作内存中的变量更新为最新的版本.
+总结一下volatile关键字的三个特性:
 ```
 
 - 保证可见性
-- 不保证原子性!!!
+- 不保证原子性！！！
 - 防止指令重排
 
 **happens-before 原则**
@@ -82,7 +88,7 @@ JMM提出了happens-before（先行发生）原则，定义一些禁止编译优
 - 监视器锁规则： 对一个锁的解锁操作，happens-before后续对这个锁的加锁操作。
 - volatile变量规则： 对一个volatile变量的写操作happens-before后续对这个变量的读操作。
 - 线程启动规则： 主线程A启动线程B，线程B中可以看到主线程启动B之前的操作。
-- 线程加入规则： 如果线程A执行操作join()线程B并成功返回，那么线程B中的任意操作happens-before线程Ajoin()操作成功返回。
+- 线程加入规则： 如果线程A执行操作join（）线程B并成功返回，那么线程B中的任意操作happens-before线程Ajoin（）操作成功返回。
 - 传递性规则： 如果A happens-before B，B happens-before C，那么A happens-before C。
 
 同一个线程内，代码的执行结果是有序的。其实就是，可能会发生指令重排，但是保证代码的执行结果一定是和按照顺序执行得到的一致，程序前面对某一个变量的修改一定对后续操作可见的，不可能会出现前面才把a修改为1，接着读a居然是修改前的结果，这也是程序运行最基本的要求。

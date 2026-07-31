@@ -1,3 +1,9 @@
+---
+title: Work Queues
+tags: [java, RabbitMQ]
+aliases: [Work Queues]
+---
+
 # Work Queues
 
 **轮训分发消息**
@@ -11,11 +17,11 @@
 没有对传递的消息数量进行限制，可能会导致极高的内存占用，只适合消费者可以搞笑并以某种速率处理的情况下使用
 **手动应答方法**
 // 肯定确认，第一个是消息tag，第二个是是否确认多个（即确认当前channel中所有的消息）
-channel.basicAck(message.getEnvelope().getDeliveryTag(), false);
-// 否定确认，第一个是消息tag，第二个是是否确认多个（即否定当前channel中所有的消息）,第三个是是否重新入队
-channel.basicNack(message.getEnvelope().getDeliveryTag(), false, true);
+channel.basicAck（message.getEnvelope（）.getDeliveryTag（）， false）；
+// 否定确认，第一个是消息tag，第二个是是否确认多个（即否定当前channel中所有的消息），第三个是是否重新入队
+channel.basicNack（message.getEnvelope（）.getDeliveryTag（）， false， true）；
 // 否定确认，第一个是消息tag，第二个是是否重新入队
-channel.basicReject(message.getEnvelope().getDeliveryTag(), false);
+channel.basicReject（message.getEnvelope（）.getDeliveryTag（）， false）；
 **消息自动重新入队**
 如果消费者丢失连接并未发送ACK，则消息会对其重新排队
 
@@ -26,8 +32,8 @@ channel.basicReject(message.getEnvelope().getDeliveryTag(), false);
 创建队列时设置持久化即可，非持久化的队列变为持久化队列必须先把原队列删除再重新创建
 消息持久化（发送的消息不回消失）
 需要在生产者发布消息时配置
-channel.basicPublish("", _QUEUE_NAME_, MessageProperties._PERSISTENT_TEXT_PLAIN_, _CONTENT_.getBytes());
+channel.basicPublish（""， _QUEUE_NAME_， MessageProperties._PERSISTENT_TEXT_PLAIN_， _CONTENT_.getBytes（））；
 不公平分发与预取值
 需要在consumer设置
 // 设置不公平分发，默认0就是轮训，差不多是优先级
-channel.basicQos(1);
+channel.basicQos（1）；

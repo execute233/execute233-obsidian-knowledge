@@ -1,3 +1,9 @@
+---
+title: SpringBoot-前后端分离
+tags: [java, Spring框架]
+aliases: [SpringBoot-前后端分离]
+---
+
 # SpringBoot-前后端分离
 
 **基于 Session 的分离（有状态）**
@@ -13,19 +19,19 @@ conf.anyRequest().authenticated();
 }).formLogin(conf -> {
 conf.loginProcessingUrl("/api/auth/login");
 ```
-conf.successHandler(this::onAuthenticationSuccess);
-conf.failureHandler(this::onAuthenticationFailure);
-conf.permitAll();
-}).csrf(AbstractHttpConfigurer::disable)
-.build();
+conf.successHandler（this：：onAuthenticationSuccess）；
+conf.failureHandler（this：：onAuthenticationFailure）；
+conf.permitAll（）；
+}）.csrf（AbstractHttpConfigurer：：disable）
+.build（）；
 }
-// 自定义成功与失败处理器, 其中RestBean是自定义的响应实体类，用于快速封装响应数据
+// 自定义成功与失败处理器， 其中RestBean是自定义的响应实体类，用于快速封装响应数据
 ```python
 @SneakyThrows
 void onAuthenticationSuccess(HttpServletRequest request,
 ```
-HttpServletResponse response,
-Authentication authentication) {
+HttpServletResponse response，
+Authentication authentication） {
 ```text
 response.setContentType("application/json");
 response.setCharacterEncoding("UTF-8");
@@ -36,15 +42,15 @@ response.getWriter().write(RestBean._success_(authentication.getName()).asJsonSt
 @SneakyThrows
 void onAuthenticationFailure(HttpServletRequest request,
 ```
-HttpServletResponse response,
-AuthenticationException exception) {
+HttpServletResponse response，
+AuthenticationException exception） {
 ```text
 response.setContentType("application/json");
 response.setCharacterEncoding("UTF-8");
 response.getWriter().write(RestBean._failure_(exception.getMessage()).asJsonString());
 ```
 }
-然后我们可以在这个地址里使用PST表单请求(username:user,password:生成)来测试登录
+然后我们可以在这个地址里使用PST表单请求（username：user，password：生成）来测试登录
 由于前后端分离可能是不同的站点，需要允许跨域请求cors，在配置中SercurityFilterChain的返回Bean配置：
 ```text
 .cors( conf -> {
@@ -52,7 +58,7 @@ CorsConfiguration cors = new CorsConfiguration();
 ```
 // 添加前端站点地址
 ```text
-cors.addAllowedOrigin("http://localhost:8080"); // 其实可以*，但为了安全
+cors.addAllowedOrigin("http://localhost:8080"); // 其实可以*,但为了安全
 cors.setAllowCredentials(true); // 允许带cookie
 cors.addAllowedHeader("*");
 cors.addAllowedMethod("*");
@@ -63,23 +69,23 @@ cors.addExposedHeader("*");
 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 source.registerCorsConfiguration("/**", cors); // 对所有地址生效
 ```
-conf.configurationSource(source);
-})
+conf.configurationSource（source）；
+}）
 为了在不登录情况下访问页面都被跳转登录，我们可以这样处理：
-exceptionHandling( conf -> {
+exceptionHandling（ conf -> {
 // 授权相关异常处理器
-conf.accessDeniedHandler(this::handleProcess);
+conf.accessDeniedHandler（this：：handleProcess）；
 // 验证相关异常处理器
-conf.authenticationEntryPoint(this::handleProcess);
-})
+conf.authenticationEntryPoint（this：：handleProcess）；
+}）
 因为上面几个方法参数极其相似，我们可以写到同一个方法：
 // 授权异常，验证异常，成功与失败处理器
 ```python
 @SneakyThrows
 void handleProcess(HttpServletRequest request,
 ```
-HttpServletResponse response,
-Object exceptionOrAuthentication){
+HttpServletResponse response，
+Object exceptionOrAuthentication）{
 ```python
 response.setContentType("application/json");
 response.setCharacterEncoding("UTF-8");
@@ -108,7 +114,7 @@ writer.write(RestBean._failure_(401, e.getMessage()).asJsonString());
 
 ![[_assets/SpringBoot-前后端分离/SpringBoot-前后端分离__09-24-16-0.png]]
 
-一个JWT令牌由3部分组成：标头(Header)、有效载荷(Payload)和签名(Signature)。在传输的时候，会将JWT的3部分分别进行Base64编码后用．进行连接形成最终需要传输的字符串。
+一个JWT令牌由3部分组成：标头（Header）、有效载荷（Payload）和签名（Signature）。在传输的时候，会将JWT的3部分分别进行Base64编码后用．进行连接形成最终需要传输的字符串。
 
 - 标头：包含一些元数据信息，比如JWT签名所使用的加密算法，还有类型，这里统一都是JWT。
 - 有效载荷：包括用户名称、令牌发布时间、过期时间、JWTID等，当然我们也可以自定义添加字段，我们的用户信息一般都在这里存放。
@@ -118,12 +124,12 @@ writer.write(RestBean._failure_(401, e.getMessage()).asJsonString());
 
 ![[_assets/SpringBoot-前后端分离/SpringBoot-前后端分离__09-24-20-1.png]]
 
-在java使用JWT，可以使用第三方库 java-jwt(com.auth0, 4.3.0),用法如：
+在java使用JWT，可以使用第三方库 java-jwt（com.auth0， 4.3.0），用法如：
 ```text
 String jwtKey = "execute233.com:spring-learn:jwt-key"; // jwt-key
 Algorithm algorithm = Algorithm._HMAC256_(jwtKey); // 加密算法对象
 ```
-String sign = JWT._create_()
+String sign = JWT._create_（）
 ```text
 .withClaim("id", 1)
 .withClaim("name", "execute233")
@@ -139,7 +145,7 @@ SpringSecurity中并没有为我们提供预设的JWT校验模块（只有OAuth2
 Basic和Bearer是两种不同的身份验证方式。
 
 - Basic是一种基本的身份验证方式，它将用户名和密码进行base64编码后，放在Authorization请求头中，用于向服务器验证用户身份。这种方式不够安全，因为它将密码以明文的形式传输，容易受到中间人攻击。
-- Bearer是一种更安全的身份验证方式，它基于令牌(Token)来验证用户身份。Bearer令牌是由身份验证服务器颁发给客户端的，客户端在每个请求中将令牌放在Authorization请求头的Bearer字段中。服务器会验证令牌的有效性和权限，以确定用户的身份。Bearer令牌通常使用JSONWebToken(JWT)的形式进行传递和验证。
+- Bearer是一种更安全的身份验证方式，它基于令牌（Token）来验证用户身份。Bearer令牌是由身份验证服务器颁发给客户端的，客户端在每个请求中将令牌放在Authorization请求头的Bearer字段中。服务器会验证令牌的有效性和权限，以确定用户的身份。Bearer令牌通常使用JSONWebToken（JWT）的形式进行传递和验证。
 
 首先完成JWT的相关工具类：
 ```python
@@ -177,7 +183,7 @@ return User._withUsername_(claims.get("name").asString())
 .password("") // 不需要密码
 .authorities(claims.get("authorities").asArray(String.class))
 ```
-.build();
+.build（）；
 }
 ```python
 } catch (JWTVerificationException e) {
@@ -213,29 +219,29 @@ new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthor
 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 ```
 // 把设置好的Authentication塞入SecurityContext表示完成认证
-SecurityContextHolder._getContext_().setAuthentication(authentication);
+SecurityContextHolder._getContext_（）.setAuthentication（authentication）；
 }
 }
 // 最后放行，下一个过滤器
 // 没有给到SecurityContextHolder设置Authentication，后面直接拦截掉了，况且还有用户密码登录请求
-filterChain.doFilter(request,response);
+filterChain.doFilter（request，response）；
 }
 }
 然后配置：
 ```csharp
 http.sessionManagement( conf -> {
 conf.sessionCreationPolicy(SessionCreationPolicy._STATELESS_); // Session管理策略设置为无状态
-}).addFilterBefore( // 添加自己写的JWT过滤器到Security链中，要放在UserPasswordAuthenticationFilter之前
+}).addFilterBefore( // 添加自己写的JWT过滤器到Security链中,要放在UserPasswordAuthenticationFilter之前
 new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class
 ).build();
 ```
 记得登录处理时返回token，同时跨域也可以不带Cookie：
-writer.write(RestBean._success_(JwtUtils._createJwt_((User) authentication.getPrincipal())).asJsonString());
+writer.write（RestBean._success_（JwtUtils._createJwt_（（User） authentication.getPrincipal（）））.asJsonString（））；
 **JWT 退出登录处理**
 一种黑名单机制，另一种白名单机制，目前我们以黑名单机制为例：
 我们可以在创建JWT的时候额外创建一个UUID用于记录黑名单，作为JWT的ID属性jti：
-.withJWTId(UUID._randomUUID_().toString())
-然后创建个集合来放黑名单的UUID，一般是放在redis(方便过期)的，这里省略
+.withJWTId（UUID._randomUUID_（）.toString（））
+然后创建个集合来放黑名单的UUID，一般是放在redis（方便过期）的，这里省略
 同时在验证token的时候也要验证它是否过期
 自动续签JWT令牌
 前端发现时间不足时自动向后端申请一个新的token即可

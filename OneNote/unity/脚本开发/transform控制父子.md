@@ -1,10 +1,16 @@
+---
+title: transform控制父子
+tags: [unity, 脚本开发]
+aliases: [transform控制父子]
+---
+
 # transform控制父子
 
 ```cs
 
-void **Start**()
+void Start()
 {
-// 当前物体绝对/相对位置，绝对/相对旋转，缩放
+// 当前物体绝对/相对位置,绝对/相对旋转,缩放
 Debug._Log_(transform.position);
 Debug._Log_(transform.localPosition);
 Debug._Log_(transform.rotation); // 四元数
@@ -29,15 +35,15 @@ bool result = child.IsChildOf(transform); // true
 // 设置父物体
 child.SetParent(transform);
 }
-void **Update**()
+void Update()
 {
 // 时刻看向某个点
 transform.LookAt(Vector3.zero);
 // 旋转方法
 transform.Rotate(Vector3.up, 1); // 朝up方向顺时针旋转1度
-// 绕某个给提旋转(类似于公转)，这里绕原点up轴旋转10度
+// 绕某个给提旋转(类似于公转),这里绕原点up轴旋转10度
 transform.RotateAround(Vector3.zero, Vector3.up, 10);
-// 移动，每帧向指定向量移动距离
+// 移动,每帧向指定向量移动距离
 transform.Translate(Vector3.forward * 0.1f);
 }
 ```

@@ -1,6 +1,12 @@
+---
+title: 管理conda
+tags: [python, conda]
+aliases: [管理conda]
+---
+
 # 管理conda
 
-Conda是Anaconda中一个强大的包和环境管理工具，可以在Windows的Anaconda Prompt命令行使用，也可以在macOS或者Linux系统的终端窗口(terminal window)的命令行使用。
+Conda是Anaconda中一个强大的包和环境管理工具，可以在Windows的Anaconda Prompt命令行使用，也可以在macOS或者Linux系统的终端窗口（terminal window）的命令行使用。
 
 ## 查看conda版本
 ## 查看conda的环境配置

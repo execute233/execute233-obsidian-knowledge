@@ -1,3 +1,9 @@
+---
+title: MP-条件构造器
+tags: [java, Mybatis]
+aliases: [MP-条件构造器]
+---
+
 # MP-条件构造器
 
 对于复杂查询，可以构造QueryWrapper用于复杂查询：
@@ -9,7 +15,7 @@ wrapper.select("id", "username") // 可自定义哪些字段
 mapper.selectList(wrapper); // Mapper同样支持使用QueryWrapper查询
 ```
 等价于下面的SQL语句
-select id, username from user where id >= 2 order by id desc
+select id， username from user where id >= 2 order by id desc
 有很多方法可以使用，如：
 
 有时候会遇到批处理的情况，比如快速删除多个指定用户：

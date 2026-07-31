@@ -1,3 +1,9 @@
+---
+title: Spring-高级特性
+tags: [java, Spring框架]
+aliases: [Spring-高级特性]
+---
+
 # Spring-高级特性
 
 ## Bean Aware
@@ -16,7 +22,7 @@ ApplicationEnventPublisherAware - 获得ApplicationEnventPublisher用于发布�
 
 异步方法调用
 首先要开启异步支持，在@Configuration修饰类在修饰@EnableAsync
-然后在Bean类的成员方法(返回void或Future)打上@Async，之后得到该Bean对象调用相应的方法就可以异步执行了
+然后在Bean类的成员方法（返回void或Future）打上@Async，之后得到该Bean对象调用相应的方法就可以异步执行了
 定时任务（会让程序一直运行）
 首先要开启定时任务支持，在@Configuration修饰类在修饰@EnableScheduling
 然后在Bean类的成员方法打上@Scheduled，无需主动调用就可以定时运行这个方法了
@@ -28,15 +34,15 @@ cron表达式由6或7个字段组成
 秒 分 时 日 月 周 [年]
 有以下字段
 * - 任意值
-, - 多个值
+， - 多个值
 - 指定范围
 / - 指定步长
-? - 不指定值（只在日期和星期有效）
+？ - 不指定值（只在日期和星期有效）
 L - 最后一个，通常用于月份和星期字段
 W - 最近的工作日，仅在日期字段有效
 # - 每个月的第几个星期几，比如2#3是每个月第三个星期二
 例子：
 0 0 6 * * ？ 每天早上6点
 0 0 */1 * * 每个小时整点
-0 0 0 1 * ? 每月一号午夜进行
+0 0 0 1 * ？ 每月一号午夜进行
 要编写监听器，我们只需要让Bean继承ApplicationListener<T>就可以了，并且将类型指定为对应的Event事件，这样，当发生某个时就会通知我们，比如ContextRefreshedEvent，这个事件会在Spring容器初始化完成会触发一次

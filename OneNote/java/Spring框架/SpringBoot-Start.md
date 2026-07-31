@@ -1,3 +1,9 @@
+---
+title: SpringBoot-Start
+tags: [java, Spring框架]
+aliases: [SpringBoot-Start]
+---
+
 # SpringBoot-Start
 
 **常用模块快速整合**
@@ -18,12 +24,12 @@ web：内置Tomcat的SpringMVC模块
 Controller返回的对象可以直接变为JSON文本返回（需要Resful风格）
 可以添加下面这些依赖：
 spring-boot-starter-security
-mybatis-spring-boot-start (注意还是得要数据库相关依赖,配置数据源)
+mybatis-spring-boot-start （注意还是得要数据库相关依赖，配置数据源）
 **自定义运行器**
 只需要实现ApplicationRunner并注册为Bean即可，在SpringBoot启动完后自动调用其中的run
 也可以使用CommandLineRunner，支持@Oreder或实现Ordered接口设置优先级
 配置文件
-在resource文件夹中的application.properties(或者application.yml)
+在resource文件夹中的application.properties（或者application.yml）
 打包运行
 
 - 导出jar包：

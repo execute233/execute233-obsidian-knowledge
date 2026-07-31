@@ -1,3 +1,9 @@
+---
+title: AspectJ
+tags: [java, 小框架]
+aliases: [AspectJ]
+---
+
 # AspectJ
 
 实现了AOP代理，通过在编译时修改源码来实现

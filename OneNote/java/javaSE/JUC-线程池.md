@@ -1,10 +1,16 @@
+---
+title: JUC-线程池
+tags: [java, javaSE]
+aliases: [JUC-线程池]
+---
+
 # JUC-线程池
 
 **线程池的使用**
 可以直接创建线程池对象直接使用：
-public ThreadPoolExecutor( … ) // 多种构造方法可使用
+public ThreadPoolExecutor（ … ） // 多种构造方法可使用
 
-- corePoolSize - **核心线程池大小**，我们每向线程池提交一个多线程任务时，都会创建一个新的核心线程，无论是否存在其他空闲线程，直到到达核心线程池大小为止，之后会尝试复用线程资源。当然也可以在一开始就全部初始化好，调用 prestartAllCoreThreads()即可
+- corePoolSize - **核心线程池大小**，我们每向线程池提交一个多线程任务时，都会创建一个新的核心线程，无论是否存在其他空闲线程，直到到达核心线程池大小为止，之后会尝试复用线程资源。当然也可以在一开始就全部初始化好，调用 prestartAllCoreThreads（）即可
 - maximumPoolSize - **最大线程池大小**，当目前线程池中所有的线程都处于运行状态，并且等待队列已满，那么就会直接尝试继续创建新的非核心线程运行，但是不能超过最大线程池大小
 - keepAliveTime - **线程最大空闲时间**，当一个非核心线程空闲超过一定时间，会自动销毁
 - unit - 线程最大空闲时间的**时间单位**
@@ -22,7 +28,7 @@ public ThreadPoolExecutor( … ) // 多种构造方法可使用
 线程池当中的方法抛出异常后，相应的线程会被直接销毁
 默认的拒绝策略有以下几个：
 
-- AbortPolicy(默认)：像上面一样，直接抛异常
+- AbortPolicy（默认）：像上面一样，直接抛异常
 - CallerRunsPolicy：直接让提交任务的线程运行这个任务，比如在主线程向线程池提交了任务，那么就直接由主线程执行
 - DiscardOldestPolicy：丢弃队列中最近的一个任务，替换为当前任务
 - DiscardPolicy：什么也不用做

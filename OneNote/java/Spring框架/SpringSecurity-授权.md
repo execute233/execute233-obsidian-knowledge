@@ -1,3 +1,9 @@
+---
+title: SpringSecurity-授权
+tags: [java, Spring框架]
+aliases: [SpringSecurity-授权]
+---
+
 # SpringSecurity-授权
 
 基于角色授权
@@ -15,7 +21,7 @@ auth.anyRequest().authenticated(); // 依然所有请求要验证
 ```python
 @PreAuthorize(写SpEL表达式)-方法执行前,详细可在SecurityExpressionRoot查看
 @PostAuthorize-这个是方法执行之后
-@Secured-不支持SpEL，并需要ROLE_前缀
+@Secured-不支持SpEL,并需要ROLE_前缀
 @PreFilter与@PostFilter-对于集合类型的参数或返回值过滤
 ```
 基于权限授权

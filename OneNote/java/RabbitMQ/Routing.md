@@ -1,3 +1,9 @@
+---
+title: Routing
+tags: [java, RabbitMQ]
+aliases: [Routing]
+---
+
 # Routing
 
 ![[_assets/Routing/Routing__09-21-57-0.png]]
@@ -5,7 +11,7 @@
 类型DIRECT
 生产者示例：
 // 创建交换机，指定的交换机名称与类型
-channel.exchangeDeclare("exchange", BuiltinExchangeType._DIRECT_, false, true, null);
+channel.exchangeDeclare（"exchange"， BuiltinExchangeType._DIRECT_， false， true， null）；
 // 创建队列
 ```text
 channel.queueDeclare("1", false, false, true, null);
@@ -27,6 +33,6 @@ channel.queueBind("2", "exchange", "warn");
 for (int i = 0; i < 1000; i++) {
 channel.basicPublish("exchange", "info", null, Integer._toString_(i).getBytes());
 ```
-TimeUnit._SECONDS_.sleep(1);
+TimeUnit._SECONDS_.sleep（1）；
 }
 消费者只需要拿到队列1即可，上述代码中会让队列2不会有消息

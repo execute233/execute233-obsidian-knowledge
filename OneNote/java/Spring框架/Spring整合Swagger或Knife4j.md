@@ -1,3 +1,9 @@
+---
+title: Spring整合Swagger或Knife4j
+tags: [java, Spring框架]
+aliases: [Spring整合Swagger或Knife4j]
+---
+
 # Spring整合Swagger或Knife4j
 
 Swager常用注解

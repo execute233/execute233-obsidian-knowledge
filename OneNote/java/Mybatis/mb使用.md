@@ -1,3 +1,9 @@
+---
+title: mb使用
+tags: [java, Mybatis]
+aliases: [mb使用]
+---
+
 # mb使用
 
 ## 配置
@@ -28,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 </environments>
 </configuration>
 build(各种输入流) // 输入是xml文件
-build(各种输入流，String environment) // 指定环境
+build(各种输入流,String environment) // 指定环境
 ```
 SqlSession中有很多方法可以使用
 由于Mybatis并不知道具体需要执行的SQL语句，以及需要返回哪些数据作为结果，因此同样需要编写配置文件。

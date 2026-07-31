@@ -1,3 +1,9 @@
+---
+title: JUC-并发工具
+tags: [java, javaSE]
+aliases: [JUC-并发工具]
+---
+
 # JUC-并发工具
 
 **计数器锁** **CountDownLatch**
@@ -6,13 +12,13 @@
 - 有20个计算任务，我们需要先将这些任务的结果全部计算出来，每个任务的执行时间未知
 - 当所有任务结束之后，立即整合统计最终结果
 
-new CountDownLatch(20); // 创建一个初始值为20的计数器锁
+new CountDownLatch（20）； // 创建一个初始值为20的计数器锁
 … // 这里运行多个线程，任务完成后调用countDown方法，使计数器减1
 主线程即可调用其await方法，当计数器为0时恢复运行
 **循环屏障 CyclicBarrier**
 假如现在游戏房间内一共5人，但是游戏开始需要10人，所以我们必须等待剩下5人到来之后才能开始游戏，并且保证游戏开始时所有玩家都是同时进入，那么怎么实现这个功能呢？我们可以使用CyclicBarrier，翻译过来就是循环屏障，那么这个屏障正式为了解决这个问题而出现的。
 
-- new CyclicBarrier(10, () -> {…}); // 创建需要10人的循环屏障，指定人等够后执行的任务
+- new CyclicBarrier（10， （） -> {…}）； // 创建需要10人的循环屏障，指定人等够后执行的任务
 - … 创建多个线程，每个线程里都调用其await方法，会让当前线程等待 …
 - 当然，这是个循环屏障，冲破后是重新计数可以再次冲破
 
@@ -43,9 +49,9 @@ System.out.println(pool.submit(new SubTask(1, 1000)).get());
 
 
 ```xml
-  	//继承RecursiveTask，这样才可以作为一个任务，泛型就是计算结果类型
+  	//继承RecursiveTask,这样才可以作为一个任务,泛型就是计算结果类型
     private static class SubTask extends RecursiveTask\<Integer\> {
-        private final int start;   //比如我们要计算一个范围内所有数的和，那么就需要限定一下范围，这里用了两个int存放
+        private final int start;   //比如我们要计算一个范围内所有数的和,那么就需要限定一下范围,这里用了两个int存放
         private final int end;
 ```
 
@@ -59,7 +65,7 @@ System.out.println(pool.submit(new SubTask(1, 1000)).get());
 ```java
         @Override
         protected Integer compute() {
-            if(end - start \> 125) {    //每个任务最多计算125个数的和，如果大于继续拆分，小于就可以开始算了
+            if(end - start \> 125) {    //每个任务最多计算125个数的和,如果大于继续拆分,小于就可以开始算了
                 SubTask subTask1 = new SubTask(start, (end + start) / 2);
                 subTask1.fork();    //会继续划分子任务执行
                 SubTask subTask2 = new SubTask((end + start) / 2 + 1, end);

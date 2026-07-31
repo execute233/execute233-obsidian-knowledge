@@ -1,3 +1,9 @@
+---
+title: JPA介绍
+tags: [java, 小框架]
+aliases: [JPA介绍]
+---
+
 # JPA介绍
 
 ![[_assets/JPA介绍/JPA介绍__09-25-16-0.png]]

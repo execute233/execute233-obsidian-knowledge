@@ -1,3 +1,9 @@
+---
+title: 有用的SQL
+tags: [SQL, SQL语句]
+aliases: [有用的SQL]
+---
+
 # 有用的SQL
 
 1. 统计表中某列出现元素的数量

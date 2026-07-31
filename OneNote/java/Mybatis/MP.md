@@ -1,3 +1,9 @@
+---
+title: MP
+tags: [java, Mybatis]
+aliases: [MP]
+---
+
 # MP
 
 导入
@@ -10,11 +16,11 @@ mybatis-plus-spring-boot3/4-starter
 public class User {
 @TableId(type = IdType._AUTO_)
 ```
-int id;
-@TableField("username")
-String name;
-@TableField("password")
-String password;
+int id；
+@TableField（"username"）
+String name；
+@TableField（"password"）
+String password；
 }
 然后是mapper
 ```python
