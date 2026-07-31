@@ -4,18 +4,22 @@
 - 代码段 (fenced code + 行内 code) → 半角
 - 中文文本段 → 全角
 - wikilink / 链接 / 邮箱 / frontmatter → 跳过
+
+修正记录:
+  v1 (line-style position slicing) → 错位,wikilink/fence 嵌套会破
+  v2 (dict-based 占位符查找)     → 修复嵌套问题
 """
 import re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 
-# 代码段内: 全角 → 半角 映射 (在 fenced/inline code 中)
+# 代码段内: 全角 → 半角 映射
 CODE_HALF = {
     '，': ',', '：': ':', '；': ';',
     '（': '(', '）': ')',
     '？': '?', '！': '!',
-    '。': '.',   # 句号 → 句点 (代码)
+    '。': '.',
     '、': ',',
     '"': '"', '"': '"',
     ''': "'", ''': "'",
@@ -26,108 +30,10 @@ TEXT_FULL = {
     ',': '，', ':': '：', ';': '；',
     '(': '（', ')': '）',
     '?': '？', '!': '！',
-    # 句号 . 保留为半角(在中文中句号是 .,不是 。)— 实际上中文写作用 。
-    # 但要避免把 0.5 这种小数点也转了,所以不做 . →
 }
 
 
-def protect_regions(content: str) -> tuple[str, list[tuple[int, int, str]]]:
-    """把代码块、行内代码、wikilink、md link、URL 等保护起来,返回占位符。
-    返回 (protected_content, [(start, end, placeholder)])
-    """
-    placeholders = []
-
-    # fenced code block
-    def fence_repl(m):
-        body = m.group(0)
-        s = m.start()
-        ph = f"\x00FENCE_{len(placeholders)}\x00"
-        placeholders.append((s, s + len(body), body))
-        return ph
-    content = re.sub(r'```.*?\n```', fence_repl, content, flags=re.DOTALL)
-
-    # wikilink ![[...]]
-    def wikilink_repl(m):
-        body = m.group(0)
-        s = m.start()
-        ph = f"\x00WIKI_{len(placeholders)}\x00"
-        placeholders.append((s, s + len(body), body))
-        return ph
-    content = re.sub(r'!\[\[[^\]]*\]\]', wikilink_repl, content)
-
-    # markdown link [text](url)
-    def mdlink_repl(m):
-        body = m.group(0)
-        s = m.start()
-        ph = f"\x00MDLINK_{len(placeholders)}\x00"
-        placeholders.append((s, s + len(body), body))
-        return ph
-    content = re.sub(r'\[[^\]]*\]\([^)]*\)', mdlink_repl, content)
-
-    # plain wikilink [[...]] (no embed)
-    def wiki_repl(m):
-        body = m.group(0)
-        s = m.start()
-        ph = f"\x00WIKI2_{len(placeholders)}\x00"
-        placeholders.append((s, s + len(body), body))
-        return ph
-    content = re.sub(r'\[\[[^\]]*\]\]', wiki_repl, content)
-
-    # inline code `xxx`
-    def inline_repl(m):
-        body = m.group(0)
-        s = m.start()
-        ph = f"\x00INLINE_{len(placeholders)}\x00"
-        placeholders.append((s, s + len(body), body))
-        return ph
-    content = re.sub(r'`[^`\n]+`', inline_repl, content)
-
-    # URL
-    def url_repl(m):
-        body = m.group(0)
-        s = m.start()
-        ph = f"\x00URL_{len(placeholders)}\x00"
-        placeholders.append((s, s + len(body), body))
-        return ph
-    content = re.sub(r'https?://[^\s)\]]+', url_repl, content)
-
-    # email
-    def email_repl(m):
-        body = m.group(0)
-        s = m.start()
-        ph = f"\x00EMAIL_{len(placeholders)}\x00"
-        placeholders.append((s, s + len(body), body))
-        return ph
-    content = re.sub(r'[\w.+-]+@[\w-]+\.[\w.-]+', email_repl, content)
-
-    # frontmatter 块
-    def fm_repl(m):
-        body = m.group(0)
-        s = m.start()
-        ph = f"\x00FM_{len(placeholders)}\x00"
-        placeholders.append((s, s + len(body), body))
-        return ph
-    content = re.sub(r'^---\n.*?\n---\n', fm_repl, content, count=1, flags=re.DOTALL | re.MULTILINE)
-
-    return content, placeholders
-
-
-def transform_half_to_full(text: str) -> tuple[str, int]:
-    """文本段: 半角 → 全角 (中文语境)。计数."""
-    count = 0
-    out = []
-    for ch in text:
-        new_ch = TEXT_FULL.get(ch)
-        if new_ch is not None:
-            out.append(new_ch)
-            count += 1
-        else:
-            out.append(ch)
-    return ''.join(out), count
-
-
 def transform_code_half(text: str) -> tuple[str, int]:
-    """代码段: 全角 → 半角。计数。"""
     count = 0
     out = []
     for ch in text:
@@ -140,42 +46,100 @@ def transform_code_half(text: str) -> tuple[str, int]:
     return ''.join(out), count
 
 
-def is_code_placeholder(ph: str) -> bool:
-    return ph.startswith('\x00FENCE_') or ph.startswith('\x00INLINE_')
+def transform_half_to_full(text: str) -> tuple[str, int]:
+    count = 0
+    out = []
+    for ch in text:
+        new_ch = TEXT_FULL.get(ch)
+        if new_ch is not None:
+            out.append(new_ch)
+            count += 1
+        else:
+            out.append(ch)
+    return ''.join(out), count
+
+
+def protect_regions(content: str) -> tuple[str, dict[str, str]]:
+    """把所有"应保留原貌"的区域占位符化。返回 (protected, {占位符: 原内容})"""
+    placeholders: dict[str, str] = {}
+
+    def fence_repl(m):
+        key = f"\x00FENCE_{len(placeholders):04d}\x00"
+        placeholders[key] = m.group(0)
+        return key
+    protected = re.sub(r'```.*?\n```', fence_repl, content, flags=re.DOTALL)
+
+    def wikilink_repl(m):
+        key = f"\x00WIKI_{len(placeholders):04d}\x00"
+        placeholders[key] = m.group(0)
+        return key
+    protected = re.sub(r'!\[\[[^\]]*\]\]', wikilink_repl, protected)
+
+    def mdlink_repl(m):
+        key = f"\x00MDLINK_{len(placeholders):04d}\x00"
+        placeholders[key] = m.group(0)
+        return key
+    protected = re.sub(r'\[[^\]]*\]\([^)]*\)', mdlink_repl, protected)
+
+    def wiki_repl(m):
+        key = f"\x00WIKI2_{len(placeholders):04d}\x00"
+        placeholders[key] = m.group(0)
+        return key
+    protected = re.sub(r'\[\[[^\]]*\]\]', wiki_repl, protected)
+
+    def inline_repl(m):
+        key = f"\x00INLINE_{len(placeholders):04d}\x00"
+        placeholders[key] = m.group(0)
+        return key
+    protected = re.sub(r'`[^`\n]+`', inline_repl, protected)
+
+    def url_repl(m):
+        key = f"\x00URL_{len(placeholders):04d}\x00"
+        placeholders[key] = m.group(0)
+        return key
+    protected = re.sub(r'https?://[^\s)\]]+', url_repl, protected)
+
+    def email_repl(m):
+        key = f"\x00EMAIL_{len(placeholders):04d}\x00"
+        placeholders[key] = m.group(0)
+        return key
+    protected = re.sub(r'[\w.+-]+@[\w-]+\.[\w.-]+', email_repl, protected)
+
+    def fm_repl(m):
+        key = f"\x00FM_{len(placeholders):04d}\x00"
+        placeholders[key] = m.group(0)
+        return key
+    protected = re.sub(r'^---\n.*?\n---\n', fm_repl, protected, count=1, flags=re.DOTALL | re.MULTILINE)
+
+    return protected, placeholders
 
 
 def process_file(content: str) -> tuple[str, int, int]:
-    """处理一个文件,返回 (新内容, 全角化次数, 半角化次数)。"""
     protected, placeholders = protect_regions(content)
 
-    # 按占位符排序,从前往后处理
-    placeholders.sort(key=lambda x: x[0])
-
-    # 替换占位符为可变标记:文本段 → 不变,代码段 → 半角化
     full_count = 0
     half_count = 0
-    parts = []
-    last = 0
-    for start, end, body in placeholders:
-        parts.append(protected[last:start])
-        if is_code_placeholder(body):
-            # code: 全角 → 半角
+
+    # FENCE/INLINE 占位符里:做全→半
+    new_placeholders = {}
+    for key, body in placeholders.items():
+        if key.startswith('\x00FENCE_') or key.startswith('\x00INLINE_'):
             new_body, n = transform_code_half(body)
             half_count += n
-            parts.append(new_body)
+            new_placeholders[key] = new_body
         else:
-            parts.append(body)
-        last = end
-    parts.append(protected[last:])
+            new_placeholders[key] = body
 
-    new_protected = ''.join(parts)
-
-    # 现在 new_protected 是"代码已半角化、文本段还在"
-    # 对全部剩余文本做 半角 → 全角
-    new_protected, n_full = transform_half_to_full(new_protected)
+    # 全 protected 走 半→全 (占位符都是 ASCII,不会被错改)
+    new_protected, n_full = transform_half_to_full(protected)
     full_count += n_full
 
-    return new_protected, full_count, half_count
+    # 还原占位符
+    final = new_protected
+    for key, body in new_placeholders.items():
+        final = final.replace(key, body)
+
+    return final, full_count, half_count
 
 
 def main() -> int:
