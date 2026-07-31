@@ -242,7 +242,7 @@ list.add(advisor);
 }  
 然后将通知统一转换为MethodInterceptor（适配器模式）
 
-![[AOP与代理__09-26-31-0.png]]
+![[.attachments/AOP与代理/AOP与代理__09-26-31-0.png]]
 
 // 获取代理工厂  
 Target target = new Target();  

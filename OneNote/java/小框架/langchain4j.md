@@ -1,16 +1,16 @@
 自己引入starter依赖  
 使用
 
-![[langchain4j__09-25-24-0.png]]
+![[.attachments/langchain4j/langchain4j__09-25-24-0.png]]
 
 userMessage可以很多，可以是文本，图片，视频，音频等，比如
 
-![[langchain4j__09-25-27-1.png]]
+![[.attachments/langchain4j/langchain4j__09-25-27-1.png]]
 
 系统提示词SystemMessage  
 需要在用户对话前带上系统消息
 
-![[langchain4j__09-25-32-2.png]]
+![[.attachments/langchain4j/langchain4j__09-25-32-2.png]]
 
 AIService  
 还有一种方式是AiService来编写，该方式比较简单  
@@ -22,7 +22,7 @@ AIService
 \</dependency\>  
 然后就可以
 
-![[langchain4j__09-25-33-3.png]] ![[langchain4j__09-25-34-4.png]]
+![[.attachments/langchain4j/langchain4j__09-25-33-3.png]] ![[.attachments/langchain4j/langchain4j__09-25-34-4.png]]
 
 如果想要知道话费多少token等信息，返回值改为Result\<…\>即可  
 我们还可以使用starter，打上@AiService注解来自动生成  
@@ -32,13 +32,13 @@ AIService
 \<version\>${langchain4j.version}\</version\>  
 \</dependency\>
 
-![[langchain4j__09-25-36-5.png]]
+![[.attachments/langchain4j/langchain4j__09-25-36-5.png]]
 
 该方式牺牲了些灵活性  
 会话记忆  
 一种是存储在内存里的
 
-![[langchain4j__09-25-38-6.png]]
+![[.attachments/langchain4j/langchain4j__09-25-38-6.png]]
 
 还有种是自己实现ChatMemoryStore接口，实现对话持久化  
 public interface ChatMemoryStore {  
@@ -59,22 +59,22 @@ AiCodeHelperService service = AiServices._builder_(AiCodeHelperService.class)
 结构化输出  
 非常简单，chat方法返回值设置一下就行
 
-![[langchain4j__09-25-39-7.png]]
+![[.attachments/langchain4j/langchain4j__09-25-39-7.png]]
 
 就能按指定的结构返回  
 有时无法生成准确的JSON，可以使用JSON Schema模式，比如
 
-![[langchain4j__09-25-41-8.png]]
+![[.attachments/langchain4j/langchain4j__09-25-41-8.png]]
 
 RAG（基于信息检索技术和AI内容生成的混合架构，可解决模型时效性与幻觉问题）
 
-![[langchain4j__09-25-46-9.png]]
+![[.attachments/langchain4j/langchain4j__09-25-46-9.png]]
 
 langchain4j提供了3中RAG实现方式  
 极简版langchain4j-easy-rag  
 该版本内嵌了Embedding模型
 
-![[langchain4j__09-25-48-10.png]]
+![[.attachments/langchain4j/langchain4j__09-25-48-10.png]]
 
 一般RAG  
 // 加载RAG  
@@ -116,29 +116,29 @@ return retriever;
 }  
 进阶版RAG
 
-![[langchain4j__09-25-49-11.png]]
+![[.attachments/langchain4j/langchain4j__09-25-49-11.png]]
 
 工具调用ToolCalling  
 我们需要自己定义类，里面打相应的注解
 
-![[langchain4j__09-25-51-12.png]]
+![[.attachments/langchain4j/langchain4j__09-25-51-12.png]]
 
 构造的时候就可以指定tool
 
-![[langchain4j__09-25-52-13.png]]
+![[.attachments/langchain4j/langchain4j__09-25-52-13.png]]
 
 MCP  
 项目中引入langchain4j-mcp  
 langchain4j使用的是MCP Server  
 我们需要这样的
 
-![[langchain4j__09-25-53-14.png]]
+![[.attachments/langchain4j/langchain4j__09-25-53-14.png]]
 
 拦截器(护轨 Guardrail)  
 在请求AI前和收到AI响应后执行一些额外的操作  
 下面是一个输入拦截器的例子
 
-![[langchain4j__09-25-58-15.png]]
+![[.attachments/langchain4j/langchain4j__09-25-58-15.png]]
 
 然后我们在AiService接口打上@InputGuardrails注解，指定该类即可  
 可观测性  
@@ -147,7 +147,7 @@ langchain4j使用的是MCP Server
 AI服务化  
 SSE流式接口开发
 
-![[langchain4j__09-26-03-16.png]]
+![[.attachments/langchain4j/langchain4j__09-26-03-16.png]]
 
 还有另一种方法，使用Flux代替tokenStream  
 引入langchain4j-reactor  
@@ -155,4 +155,4 @@ SSE流式接口开发
 构造AiService时调用streamingChatModel  
 给前端接口可以
 
-![[langchain4j__09-26-06-17.png]]
+![[.attachments/langchain4j/langchain4j__09-26-06-17.png]]

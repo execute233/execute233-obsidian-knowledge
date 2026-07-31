@@ -1,4 +1,4 @@
-![[Topic__09-22-35-0.png]]
+![[.attachments/Topic/Topic__09-22-35-0.png]]
 
 类型TOPIC  
 类似于Routing，这个的routing key是可以进行模糊匹配的，*代表某个字符，#代表0个或多个字符，这个要在.前后面使用才有效  

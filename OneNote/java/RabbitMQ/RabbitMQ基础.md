@@ -2,11 +2,11 @@
 流量削峰、应用解耦、异步处理  
 **四大核心概念：**
 
-![[RabbitMQ基础__09-21-29-0.png]]
+![[.attachments/RabbitMQ基础/RabbitMQ基础__09-21-29-0.png]]
 
 **核心部分**
 
-![[RabbitMQ基础__09-21-31-1.png]] ![[RabbitMQ基础__09-21-34-2.png]]
+![[.attachments/RabbitMQ基础/RabbitMQ基础__09-21-31-1.png]] ![[.attachments/RabbitMQ基础/RabbitMQ基础__09-21-34-2.png]]
 
 **Broker****：**接收和分发消息的应用  
 **Virtual host****：**出于多租户和安全因素设计的，把AMQP的基本组件划分到一个虚拟的分组中，类似  

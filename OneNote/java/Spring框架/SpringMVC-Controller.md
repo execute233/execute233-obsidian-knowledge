@@ -48,7 +48,7 @@
     }
     
 
-![[SpringMVC-Controller__09-23-51-0.png]]
+![[.attachments/SpringMVC-Controller/SpringMVC-Controller__09-23-51-0.png]]
 
 这里使用Thymeleaf为我们提供的视图解析器，直接maven导入thymeleaf-spring6  
 配置视图解析器也很简单，只要将对应的ViewResolver注册为Bean即可  

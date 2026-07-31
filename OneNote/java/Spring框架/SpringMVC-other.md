@@ -12,7 +12,7 @@ return "index";
 **拦截器**  
 拦截器是整个SpringMVC的一个重要内容，拦截器与过滤器类似，都是用于拦截一些非法请求，但是我们之前讲解的过滤器是作用于Serviet之前，只有经过层层的拦截器才可以成功到达Servlet，而拦截器并不是在Servlet之前，它在Servlet与RequestMapping之间，相当于DispatcherServlet在将请求交给对应Controller中的方法之前进行拦截处理，它只会拦截所有Controller中定义的请求映射对应的请求（不会拦截静态资源），这里一定要区分两者的不同。
 
-![[SpringMVC-other__09-23-55-0.png]]  
+![[.attachments/SpringMVC-other/SpringMVC-other__09-23-55-0.png]]  
 
 创建拦截器  
 需要实现HandlerIntercepter接口  

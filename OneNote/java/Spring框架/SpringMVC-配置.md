@@ -1,13 +1,13 @@
 **MVC****的三层架构**
 
-![[SpringMVC-配置__09-23-42-0.png]]
+![[.attachments/SpringMVC-配置/SpringMVC-配置__09-23-42-0.png]]
 
 MVC详细解释如下：
 
 - M是指业务模型(Model)：通俗的讲就是我们之前用于圭寸装数据传递的实类。
 - V是指用户界面(View)：一般指的是前端页面。
 - C则是控制器(Controller)：控制器就相当于Servlet的基本功能，处理请求，返回响应。
-![[SpringMVC-配置__09-23-44-1.png]]
+![[.attachments/SpringMVC-配置/SpringMVC-配置__09-23-44-1.png]]
 
 **传统****XML****配置**
 

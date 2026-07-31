@@ -42,7 +42,7 @@ ref - 指定那个类提供了切片的方法的bean id
  
 expression - 选择切入的方法，有很多种可以选择
 
-![[Spring-AOP面向切片__09-23-19-0.png]]
+![[.attachments/Spring-AOP面向切片/Spring-AOP面向切片__09-23-19-0.png]]
 
 以execution为例，它填写的格式(可以使用*匹配任意)是  
 修饰符 包名.类名.方法名(参数)

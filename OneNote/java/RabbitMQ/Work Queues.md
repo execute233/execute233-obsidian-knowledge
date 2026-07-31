@@ -1,6 +1,6 @@
 **轮训分发消息**
 
-![[Work-Queues__09-21-42-0.png]]
+![[.attachments/Work-Queues/Work-Queues__09-21-42-0.png]]
 
 使用多个消费者即可  
 **消息应答**  
@@ -17,7 +17,7 @@ channel.basicReject(message.getEnvelope().getDeliveryTag(), false);
 **消息自动重新入队**  
 如果消费者丢失连接并未发送ACK，则消息会对其重新排队
 
-![[Work-Queues__09-21-45-1.png]]
+![[.attachments/Work-Queues/Work-Queues__09-21-45-1.png]]
 
 持久化  
 队列持久化（只是队列不会消失）  

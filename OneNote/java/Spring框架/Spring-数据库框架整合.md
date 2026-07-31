@@ -23,24 +23,24 @@ return new SqlSessionTemplate(bean.getObject());
 POM导入HikariCP, ver:5.01, gropuId: com.zoxxer  
 将前面的dataSource换为HikariDataSource即可
 
-![[Spring-数据库框架整合__09-23-23-0.png]]
+![[.attachments/Spring-数据库框架整合/Spring-数据库框架整合__09-23-23-0.png]]
 
 来看看存在的问题：  
 读未提交：最后事务B出现问题发生回滚，但这时事务A获取的是未更新的数据（毫无意义的数据），即是脏读
 
-![[Spring-数据库框架整合__09-23-25-1.png]]
+![[.attachments/Spring-数据库框架整合/Spring-数据库框架整合__09-23-25-1.png]]
 
 读已提交：如果事件B修改并提交了数据，那么实际上事务A之前读取到的数据依然不是最新的数据，直接导致两次读取的数据不一致，这种现象称为**虚读**或**不可重复读**
 
-![[Spring-数据库框架整合__09-23-27-2.png]]
+![[.attachments/Spring-数据库框架整合/Spring-数据库框架整合__09-23-27-2.png]]
 
 可重复读（MySQL默认）：这里仅仅是禁止了事务执行过程中的UPDATE操作，但是它并没有禁止INSERT这类操作，因此，如果事务A执行过程中事务B插入了新的数据，那么A这时是毫不知情的，这就是**幻读**比如：
 
-![[Spring-数据库框架整合__09-23-32-3.png]]
+![[.attachments/Spring-数据库框架整合/Spring-数据库框架整合__09-23-32-3.png]]
 
 总结就是：
 
-![[Spring-数据库框架整合__09-23-34-4.png]]
+![[.attachments/Spring-数据库框架整合/Spring-数据库框架整合__09-23-34-4.png]]
 
 \<environment\>下的\<transaction\>即是管理事务,分为两种：  
 JDBC：使用JDBC的事务管理机制：即利用对应数据库的驱动生成的Connection对象完成事务操作  
@@ -53,16 +53,16 @@ return new DataSourceTransactionManager(dataSource)
 }  
 便可以使用了
 
-![[Spring-数据库框架整合__09-23-36-5.png]]
+![[.attachments/Spring-数据库框架整合/Spring-数据库框架整合__09-23-36-5.png]]
 
 详细看下@Transactional
 
-![[Spring-数据库框架整合__09-23-37-6.png]]
+![[.attachments/Spring-数据库框架整合/Spring-数据库框架整合__09-23-37-6.png]]
 
 如果这个事务方法调用了另一个事务方法，此时事务传播规则生效  
 事务的传播规则如下：
 
-![[Spring-数据库框架整合__09-23-39-7.png]]
+![[.attachments/Spring-数据库框架整合/Spring-数据库框架整合__09-23-39-7.png]]
 
 Spring提供了Test模块，会自动集成JUnit进行测试，导入：  
 \<dependency\>  
