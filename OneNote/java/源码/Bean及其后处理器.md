@@ -118,4 +118,4 @@ DependencyDescriptor descriptor = new DependencyDescriptor(new MethodParameter(s
 beanFactory.doResolveDependency(descriptor, null, null, null);  
 总的来说
 
-![Exported image](Exported%20image%2020260731092621-0.png)
+![[Bean及其后处理器__09-26-21-0.png]]

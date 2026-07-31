@@ -1,12 +1,12 @@
 BeanFactory与ApplicationContext  
 我们从SpringApplication.run返回ConfigurableApplicationContext的开始研究接口关系
 
-![Exported image](Exported%20image%2020260731092615-0.png)
+![[Spring-Start__09-26-15-0.png]]
 
 BeanFactory是ApplicationContext的父接口，是Spring的核心容器，主要的ApplicationContext实现了组合它的功能  
 Spring中BeanFactory默认实现是用DefaultListableBeanFactory
 
-![Exported image](Exported%20image%2020260731092617-1.png)
+![[Spring-Start__09-26-17-1.png]]
 
 可以通过反射拿到里面的BeanFactory字段  
 ConfigurableApplicationContext context = SpringApplication._run_(SpringLearnApplication.class);  

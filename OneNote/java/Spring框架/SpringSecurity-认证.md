@@ -33,7 +33,7 @@ return new InMemoryUserDetailsManager(user, admin);
 }  
 这个BCrypt工具生成的格式：
 
-![Exported image](Exported%20image%2020260731092400-0.png)
+![[SpringSecurity-认证__09-24-00-0.png]]
 
 但发现，所有的POST请求都被拦截，返回403  
 因为SpringSecurity自带了csrf防护，任何的POST请求都需要带_csrf才行  

@@ -1,4 +1,4 @@
-![Exported image](Exported%20image%2020260731092139-0.png)
+![[Hello-World__09-21-39-0.png]]
 
 P是生产者，C是消费者，中间的队列是消息缓冲区  
 **生产者与消费者**  

@@ -20,12 +20,12 @@ HashMap 是线程不安全的，如果在并发场景下使用，一种常见的
 JDK1.7：  
 ConcurrentHashMap 对整个桶数组进行了分割分段(Segment，分段锁)，每一把锁只锁容器其中一部分数据（下面有示意图），多线程访问容器里不同数据段的数据，就不会存在锁竞争，提高并发访问率。
 
-![Java7 ConcurrentHashMap](Exported%20image%2020260731092024-0.png)
+![[JUC-并发容器__09-20-24-0.png]]
 
 取消了 Segment 分段锁，采用 Node + CAS + synchronized 来保证并发安全。数据结构跟 HashMap 1.8 的结构类似，数组+链表/红黑二叉树。Java 8 在链表长度超过一定阈值（8）时将链表（寻址时间复杂度为 O(N)）转换为红黑树（寻址时间复杂度为 O(log(N))）  
 同时，锁粒度更细，synchronized 只锁定当前链表或红黑二叉树的首节点，这样只要 hash 不冲突，就不会产生并发，就不会影响其他 Node 的读写，效率大幅提升。
 
-![Exported image](Exported%20image%2020260731092026-1.png)
+![[JUC-并发容器__09-20-26-1.png]]
 
 **CopyAndWriteArrayList**  
 before JDK1.5:  
@@ -49,7 +49,7 @@ ArrayBlockingQueue 默认情况下不能保证线程访问队列的公平性，�
 **ConcurrentSkipListMap**  
 跳表的本质是同时维护了多个链表，并且链表是分层的，
 
-![2](Exported%20image%2020260731092027-2.jpeg)
+![[JUC-并发容器__09-20-27-2.jpeg]]
 
 从上面很容易看出，跳表是一种利用空间换时间的算法。  
 使用跳表实现 Map 和使用哈希算法实现 Map 的另外一个不同之处是：哈希并不会保存元素的顺序，而跳表内所有的元素都是排序的。因此在对跳表进行遍历时，你会得到一个有序的结果。

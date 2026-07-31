@@ -1,4 +1,4 @@
-![Exported image](Exported%20image%2020260731092149-0.png)
+![[Publish-Subscribe__09-21-49-0.png]]
 
 类型FANOUT  
 生产者示例：  
