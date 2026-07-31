@@ -1,6 +1,6 @@
-导入依赖  
-spring-boot-starter-validation  
-使用  
+导入依赖
+spring-boot-starter-validation
+使用
 @Validated打在Controller上启用验证，我们可以使用以下注解来对参数校验
 
 |   |   |   |
@@ -24,5 +24,5 @@ spring-boot-starter-validation
 |@Pattern|CharSequence|必须匹配正则表达式|
 |@Valid|非原子类型|验证对象属性|
 
-对于异常不是很友好，可以单独使用@ControllerAdvice打上类，给方法打@ExceptionHandler(要处理的Controller.class)即可，方法参数是Exception  
+对于异常不是很友好，可以单独使用@ControllerAdvice打上类，给方法打@ExceptionHandler(要处理的Controller.class)即可，方法参数是Exception
 如果方法传入的参数是自定义对象需要验证，可以给参数打@Valid，在自定义对象的类中的属性打注解即可

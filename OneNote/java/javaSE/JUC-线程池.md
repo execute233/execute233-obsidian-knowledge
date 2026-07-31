@@ -1,5 +1,5 @@
-**线程池的使用**  
-可以直接创建线程池对象直接使用：  
+**线程池的使用**
+可以直接创建线程池对象直接使用：
 public ThreadPoolExecutor( … ) // 多种构造方法可使用
 
 - corePoolSize - **核心线程池大小**，我们每向线程池提交一个多线程任务时，都会创建一个新的核心线程，无论是否存在其他空闲线程，直到到达核心线程池大小为止，之后会尝试复用线程资源。当然也可以在一开始就全部初始化好，调用 prestartAllCoreThreads()即可
@@ -15,9 +15,9 @@ public ThreadPoolExecutor( … ) // 多种构造方法可使用
 - CPU密集型： 主要是执行计算任务，响应时间很快，CPU一直在运行，这种任务CPU的利用率很高，那么线程数应该是根据 CPU 核心数来决定，CPU 核心数 = 最大同时执行线程数
 - IO密集型： 主要是进行 IO 操作，因为执行 IO 操作的时间比较较长，比如从硬盘读取数据之类的，CPU就得等着IO操作，很容易出现空闲状态，导致 CPU 的利用率不高，这种情况下可以适当增加线程池的大小，让更多的线程可以一起进行IO操作，一般可以配置为CPU核心数的2倍。
 
-线程池可以使用execute方法来运行任务  
-线程池不再使用应当调用shutdown方法关闭，会取消所有等待任务并尝试关闭正在执行的任务（shutdownNow方法），并拒绝提交的任务  
-线程池当中的方法抛出异常后，相应的线程会被直接销毁  
+线程池可以使用execute方法来运行任务
+线程池不再使用应当调用shutdown方法关闭，会取消所有等待任务并尝试关闭正在执行的任务（shutdownNow方法），并拒绝提交的任务
+线程池当中的方法抛出异常后，相应的线程会被直接销毁
 默认的拒绝策略有以下几个：
 
 - AbortPolicy(默认)：像上面一样，直接抛异常
@@ -25,13 +25,13 @@ public ThreadPoolExecutor( … ) // 多种构造方法可使用
 - DiscardOldestPolicy：丢弃队列中最近的一个任务，替换为当前任务
 - DiscardPolicy：什么也不用做
 
-**执行带返回值的任务**  
-线程池可以使用submit提交任务，返回Future对象，调用其中的get方法（会阻塞直到任务完成）获得返回值  
-当然也可以传入FutureTask对象，isDone和isCancelled方法查看状态，是不会阻塞的  
-**定时任务**  
-我们之前如果需要执行一个定时任务，那么肯定会用到Timer和TimerTask，但是它只会创建一个线程处理我们的定时任务，无法实现多线程调度，并且它无法处理异常情况一旦抛出未捕获异常那么会直接终止，显然我们需要一个更加强大的定时器。  
-JDK5之后，我们可以使用ScheduledThreadPoolExecutor来提交定时任务，它继承自ThreadPoolExecutor，并且所有的构造方法都必须要求最大线程池容量为Integer.MAX_VALUE，并且都是采用的DelayedWorkQueue作为等待队列。  
-同样的，可以在Executors静态方法得到该类的实例，一些常用的方法：  
-schedule - 延迟指定时间执行任务  
-scheduleAtFixedDelay - 一开始就计算间隔时间，如果任务执行超过间隔时间，那么就直接开始下一轮  
+**执行带返回值的任务**
+线程池可以使用submit提交任务，返回Future对象，调用其中的get方法（会阻塞直到任务完成）获得返回值
+当然也可以传入FutureTask对象，isDone和isCancelled方法查看状态，是不会阻塞的
+**定时任务**
+我们之前如果需要执行一个定时任务，那么肯定会用到Timer和TimerTask，但是它只会创建一个线程处理我们的定时任务，无法实现多线程调度，并且它无法处理异常情况一旦抛出未捕获异常那么会直接终止，显然我们需要一个更加强大的定时器。
+JDK5之后，我们可以使用ScheduledThreadPoolExecutor来提交定时任务，它继承自ThreadPoolExecutor，并且所有的构造方法都必须要求最大线程池容量为Integer.MAX_VALUE，并且都是采用的DelayedWorkQueue作为等待队列。
+同样的，可以在Executors静态方法得到该类的实例，一些常用的方法：
+schedule - 延迟指定时间执行任务
+scheduleAtFixedDelay - 一开始就计算间隔时间，如果任务执行超过间隔时间，那么就直接开始下一轮
 scheduleWithFixedDelay - 任务无论执行多久，都在执行完成后再间隔指定时间，才开始下一轮
