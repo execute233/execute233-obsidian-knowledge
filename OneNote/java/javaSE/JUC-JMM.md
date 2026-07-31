@@ -53,7 +53,7 @@ while (a == 0);
 System.out.println("线程结束！");
 }).start();
 
-```
+```java
         Thread.sleep(1000);
         System.out.println("正在修改a的值...");
         a = 1;

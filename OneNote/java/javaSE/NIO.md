@@ -32,7 +32,7 @@ public final Buffer clear() - 将缓冲区清空，所有的变量变回最初�
 
 ![[_assets/NIO/NIO__09-20-40-0.png]]
 
-```
+```java
 除了读写之外，Channel还可以具有响应中断的能力：
 public interface InterruptibleChannel extends Channel {
   	//当其他线程调用此方法时，在此通道上处于阻塞状态的线程会直接抛出 AsynchronousCloseException 异常
@@ -58,20 +58,20 @@ public abstract class AbstractInterruptibleChannel implements Channel, Interrupt
     protected abstract void implCloseChannel() throws IOException;
 ```
 
-```
+```java
     public final boolean isOpen() {
         return open;
     }
 ```
 
-```
+```java
     //开始阻塞（有可能一直阻塞下去）操作之前，需要调用此方法进行标记，
     protected final void begin() {
         ...
     }
 ```
 
-```
+```java
   	//阻塞操作结束之后，也需要需要调用此方法，为了防止异常情况导致此方法没有被调用，建议放在finally中
     protected final void end(boolean completed)
 ...
@@ -83,7 +83,7 @@ public abstract class AbstractInterruptibleChannel implements Channel, Interrupt
 
 ![[_assets/NIO/NIO__09-20-42-1.png]]
 
-```
+```java
 我们可以使用通道代替传统读取：
 //缓冲区创建好，一会就靠它来传输数据
     ByteBuffer buffer = ByteBuffer.allocate(10);
@@ -105,7 +105,7 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable
 可以使用RandomAccessFile创建
 ```
 
-```
+```java
 r  以只读的方式使用
 ```
 
@@ -113,7 +113,7 @@ r  以只读的方式使用
 - rws 每当进行写操作，同步的刷新到磁盘，刷新内容和元数据
 - rwd 每当进行写操作，同步的刷新到磁盘，刷新内容
 
-```
+```java
 try(RandomAccessFile f = new RandomAccessFile("test.txt", "rw");
         FileChannel channel = f.getChannel()){   //通过RandomAccessFile创建一个通道
         channel.write(ByteBuffer.wrap("伞兵二号马飞飞准备就绪！".getBytes()));
@@ -126,7 +126,7 @@ try(RandomAccessFile f = new RandomAccessFile("test.txt", "rw");
     }
 ```
 
-```
+```java
 使用filp方法来反转读写
 也可以使用truncate对文件进行截断
 文件拷贝可以使用transferTo/From方法
@@ -165,7 +165,7 @@ String text = scanner.nextLine();
 //直接向通道中写入数据，真舒服
 channel.write(ByteBuffer.wrap(text.getBytes()));
 
-```
+```java
         ByteBuffer buffer = ByteBuffer.allocate(128);
         channel.read(buffer);   //直接从通道中读取数据
         buffer.flip();
@@ -222,7 +222,7 @@ channel.read(buffer);
 buffer.flip();
 System.out.println("接收到客户端数据："+new String(buffer.array(), 0, buffer.remaining()));
 
-```
+```java
                     //直接向通道中写入数据就行
                     channel.write(ByteBuffer.wrap("已收到！".getBytes()));
                     //别关，说不定用户还要继续通信呢

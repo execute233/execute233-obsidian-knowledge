@@ -3,7 +3,7 @@
 3. 创建一个数据库的链接，从DriverManager中获取
 4. 不清楚的SQL操作情况下
 
-```
+```xml
 \<dependency\>
     \<groupId\>com.mysql\</groupId\>
     \<artifactId\>mysql-connector-j\</artifactId\>

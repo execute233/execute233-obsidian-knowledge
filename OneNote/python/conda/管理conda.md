@@ -5,11 +5,11 @@ Conda是Anaconda中一个强大的包和环境管理工具，可以在Windows的
 3. 设置镜像
 4. 更新
 
-```
+```python
 查看某个命令的帮助
 ```
 
-```
+```bash
 conda --version
 conda config --show
 #设置清华镜像

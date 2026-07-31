@@ -144,7 +144,7 @@ void exceptionCaught(ChannelHandlerContext var1, Throwable var2) throws Exceptio
 
 ![[_assets/Netty/Netty__09-25-09-6.png]]
 
-```
+```java
 它就像是一条流水线一样，整条流水线上可能会有很多个Handler（包括入站和出站），整条流水线上的两端还有两个默认的处理器（用于一些预置操作和后续操作，比如释放资源等），我们只需要关心如何安排这些自定义的Handler即可
 但要注意，出站操作在流水线上是反着来的，整个流水线操作大概流程如下:
 ```

@@ -1,4 +1,4 @@
-```
+```xml
 单表查询
 SELECT [ALL|DISTINCT] \<column\> [AS name] [{, \<column2\> [as name2]}]
 FROM table|view [AS name]
@@ -36,7 +36,7 @@ ORDER BY 列名1 ASC|DESC [, 列名2 ASC|DESC]
 5. 外连接查询
 6. 嵌套查询
 
-```
+```sql
 去重查询
 ```
 
@@ -70,7 +70,7 @@ SELECT * FROM 表名别名1 表名别名2
 - 左连接：不仅会返回两个表满足条件的交集部分，也会返回左边表中的全部数据，而在右表中缺失的数
 - 右连接：方式与左连接相似
 
-```
+```sql
 SELECT * FROM 表1 INNER JOIN 表2 ON 条件
 据会使用null来代替
 SELECT * FROM 左表 LEFT JOIN 右表 ON 条件

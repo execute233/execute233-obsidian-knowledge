@@ -38,21 +38,21 @@ System.out.println(pool.submit(new SubTask(1, 1000)).get());
 }
 
 
-```
+```xml
   	//继承RecursiveTask，这样才可以作为一个任务，泛型就是计算结果类型
     private static class SubTask extends RecursiveTask\<Integer\> {
         private final int start;   //比如我们要计算一个范围内所有数的和，那么就需要限定一下范围，这里用了两个int存放
         private final int end;
 ```
 
-```
+```java
         public SubTask(int start, int end) {
             this.start = start;
             this.end = end;
         }
 ```
 
-```
+```java
         @Override
         protected Integer compute() {
             if(end - start \> 125) {    //每个任务最多计算125个数的和，如果大于继续拆分，小于就可以开始算了

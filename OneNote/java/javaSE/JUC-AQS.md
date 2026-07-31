@@ -146,14 +146,14 @@ return false; //返回false，马上开启下一轮循环
 }
 最后再来看看公平锁的tryAcquire
 
-```
+```java
 static final class FairSync extends Sync {
   	//
 ```
 
 可重入独占锁的公平实现
 
-```
+```java
     @ReservedStackAccess
     protected final boolean tryAcquire(int acquires) {
         final Thread current = Thread.currentThread();   //
@@ -167,7 +167,7 @@ static final class FairSync extends Sync {
 `setExclusiveOwnerThread(current); //`成功拿到锁，会将独占模式所有者线程设定为当前线程（这个方法是父类`AbstractOwnableSynchronizer`中的，就表示当前这把锁已经是这个线程的了）
 `return true; //`占用锁成功，返回
 
-```
+```java
 true
             }
         }
@@ -178,14 +178,14 @@ true
 `int nextc = c + acquires; //`多次加锁会将状态值进行增加，状态值就是加锁次数
 `if (nextc \< 0) //`加到`int`值溢出了？
 
-```
+```java
                 throw new Error("Maximum lock count exceeded");
             setState(nextc);   //
 ```
 
 设置为新的加锁次数
 
-```
+```java
             return true;
         }
         return false;   //
@@ -193,7 +193,7 @@ true
 
 其他任何情况都是加锁失败
 
-```
+```java
     }
 }
 ```
@@ -216,7 +216,7 @@ int ws = node.waitStatus;
 if (ws < 0)
 compareAndSetWaitStatus(node, ws, 0);
 
-```
+```java
     //获取下一个结点
     Node s = node.next;
     if (s == null || s.waitStatus \> 0) {   //如果下一个结点为空或是等待状态是已取消，那肯定是不能通知unpark的，这时就要遍历所有节点再另外找一个符合unpark要求的节点了
@@ -323,7 +323,7 @@ final boolean transferForSignal(Node node) {
 if (!compareAndSetWaitStatus(node, Node.CONDITION, 0))
 return false;
 
-```
+```java
     //CAS成功之后，结点的等待状态就变成了默认值0，接着通过enq方法直接将节点丢进AQS的等待队列中，相当于唤醒并且可以等待获取锁了
   	//这里enq方法返回的是加入之后等待队列队尾的前驱节点，就是原来的tail
     Node p = enq(node);
