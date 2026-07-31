@@ -84,7 +84,7 @@ writer.write(RestBean._failure_(401, e.getMessage()).asJsonString());
  
 **JWT****令牌**
 
-![[.attachments/SpringBoot-前后端分离/SpringBoot-前后端分离__09-24-16-0.png]]
+![[_assets/SpringBoot-前后端分离/SpringBoot-前后端分离__09-24-16-0.png]]
 
 一个JWT令牌由3部分组成：标头(Header)、有效载荷(Payload)和签名(Signature)。在传输的时候，会将JWT的3部分分别进行Base64编码后用．进行连接形成最终需要传输的字符串。
 
@@ -94,7 +94,7 @@ writer.write(RestBean._failure_(401, e.getMessage()).asJsonString());
 
 于是可以这样设计：
 
-![[.attachments/SpringBoot-前后端分离/SpringBoot-前后端分离__09-24-20-1.png]]
+![[_assets/SpringBoot-前后端分离/SpringBoot-前后端分离__09-24-20-1.png]]
 
 在java使用JWT，可以使用第三方库 java-jwt(com.auth0, 4.3.0),用法如：  
 String jwtKey = "execute233.com:spring-learn:jwt-key"; // jwt-key  
@@ -108,7 +108,7 @@ String sign = JWT._create_()
 **Spring-Security整合JWT**  
 SpringSecurity中并没有为我们提供预设的JWT校验模块（只有OAuth2模块才有）这里我们只能手动进行整合，JWT可以存放在Cookie或是请求头中，不过不管哪种方式，我们都可以通过Request获取到对应的JWT令牌，这里我们使比较常见的请求头携带JWT的方案，客户端发起的请求中会携带这样的的特殊请求头．
 
-![[.attachments/SpringBoot-前后端分离/SpringBoot-前后端分离__09-24-22-2.png]]
+![[_assets/SpringBoot-前后端分离/SpringBoot-前后端分离__09-24-22-2.png]]
 
 Basic和Bearer是两种不同的身份验证方式。
 

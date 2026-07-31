@@ -30,7 +30,7 @@ public final Buffer rewind() - 重绕缓冲区，其实就是把position归零�
 public final Buffer clear() - 将缓冲区清空，所有的变量变回最初的状态  
 **通道接口层次**
 
-![[.attachments/NIO/NIO__09-20-40-0.png]]
+![[_assets/NIO/NIO__09-20-40-0.png]]
 
 ```
 除了读写之外，Channel还可以具有响应中断的能力：  
@@ -81,7 +81,7 @@ public abstract class AbstractInterruptibleChannel implements Channel, Interrupt
 而之后的一些实现类，都是基于这些接口定义的方法去进行实现的，比如FileChannel：
 ```
 
-![[.attachments/NIO/NIO__09-20-42-1.png]]
+![[_assets/NIO/NIO__09-20-42-1.png]]
 
 ```
 我们可以使用通道代替传统读取：  
@@ -177,7 +177,7 @@ channel.write(ByteBuffer.wrap(text.getBytes()));
 NIO为我们提供的网络IO模型：
 ```
 
-![[.attachments/NIO/NIO__09-20-44-2.png]]
+![[_assets/NIO/NIO__09-20-44-2.png]]
 
 服务端不再是一个单纯通过accept()方法来创建连接的机制了，而是根据客户端不同的状态，Selector会不断轮询，只有客户端在对应的状态时，比如真正开始读写操作时，才会创建线程或进行处理（这样就不会一直阻塞等待某个客户端的IO操作了），而不是创建之后需要一直保持连接，即使没有任何的读写操作。这样就不会因为占着茅坑不拉屎导致线程无限制地创建下去了。  
 有多种状态：

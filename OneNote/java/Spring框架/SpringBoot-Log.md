@@ -1,4 +1,4 @@
-![[.attachments/SpringBoot-Log/SpringBoot-Log__09-24-09-0.png]]
+![[_assets/SpringBoot-Log/SpringBoot-Log__09-24-09-0.png]]
 
 所以，SpringBoot为了统一日志框架的使用，做了这些事情：
 

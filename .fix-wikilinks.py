@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 修补: 把已迁移笔记里的裸 wikilink  ![[name.png]!
-改成显式相对路径  ![[.attachments/{slug}/name.png]!
+改成显式相对路径  ![[_assets/{slug}/name.png]!
 仅作用于指定主题的 .md 文件。
 """
 from __future__ import annotations
@@ -29,7 +29,7 @@ def fix_note(note: Path) -> int:
     """返回该笔记修改了多少处。"""
     content = read_note(note)
     slug = slugify(note.name)
-    attach_dir = note.parent / ".attachments" / slug
+    attach_dir = note.parent / "_assets" / slug
     changed = 0
     new_lines = []
     # 按行处理以便更精确匹配(同时输出 diff 友好)
@@ -49,7 +49,7 @@ def fix_note(note: Path) -> int:
         if not target.exists():
             return m.group(0)
         changed += 1
-        return f"![[.attachments/{slug}/{inner}]]"
+        return f"![[_assets/{slug}/{inner}]]"
     new_content = WIKILINK_RE.sub(repl, content)
     if changed:
         note.write_text(new_content, encoding="utf-8")
@@ -62,8 +62,8 @@ def main():
         print(f"❌ OneNote/{topic} 不存在")
         sys.exit(1)
     notes = list(topic_dir.rglob("*.md"))
-    # 排除 .attachments 内(以防扫描目录本身)
-    notes = [n for n in notes if ".attachments" not in n.parts]
+    # 排除 _assets 内(以防扫描目录本身)
+    notes = [n for n in notes if "_assets" not in n.parts]
     total_changed = 0
     affected_files = 0
     for note in notes:

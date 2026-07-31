@@ -1,4 +1,4 @@
-![[.attachments/Publish-Confirm/Publish-Confirm__09-22-42-0.png]]
+![[_assets/Publish-Confirm/Publish-Confirm__09-22-42-0.png]]
 
 Publish Return一般是代码层面的问题  
 配置中使用  

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-把根目录散落的 Exported image ...png/.jpeg 整理到 笔记旁的 .attachments/{slug}/ 下。
-- 目标结构: {note_dir}/.attachments/{slug}/{slug}__{HH-MM-SS}-{N}.{ext}
+把根目录散落的 Exported image ...png/.jpeg 整理到 笔记旁的 _assets/{slug}/ 下。
+- 目标结构: {note_dir}/_assets/{slug}/{slug}__{HH-MM-SS}-{N}.{ext}
 - 引用重写: ![](Exported%20image%20...{ext})  →  ![[{slug}__{HH-MM-SS}-{N}.{ext}]]
 
 用法:
@@ -64,7 +64,7 @@ def scan_topic(topic: str) -> list[tuple[Path, Path, str]]:
             ext_l = ext.lower()
             new_name = f"{slug}__{hh}-{mm}-{ss}-{idx}.{ext_l}"
             seen[urlname] = new_name
-            new_rel = f".attachments/{slug}/{new_name}"
+            new_rel = f"_assets/{slug}/{new_name}"
             moves.append((note, src, new_rel))
     return moves
 
@@ -73,7 +73,7 @@ def rewrite_note(note: Path, mapping: dict[str, str]) -> None:
     content = read_note(note)
     slug = slugify(note.name)
     new_content = IMG_PATTERN.sub(
-        lambda m: f"![[.attachments/{slug}/{mapping[m.group(1)]}]]" if m.group(1) in mapping else m.group(0),
+        lambda m: f"![[_assets/{slug}/{mapping[m.group(1)]}]]" if m.group(1) in mapping else m.group(0),
         content,
     )
     note.write_text(new_content, encoding="utf-8")
@@ -104,7 +104,7 @@ def apply(topic: str) -> None:
     print(f"\n== {topic} 主题: 移动 {len(order)} 张图、改写 {len(by_note)} 篇笔记 ==\n")
     for note, src, new_rel in order:
         slug = slugify(note.name)
-        target_dir = note.parent / ".attachments" / slug
+        target_dir = note.parent / "_assets" / slug
         target = target_dir / Path(new_rel).name
         target_dir.mkdir(parents=True, exist_ok=True)
         if target.exists():

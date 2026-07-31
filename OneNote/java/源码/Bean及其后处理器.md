@@ -118,4 +118,4 @@ DependencyDescriptor descriptor = new DependencyDescriptor(new MethodParameter(s
 beanFactory.doResolveDependency(descriptor, null, null, null);  
 总的来说
 
-![[.attachments/Bean及其后处理器/Bean及其后处理器__09-26-21-0.png]]
+![[_assets/Bean及其后处理器/Bean及其后处理器__09-26-21-0.png]]

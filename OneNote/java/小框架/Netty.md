@@ -17,14 +17,14 @@ private int markedWriterIndex;
 private int maxCapacity; //最大容量，没错，这玩意能动态扩容  
 可以看到，读操作和写操作分别由两个指针在进行维护，每写入一次，writerIndex向后移动一位，每读取一次，也是readerIndex向后移动一位，当然readerIndex不能大于writerIndex，这样就不会像NIO中的ByteBuffer那样还需要进行翻转了。
 
-![[.attachments/Netty/Netty__09-24-55-0.png]]
+![[_assets/Netty/Netty__09-24-55-0.png]]
 
 可以在Unpooled类的静态方法获取实例  
 缓冲区的三种实现模式：堆缓冲区模式、直接缓冲区模式、复合缓冲区模式：  
 前两个都知道，这些缓冲区可以从Unpooled的buffer, directBuffer, compositeBuffer等方法获得  
 复合模式可以任意地拼凑组合其他缓冲区，比如我们可以：
 
-![[.attachments/Netty/Netty__09-24-56-1.png]]
+![[_assets/Netty/Netty__09-24-56-1.png]]
 
 Unpooled使用ByteBufAllocator来获取Buffer，它有两个具体实现类：  
 UnpooledByteBufAllocator和PooledByteBufAllocator，一个是非池化缓冲区生成器，还有一个是池化缓冲区生成器  
@@ -37,21 +37,21 @@ UnpooledByteBufAllocator和PooledByteBufAllocator，一个是非池化缓冲区�
 
 现在的操作系统基本都是支持虚拟内存的，我们可以让内核空间和用户空间的虚拟地址指向同一个物理地址，这样就相当于是直接共用了这一块区域，也就谈不上拷贝操作了：
 
-![[.attachments/Netty/Netty__09-24-58-2.png]]
+![[_assets/Netty/Netty__09-24-58-2.png]]
 
 实际上这种方式就是将内核空间中的缓存直接映射到用户空间缓存，比如我们之前在学习NIO中使用的MappedByteBuffer，就是直接作为映射存在，当我们需要将数据发送到Socket缓冲区时，直接在内核空间中进行操作就行了：
 
-![[.attachments/Netty/Netty__09-25-00-3.png]]
+![[_assets/Netty/Netty__09-25-00-3.png]]
 
 在Linux2.1开始，引入了sendfile方式来简化操作，我们可以直接告诉内核要把哪个文件数据拷贝拷贝到Socket上，直接在内核空间中一步到位：
 
-![[.attachments/Netty/Netty__09-25-02-4.png]]
+![[_assets/Netty/Netty__09-25-02-4.png]]
 
 比如我们之前在NIO中使用的transferTo()方法，就是利用了这种机制来实现零拷贝的。  
 **Netty****工作模型**  
 Netty以主从Reactor多线程模型为基础，构建出了一套高效的工作模型
 
-![[.attachments/Netty/Netty__09-25-07-5.png]]
+![[_assets/Netty/Netty__09-25-07-5.png]]
 
 - Netty 抽象出两组线程池BossGroup和WorkerGroup，BossGroup专门负责接受客户端的连接, WorkerGroup专门负读写，就像我们前面说的主从Reactor一样。
 - 无论是BossGroup还是WorkerGroup，都是使用EventLoop来进行事件监听的，整个Netty也是使用事件驱动来运作的，比如当客户端已经准备好读写、连接建立时，都会进行事件通知，说白了就像我们之前写NIO多路复用那样，只不过这里换成EventLoop了而已，它已经帮助我们封装好了一些常用操作，而且我们可以自己添加一些额外的任务，如果有多个EventLoop，会存放在EventLoopGroup中，EventLoopGroup就是BossGroup和WorkerGroup的具体实现。
@@ -142,13 +142,13 @@ void exceptionCaught(ChannelHandlerContext var1, Throwable var2) throws Exceptio
 与ChannelInboundHandler对应的还有ChannelOutboundHandler用于处理出站相关的操作，这里就不进行演示了。  
 我们接着来看看ChannelPipeline，每一个Channel都对应一个ChannelPipeline（在Channel初始化时就被创建了）
 
-![[.attachments/Netty/Netty__09-25-09-6.png]]
+![[_assets/Netty/Netty__09-25-09-6.png]]
 
 ```
 它就像是一条流水线一样，整条流水线上可能会有很多个Handler（包括入站和出站），整条流水线上的两端还有两个默认的处理器（用于一些预置操作和后续操作，比如释放资源等），我们只需要关心如何安排这些自定义的Handler即可  
 但要注意，出站操作在流水线上是反着来的，整个流水线操作大概流程如下:
 ```
 
-![[.attachments/Netty/Netty__09-25-11-7.png]]
+![[_assets/Netty/Netty__09-25-11-7.png]]
 
 **EventLoop****和任务调度**
