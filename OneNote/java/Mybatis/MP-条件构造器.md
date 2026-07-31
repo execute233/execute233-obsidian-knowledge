@@ -1,3 +1,5 @@
+# MP-条件构造器
+
 对于复杂查询，可以构造QueryWrapper用于复杂查询：
 QueryWrapper<User> wrapper = Wrapper; // 复杂查询使用此完成
 wrapper.select("id", "username") // 可自定义哪些字段

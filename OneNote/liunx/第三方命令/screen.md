@@ -1,3 +1,5 @@
+# screen
+
 screen [-opts] [cmd [args]]
 状态介绍
 通常情况下，screen创建的虚拟终端，有两个工作模式：

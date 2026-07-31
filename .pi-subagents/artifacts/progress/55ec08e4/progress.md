@@ -1,0 +1,1 @@
+已完成只读审计：确认 windows 下仅有 `可选功能/WSL.md` 1 个文件，发现标题层级缺失、命令/列表未结构化、第39行 blkid 拼接、尖括号占位符解析风险、frontmatter（视规范）缺失及标点问题。报告已写入指定 `.scout-reports/windows.md`；未修改任何源文件。

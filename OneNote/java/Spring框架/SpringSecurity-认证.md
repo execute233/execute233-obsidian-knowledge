@@ -1,3 +1,5 @@
+# SpringSecurity-认证
+
 **基于内存验证**
 在Sercurity配置类中注册一个Bean即可
 @Bean

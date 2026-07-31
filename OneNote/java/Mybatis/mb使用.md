@@ -1,3 +1,5 @@
+# mb使用
+
 1. 配置
 2. 使用
     1. 先用SqlSessionFactoryBuilder导入配置文件

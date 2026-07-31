@@ -1,3 +1,5 @@
+# JUC-AQS
+
 比如我们执行了ReentrantLock的lock()方法，那它的内部是怎么在执行的呢？
 它的内部实际上啥都没做，而是交给了Sync对象在进行，并且，不只是这个方法，其他的很多方法都是依靠Sync对象在进行
 可以看到，公平锁和非公平锁都是继承自Sync，而Sync是继承自AbstractQueuedSynchronizer，简称队列同步器(AQS)

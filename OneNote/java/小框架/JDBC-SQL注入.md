@@ -1,3 +1,5 @@
+# JDBC-SQL注入
+
 为了防止SQL注入，可使用PreparedStatement
 PreparedStatement st = connection.prepareStatement("select * from account where name = ? and password = ?")
 // 可以填充数据

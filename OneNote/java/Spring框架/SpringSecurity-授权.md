@@ -1,3 +1,5 @@
+# SpringSecurity-授权
+
 基于角色授权
 仍然可以在filterChain里配置
 auth.requestMatchers("static/**").permitAll(); // 静态资源全部放行

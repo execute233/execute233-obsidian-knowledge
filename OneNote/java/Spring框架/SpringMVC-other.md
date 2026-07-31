@@ -1,3 +1,5 @@
+# SpringMVC-other
+
 **RestFul**
 一种设计风格。它的主要作用是充分并正确利用HTTP协议的特性，规范资源获取的URI路径。RESTful风格的设计允许将数通过URL拼接传到服务端，目的是让URL看起来更简洁实用，
 并且我们可以充分使用多种HTTPP请求方式(POST/GET/PUT/DELETE)，来执行相同请求地址的不同类型操作。

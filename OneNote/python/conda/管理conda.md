@@ -1,3 +1,5 @@
+# 管理conda
+
 Conda是Anaconda中一个强大的包和环境管理工具，可以在Windows的Anaconda Prompt命令行使用，也可以在macOS或者Linux系统的终端窗口(terminal window)的命令行使用。
 
 1. 查看conda版本

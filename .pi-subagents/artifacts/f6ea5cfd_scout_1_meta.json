@@ -1,0 +1,97 @@
+{
+  "runId": "f6ea5cfd",
+  "agent": "scout",
+  "task": "只读分析 E:/个人知识/OneNote/kotlin/ 下 11 篇 .md,报告 markdown 格式偏离。\n\n## 已完成清理(勿再报告)\n行尾空格✅ / 反斜杠转义✅ / 代码块语言标签✅ / 空 Untitled✅ / 图片 wikilink 化✅\n\n## 检查维度\n1. 标题层级\n2. Frontmatter\n3. 列表风格 (-/*/+,1. 2.?,缩进)\n4. 强调 (**xx**/__xx__, *xx*/_xx_)\n5. 表格 (GFM 一致?)\n6. 链接 ([[]] 内部, [text](url) 外部,损坏?)\n7. HTML 残留\n8. 图片 (![[]] vs ![](path))\n9. 中文/英文标点\n10. [TOC]、[ ]、emoji 乱码\n11. 结构异常\n\n## 输出格式\n```\n# kotlin 目录 markdown 格式审计\n\n## 概况\n- 文件总数: 11\n- 影响笔记数: X\n- 子目录: 基础 / 库 / 程序设计中级 / 程序设计高级\n\n## 偏离清单\n### 高优\n- ...\n### 中优\n- ...\n\n## 自动修复可行性\n- 完全可自动: X 类\n- 需人工判断: Y 类\n- 不可自动: Z 类\n\n## 推荐处理顺序\n1. ...\n2. ...\n```\n\n## 约束\n**只读取,绝对不要修改任何文件**。\n用 read/grep/find 等只读工具。\n\n## 工作目录\nE:/个人知识/\n\n---\nUpdate progress at: E:\\个人知识\\.pi-subagents\\artifacts\\progress\\f6ea5cfd\\progress.md\n\n---\n**Output:**\nWrite your findings to exactly this path: E:\\个人知识\\.pi-subagents\\artifacts\\outputs\\f6ea5cfd\\.scout-reports\\kotlin.md\nThis path is authoritative for this run.\nIgnore any other output filename or output path mentioned elsewhere, including output destinations in the base agent prompt, system prompt, or task instructions.",
+  "exitCode": 0,
+  "usage": {
+    "input": 58016,
+    "output": 14862,
+    "cacheRead": 1613249,
+    "cacheWrite": 0,
+    "cost": 0.13203414000000002,
+    "turns": 83
+  },
+  "model": "minimax-cn/MiniMax-M3:low",
+  "attemptedModels": [
+    "minimax-cn/MiniMax-M3:low"
+  ],
+  "modelAttempts": [
+    {
+      "model": "minimax-cn/MiniMax-M3:low",
+      "success": true,
+      "exitCode": 0,
+      "usage": {
+        "input": 58016,
+        "output": 14862,
+        "cacheRead": 1613249,
+        "cacheWrite": 0,
+        "cost": 0.13203414000000002,
+        "turns": 83
+      }
+    }
+  ],
+  "durationMs": 274350,
+  "toolCount": 78,
+  "launchContractDigest": "2f267a8cc5d2522366a74f770fd5d54058c48dcae7f04982b84d3c696d635f66",
+  "acceptance": {
+    "status": "rejected",
+    "evidenceStatus": "rejected",
+    "explicit": false,
+    "effectiveAcceptance": {
+      "level": "attested",
+      "explicit": false,
+      "inferredReason": [
+        "read-only/reviewer-style agent"
+      ],
+      "criteria": [
+        {
+          "id": "criterion-1",
+          "must": "Return concrete findings with file paths and severity when applicable",
+          "evidence": [
+            "review-findings",
+            "residual-risks"
+          ],
+          "severity": "required"
+        }
+      ],
+      "evidence": [
+        "review-findings",
+        "residual-risks"
+      ],
+      "verify": [],
+      "stopRules": []
+    },
+    "inferredReason": [
+      "read-only/reviewer-style agent"
+    ],
+    "criteria": [
+      {
+        "id": "criterion-1",
+        "must": "Return concrete findings with file paths and severity when applicable",
+        "evidence": [
+          "review-findings",
+          "residual-risks"
+        ],
+        "severity": "required"
+      }
+    ],
+    "runtimeChecks": [
+      {
+        "id": "attestation",
+        "status": "failed",
+        "message": "Failed to parse acceptance-report: Unterminated string in JSON at position 1039 (line 28 column 30)"
+      }
+    ],
+    "verifyRuns": [],
+    "childReportParseError": "Failed to parse acceptance-report: Unterminated string in JSON at position 1039 (line 28 column 30)"
+  },
+  "effects": {
+    "fileMutation": {
+      "status": "not-applicable",
+      "expected": false,
+      "attempted": true
+    }
+  },
+  "transcriptPath": "E:\\个人知识\\.pi-subagents\\artifacts\\f6ea5cfd_scout_1_transcript.jsonl",
+  "timestamp": 1785491655759
+}
