@@ -25,3 +25,10 @@ desktop.ini
 
 # Copilot 自动生成的索引日志(每次扫描都会变化)
 copilot/Copilot-Indexed-Files-*.md
+
+# ===== subagent 内部产物 =====
+.pi-subagents/
+
+# ===== OneNote 导出的图片(根目录临时贴图,从未被脚本处理过) =====
+Exported image *.png
+Exported image *.jpeg
