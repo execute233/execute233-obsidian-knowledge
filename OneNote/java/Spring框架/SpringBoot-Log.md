@@ -19,8 +19,10 @@ aliases: [SpringBoot-Log]
 SpringBoot 使用的是 Slf4j 作为日志门面，Logback 作为日志实现，对应的依赖为：
 
 ```xml
-spring-boot-starter-logging  <!-- 此依赖项已经被包含了 -->
+spring-boot-starter-logging
 ```
+
+（此依赖项已经被包含了）
 
 然后就可以 `LoggerFactory.getLogger()` 了，也可以使用 Lombok 的 `@Slf4j`。
 
@@ -79,7 +81,7 @@ Logback 内置的日志字段还是比较少，可以使用其 MDC 机制获取�
 
 可以在里面使用颜色，比如：
 
-```
+```text
 ${AnsiColor.RED}
 ```
 
