@@ -35,17 +35,17 @@ Buffer 类的子类包含很多基本类型,以 `XXXBuffer`(除了 `Boolean`)命
 public abstract IntBuffer put(int i);                      // 在当前 position 位置插入数据,由具体子类实现
 public abstract IntBuffer put(int index, int i);           // 在指定位置存放数据,也是由具体子类实现
 public final IntBuffer put(int[] src);                     // 直接存放所有数组中的内容(数组长度不能超出缓冲区大小)
-public IntBuffer put(int[] src, int offset, int length);  // 直接存放数组中的内容,同上,但是可以指定存放一段范围
+public IntBuffer put(int[] src, int offset, int length);   // 直接存放数组中的内容,同上,但是可以指定存放一段范围
 public IntBuffer put(IntBuffer src);                       // 直接存放另一个缓冲区中的内容
 ```
 
 读操作也有四个方法:
 
 ```java
-public abstract int get();                                  // 直接获取当前 position 位置的数据,由子类实现
-public abstract int get(int index);                         // 获取指定位置的数据,也是子类实现
-public IntBuffer get(int[] dst);                            // 将数据读取到给定的数组中
-public IntBuffer get(int[] dst, int offset, int length);    // 同上,加了个范围
+public abstract int get();                                 // 直接获取当前 position 位置的数据,由子类实现
+public abstract int get(int index);                        // 获取指定位置的数据,也是子类实现
+public IntBuffer get(int[] dst);                           // 将数据读取到给定的数组中
+public IntBuffer get(int[] dst, int offset, int length);   // 同上,加了个范围
 ```
 
 ## 缓冲区的其它操作
@@ -82,21 +82,21 @@ public abstract class AbstractInterruptibleChannel implements Channel, Interrupt
     // 关闭操作实现
     public final void close() throws IOException {
         synchronized (closeLock) {   // 同时只能有一个线程进行此操作,加锁
-            if (!open)   // 如果已经关闭了,那么就不用继续了
+            if (!open)              // 如果已经关闭了,那么就不用继续了
                 return;
-            open = false;   // 开启状态变成 false
-            implCloseChannel();   // 开始关闭通道
+            open = false;           // 开启状态变成 false
+            implCloseChannel();     // 开始关闭通道
         }
     }
 
-    // 该方法由 close 方法调用,以执行关闭通道的具体操作,仅当通道尚未关闭时才调用此方法,不会多次调用.
+    // 该方法由 close 方法调用,以执行关闭通道的具体操作,仅当通道尚未关闭时才调用此方法,不会多次调用
     protected abstract void implCloseChannel() throws IOException;
 
     public final boolean isOpen() {
         return open;
     }
 
-    // 开始阻塞(有可能一直阻塞下去)操作之前,需要调用此方法进行标记,
+    // 开始阻塞(有可能一直阻塞下去)操作之前,需要调用此方法进行标记
     protected final void begin() {
         // ...
     }
@@ -140,10 +140,10 @@ public class RandomAccessFile implements DataOutput, DataInput, Closeable
 
 可以使用 `RandomAccessFile` 创建,模式:
 
-- `r`:以只读的方式使用
-- `rw`:读操作和写操作都可以
-- `rws`:每当进行写操作,同步的刷新到磁盘,刷新内容和元数据
-- `rwd`:每当进行写操作,同步的刷新到磁盘,刷新内容
+- `r`:以只读的方式使用。
+- `rw`:读操作和写操作都可以。
+- `rws`:每当进行写操作,同步的刷新到磁盘,刷新内容和元数据。
+- `rwd`:每当进行写操作,同步的刷新到磁盘,刷新内容。
 
 ```java
 try (RandomAccessFile f = new RandomAccessFile("test.txt", "rw");
@@ -158,11 +158,11 @@ try (RandomAccessFile f = new RandomAccessFile("test.txt", "rw");
 }
 ```
 
-使用 `filp` 方法来反转读写。
+使用 `flip` 方法来反转读写。
 
 也可以使用 `truncate` 对文件进行截断。
 
-文件拷贝可以使用 `transferTo/From` 方法。
+文件拷贝可以使用 `transferTo` / `transferFrom` 方法。
 
 当我们要编辑某个文件时,通过使用 `MappedByteBuffer` 类,可以将其映射到内存中进行编辑,编辑的内容会同步更新到文件中:
 
@@ -227,9 +227,9 @@ NIO 为我们提供的网络 IO 模型:
 
 有多种状态:
 
-- **select**:当这些连接出现具体的某个状态时,只是知道已经就绪了,但是不知道详具体是哪一个连接已经就绪,每次调用都进行线性遍历所有连接,时间复杂度为 O(n),并且存在最大连接数限制。
+- **select**:当这些连接出现具体的某个状态时,只是知道已经就绪了,但是不知道具体是哪一个连接已经就绪,每次调用都进行线性遍历所有连接,时间复杂度为 O(n),并且存在最大连接数限制。
 - **poll**:同上,但是由于底层采用链表,所以没有最大连接数限制。
-- **epoll**:采用事件通知方式,当某个连接就绪,能够直接进行精准通知(这是因为在内核实现中 epoll 是根据每个 fd 上面的 callback 函数实现的,只要就绪会会直接回调 callback 函数,实现精准通知,但是只有 Linux 支持这种方式),时间复杂度 O(1),Java 在 Linux 环境下正是采用的这种模式进行实现的。
+- **epoll**:采用事件通知方式,当某个连接就绪,能够直接进行精准通知(这是因为在内核实现中 epoll 是根据每个 fd 上面的 callback 函数实现的,只要就绪会直接回调 callback 函数,实现精准通知,但是只有 Linux 支持这种方式),时间复杂度 O(1),Java 在 Linux 环境下正是采用的这种模式进行实现的。
 
 示例如下:
 
@@ -239,7 +239,7 @@ try (ServerSocketChannel serverChannel = ServerSocketChannel.open();
     serverChannel.bind(new InetSocketAddress(8080));
     // 要使用选择器进行操作,必须使用非阻塞的方式,这样才不会像阻塞 IO 那样卡在 accept(),而是直接通过,让选择器去进行下一步操作
     serverChannel.configureBlocking(false);
-    // 将选择器注册到 ServerSocketChannel 中,后面是选择需要监听的时间,只有发生对应事件时才会进行选择,多个事件用 | 连接,注意,并不是所有的 Channel 都支持以下全部四个事件,可能只支持部分
+    // 将选择器注册到 ServerSocketChannel 中,后面是选择需要监听的事件,只有发生对应事件时才会进行选择,多个事件用 | 连接,注意,并不是所有的 Channel 都支持以下全部四个事件,可能只支持部分
     // 因为是 ServerSocketChannel 这里我们就监听 accept 就可以了,等待客户端连接
     // SelectionKey.OP_CONNECT --- 连接就绪事件,表示客户端与服务器的连接已经建立成功
     // SelectionKey.OP_ACCEPT  --- 接收连接事件,表示服务器监听到了客户连接,服务器可以接收这个连接了
