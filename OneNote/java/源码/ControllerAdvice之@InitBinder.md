@@ -6,12 +6,14 @@ aliases: [ControllerAdvice之@InitBinder]
 
 # ControllerAdvice之@InitBinder
 
-ControllerAdvice功能
-对所有的Controller增强，有下面
-```python
-@ExceptionHandler 抛出异常处理
-@ModelAttribute 返回值作为Model数据补充到Controller执行过程中
-@InitBinder 补充自定义类型转换器
-```
-加在@ControllerAdvice是全局的，加在@Controller是局部的
+## ControllerAdvice 功能
+
+对所有的 Controller 增强，有下面：
+
+- `@ExceptionHandler` 抛出异常处理
+- `@ModelAttribute` 返回值作为 Model 数据补充到 Controller 执行过程中
+- `@InitBinder` 补充自定义类型转换器
+
+加在 `@ControllerAdvice` 是全局的，加在 `@Controller` 是局部的。
+
 （WebDataBinder）

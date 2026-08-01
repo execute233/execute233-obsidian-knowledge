@@ -178,7 +178,7 @@ final boolean acquireQueued(final Node node, int arg) {
 }
 ```
 
-```csharp
+```java
 private final boolean parkAndCheckInterrupt() {
     LockSupport.park(this); // 通过 unsafe 类操作底层挂起线程(会直接进入阻塞状态)
     return Thread.interrupted();
@@ -187,7 +187,7 @@ private final boolean parkAndCheckInterrupt() {
 
 有个静态方法注意下:
 
-```python
+```java
 private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
     int ws = pred.waitStatus;
     if (ws == Node.SIGNAL)
@@ -238,7 +238,7 @@ static final class FairSync extends Sync {
 
 实际上还是委托给 `AbstractQueuedSynchronizer` 的 `release` 方法,参数 1 表示解锁一次 state 值 -1。
 
-```python
+```java
 @ReservedStackAccess
 public final boolean release(int arg) {
     if (tryRelease(arg)) { // 和 tryAcquire 一样,也得子类去重写,释放锁操作
