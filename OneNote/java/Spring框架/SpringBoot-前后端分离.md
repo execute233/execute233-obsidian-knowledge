@@ -147,9 +147,15 @@ String sign = JWT.create()
 
 ### Spring-Security 整合 JWT
 
-SpringSecurity 中并没有为我们提供预设的 JWT 校验模块（只有 OAuth2 模块才有），这里我们只能手动进行整合。JWT 可以存放在 Cookie 或是请求头中，不过不管哪种方式，我们都可以通过 Request 获取到对应的 JWT 令牌，这里我们使用比较常见的请求头携带 JWT 的方案，客户端发起的请求中会携带这样的的特殊请求头：
+SpringSecurity 中并没有为我们提供预设的 JWT 校验模块（只有 OAuth2 模块才有），这里我们只能手动进行整合。JWT 可以存放在 Cookie 或是请求头中，不过不管哪种方式，我们都可以通过 Request 获取到对应的 JWT 令牌，这里我们使用比较常见的请求头携带 JWT 的方案，客户端发起的请求中会携带这样的特殊请求头：
 
-![[_assets/SpringBoot-前后端分离/SpringBoot-前后端分离__09-24-22-2.png]]
+一个典型的 `Authorization` 请求头看起来像这样：
+
+```text
+Authorization: Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiZXh...
+```
+
+其中 `Bearer` 是认证方案名称，后面紧跟一个空格，再后面是 JWT 令牌本身（即 base64 编码的 header.payload.signature 三段式字符串）。
 
 Basic 和 Bearer 是两种不同的身份验证方式：
 

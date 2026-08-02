@@ -115,15 +115,44 @@ keyProperty - 类的主键参数字段名，SQL操作完成后数据会回写到
 动态SQL在执行时可以进行各种条件判断以及循环拼接等操作，极大地提升了SQL语句编写的的灵活性
 比如我们希望在根据ID查询用户时，如果查询的ID大于3，那么必须同时要满足大于18岁这个条件
 
-![[_assets/mb详解/mb详解__09-21-03-0.png]]
+```xml
+<select id="selectUserById" resultType="User">
+    select * from user where id = #{id}
+    <if test="id > 3">
+        and age > 18
+    </if>
+</select>
+```
 
 除了if操作之外，针对多分支情况提供了choose操作，它类似于Java中的switch语句，比如现在我们希望在查询用户时，ID等于1的必须同时要满足小于18岁，ID等于2的必须满足等于18岁，其他情况的必须满足大于18岁，我们可以像这样进行编写：（注意<要用&lt；转义）
 
-![[_assets/mb详解/mb详解__09-21-05-1.png]]
+```xml
+<select id="selectUserById" resultType="User">
+    select * from user where id = #{id}
+    <choose>
+        <when test="id == 1">
+            and age &lt;= 18
+        </when>
+        <when test="id == 2">
+            and age = 18
+        </when>
+        <otherwise>
+            and age > 18
+        </otherwise>
+    </choose>
+</select>
+```
 
 我们也可以用for循环拼接，通常用在插入多条数据的时候
 
-![[_assets/mb详解/mb详解__09-21-08-2.png]]
+```xml
+<insert id="insertUsers">
+    insert into user (name, age) values
+    <foreach collection="list" item="item" separator=",">
+        (#{item}, 18)
+    </foreach>
+</insert>
+```
 
 Mybatis存在一级缓存和二级缓存，一级缓存仅对一个会话中的数据进行缓存（一级缓存强制启用，无法关闭，只能做调整）也就是每一个SqlSession都有有一个对应的缓存，而二级缓存作用于整个Mapper
 对于重复同样的操作，它不在会再次操作一次数据库，而是直接返回缓存的内容，但DML操作会清空当前Session的缓存

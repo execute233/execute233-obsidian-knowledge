@@ -322,7 +322,28 @@ for (Method method : Aspect1.class.getDeclaredMethods()) {
 
 然后将通知统一转换为 MethodInterceptor（适配器模式）。
 
-![[_assets/AOP与代理/AOP与代理__09-26-31-0.png]]
+其实无论 `ProxyFactory` 基于哪种方式创建代理，最后干活(调用 advice)的是一个 `MethodInvocation` 对象。
+
+- 因为 advisor 有多个，且一个套一个调用，因此需要一个调用链对象，即 `MethodInvocation`
+- `MethodInvocation` 要知道 advice 有哪些，还要知道目标，调用次序如下
+
+```text
+|-> before1 ----------------------------------
+|                                            |
+|    |-> before2 ----------------------------|
+|    |                                       |
+|    |    |-> target ------- 目标   advice2  advice1
+|    |    |                                 |
+|    |    |                                 |
+|    |-> after2 ----------------------------|
+|    |                                       |
+|-> after1 -----------------------------------
+```
+
+- 从上图看出，**环绕通知**才适合作 advice，因此其他 before、afterReturning、afterThrowing 都会被转换成环绕通知。
+- 统一转换为环绕通知，体现的是设计模式中的**适配器模式**：
+  - 对外是为了方便使用要区分 before、afterReturning、afterThrowing
+  - 对内统一都是环绕通知，统一用 `MethodInterceptor` 表示
 
 ## 创建并执行调用链
 

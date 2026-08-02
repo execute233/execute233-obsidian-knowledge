@@ -10,6 +10,8 @@ aliases: [SpringMVC-Controller]
 
 有了 SpringMVC 之后，我们不必再像之前那样一个请求地址创建一个 Servlet 了，它使用 `DispatcherServlet` 替代 Tomcat 为我们提供的默认的静态资源 Servlet，也就是说，现在所有的请求（除了 jsp，因为 Tomcat 还提供了一个 jsp 的 Servlet）都会经过 `DispatcherServlet` 进行处理。
 
+![[_assets/SpringMVC-Controller/SpringMVC-Controller__09-23-51-0.png]]
+
 - 根据图片我们可以了解，我们的请求到达 Tomcat 服务器之后，会交给当前的 Web 应用程序进行处理，而 SpringMVC 用 `DispatcherServlet` 来处理所有的请求，也就是说它被作为一个统一的访问点，所有的请求全部由它来进行调度。
 - 当一个请求经过 `DispatcherServlet` 之后，会先走 `HandlerMapping`，它会将请求映射为 `HandlerExecutionChain`，依次经过 `HandlerInterceptor` 有点类似于之前我们所学的过滤器，不过在 SpringMVC 中我们使用的是拦截器，然后再交给 `HandlerAdapter`，根据请求的路径选择合适的控制器进行处理，控制器处理完成之后，会返回一个 `ModelAndView` 对象，包括数据模型和视图，通俗的讲就是页面中数据和页面本身（只包含视图名称即可）。
 - 返回 `ModelAndView` 之后，会交给 `ViewResolver`（视图解析器）进行处理，视图解析器会对整个视图页面进行解析，SpringMVC 自带了一些视图解析器，但是只适用于 JSP 页面，我们也可以像之前一样使用 Thymeleaf 作为视图解析器，这样我们就可以根据给定的视图名称，直接读取 HTML 编写的页面，解析为一个真正的 View。
@@ -17,8 +19,6 @@ aliases: [SpringMVC-Controller]
 - 因此，实际上整个过程我们只需要编写对应请求路径的 Controller 以及配置好我们需要的 ViewResolver 即可，之后还可以继续补充添加拦截器，而其他的流程已经由 SpringMVC 帮助我们完成了。
 
 ## 配置视图解析器和控制器
-
-![[_assets/SpringMVC-Controller/SpringMVC-Controller__09-23-51-0.png]]
 
 这里使用 Thymeleaf 为我们提供的视图解析器，直接 Maven 导入 `thymeleaf-spring6`。
 

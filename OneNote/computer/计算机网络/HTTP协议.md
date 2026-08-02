@@ -92,18 +92,101 @@ HTTP 响应头部包含状态行、响应头、空行和响应体：
 
 客户端发送 HTTP 请求后，服务端的响应头如下：
 
-![[_assets/HTTP协议/HTTP协议__09-18-30-0.png]]
+```http
+Content-Type: text/event-stream
+Cache-Control: no-cache
+Connection: keep-alive
+```
 
 ### 消息格式
 
-![[_assets/HTTP协议/HTTP协议__09-18-32-1.png]] ![[_assets/HTTP协议/HTTP协议__09-18-35-2.png]]
+| 字段 | 含义 |
+| --- | --- |
+| data | 消息内容，也就是具体的数据 |
+| event | 事件类型，可自定义事件类型 |
+| id | 消息 ID，用于断线重连后续传 |
+| retry | 重连间隔，单位毫秒 |
+
+服务器开始持续推送 LLM 产生的回复，注意每一条消息后面都有一个空行：
+
+```text
+event: message
+data: {"delta":"SSE "}
+
+event: message
+data: {"delta":"是一种"}
+
+event: message
+data: {"delta":"基于 HTTP "}
+
+event: message
+data: {"delta":"的服务器"}
+
+event: message
+data: {"delta":"推送技术。"}
+
+event: done
+data: [DONE]
+```
 
 ### 如何标识传输结束？
 
-SSE 协议只规定了消息格式，没有规定结束时必须发送某个标识码。
+SSE 协议只规定了消息格式，没有规定结束时必须发送某个标识码。常见的做法有以下几种：
 
-![[_assets/HTTP协议/HTTP协议__09-18-38-3.png]]
+**方式 1**：发送结束后，连接自动断开。
+
+**方式 2**：发送自定义结束事件。
+
+```text
+event: message
+data: {"delta":"最后一段内容"}
+
+event: done
+data: {}
+```
+
+**方式 3**：发送自定义结束消息。
+
+```text
+event: done
+data: [DONE]
+```
+
+**方式 4**：发送业务状态字段。
+
+```text
+event: chat
+data: {"delta":"最后一段内容","finished":false}
+
+event: chat
+data: {"delta":"","finished":true}
+```
 
 ### Fast API 示例
 
-![[_assets/HTTP协议/HTTP协议__09-18-41-4.png]]
+```python
+from fastapi.sse import EventSourceResponse, ServerSentEvent
+from pydantic import BaseModel
+import uvicorn
+
+
+app = FastAPI(title="对话Agent")
+
+# 输入消息数据模型
+class ChatRequest(BaseModel):
+    message: str
+
+# 声明路由，并且指定返回内容为 EventSource
+@app.post("/api/chat/stream", response_class=EventSourceResponse)
+async def chat_stream(req: ChatRequest):  # 定义一个协程函数。输入数据参数，pydantic 会自动转换
+    async for ev in LLM.astream(req.message):
+        if ev.get("type") == "_done":  # 自定义结束消息
+            return
+        else:
+            yield ServerSentEvent(data=ev)  # 迭代器返回 SSE 内容
+
+
+if __name__ == "__main__":
+    # 启动服务
+    uvicorn.run("app:app", host="0.0.0.0", port=8080)
+```
