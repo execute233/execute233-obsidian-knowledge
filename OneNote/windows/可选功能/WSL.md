@@ -95,12 +95,6 @@ wsl --mount <DiskPath>
 - `--vhd`：指定 `<Disk>` 引用虚拟硬盘。
 - `--name`：使用装入点的自定义名称装载磁盘。
 - `--bare`：将磁盘附加到 WSL2，但不装载它。
-
-```text
---type <Filesystem>:在装载磁盘时使用的文件系统类型,如果未指定,则默认为 ext4. 此命令也可以输入为: wsl --mount -t <Filesystem>.可以使用以下命令检测文件系统类型,例如: blkid <BlockDevice>blkid <dev/sdb1>.
---partition <Partition Number>:要装载的分区的索引号(如果未指定)默认为整个磁盘.
---options <MountOptions>:装载磁盘时,可以包含一些特定于文件系统的选项
-```
-
-> [!note] 说明
-> 上面这段是 WSL 装载磁盘的补充参数说明，原文为单段纯文本，已用 `text` 代码块原样保留（含全角逗号、文末句号），方便后续对照修改。
+- `--type <Filesystem>`：在装载磁盘时使用的文件系统类型，如果未指定，则默认为 ext4。此命令也可以输入为：`wsl --mount -t <Filesystem>`。可以使用 `blkid <BlockDevice>` 命令检测文件系统类型。
+- `--partition <Partition Number>`：要装载的分区的索引号（如果未指定）默认为整个磁盘。
+- `--options <MountOptions>`：装载磁盘时，可以包含一些特定于文件系统的选项。

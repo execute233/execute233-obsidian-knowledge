@@ -19,7 +19,7 @@ JDBC 默认的事务处理行为是自动提交,所以执行一个 SQL 语句就
 connection.setAutoCommit(false);
 ```
 
-然后执行 SQL 操作,但这些操作不会立马更新。xxx。最后提交,前面的操作就会更新:
+然后执行 SQL 操作,但这些操作不会立马更新。最后提交,前面的操作就会更新:
 
 ```java
 connection.commit();

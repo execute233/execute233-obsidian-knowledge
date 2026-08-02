@@ -80,9 +80,9 @@ void onAuthenticationFailure(HttpServletRequest request,
 ```java
 .exceptionHandling(conf -> {
     // 授权相关异常处理器
-    conf.accessDeniedHandler(this::handleProcess);
+    conf.accessDeniedHandler((request, response, e) -> this.handleProcess(request, response, e));
     // 验证相关异常处理器
-    conf.authenticationEntryPoint(this::handleProcess);
+    conf.authenticationEntryPoint((request, response, e) -> this.handleProcess(request, response, e));
 })
 ```
 
@@ -92,16 +92,18 @@ void onAuthenticationFailure(HttpServletRequest request,
 @SneakyThrows
 void handleProcess(HttpServletRequest request,
                    HttpServletResponse response,
-                   Object exceptionOrAuthentication) {
+                   Exception exception) {
     response.setContentType("application/json");
     response.setCharacterEncoding("UTF-8");
     PrintWriter writer = response.getWriter();
-    if (exceptionOrAuthentication instanceof AccessDeniedException e) {
+    if (exception instanceof AccessDeniedException e) {
         writer.write(RestBean.failure(403, e.getMessage()).asJsonString());
-    } else if (exceptionOrAuthentication instanceof Authentication authentication) {
-        writer.write(RestBean.success(authentication.getName()).asJsonString());
-    } else if (exceptionOrAuthentication instanceof Exception e) {
+    } else if (exception instanceof AuthenticationException e) {
         writer.write(RestBean.failure(401, e.getMessage()).asJsonString());
+    } else if (exception instanceof Authentication authentication) {
+        writer.write(RestBean.success(authentication.getName()).asJsonString());
+    } else {
+        writer.write(RestBean.failure(401, exception.getMessage()).asJsonString());
     }
 }
 ```

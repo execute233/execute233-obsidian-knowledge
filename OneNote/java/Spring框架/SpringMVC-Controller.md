@@ -64,7 +64,7 @@ ModelAndView hello() {
 
 由前面的配置可知，这里映射的是 web 目录下的 `index.html`。
 
-为了使用 CSS、JS 等静态资源，让静态资源通过 Tomcat 默认的 Servlet 进行解析，需要让 Web 配置类实现 `WebMvcConfiguration` 接口，会根据重写的方法进一步配置：
+为了使用 CSS、JS 等静态资源，让静态资源通过 Tomcat 默认的 Servlet 进行解析，需要让 Web 配置类实现 `WebMvcConfigurer` 接口，会根据重写的方法进一步配置：
 
 ```java
 @Override

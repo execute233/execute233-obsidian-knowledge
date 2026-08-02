@@ -25,7 +25,7 @@ public abstract class Buffer {
 
 Buffer 类的子类包含很多基本类型,以 `XXXBuffer`(除了 `Boolean`)命名,但这些也是抽象类,但可以通过静态方法获取对象。
 
-`allocate()` 申请固定大小的缓冲区,或者通过 `warp()` 把数组变为缓冲区。
+`allocate()` 申请固定大小的缓冲区,或者通过 `wrap()` 把数组变为缓冲区。
 
 ## 缓冲区读写操作
 

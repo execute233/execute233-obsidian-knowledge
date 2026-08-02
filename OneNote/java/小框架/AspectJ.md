@@ -6,31 +6,35 @@ aliases: [AspectJ]
 
 # AspectJ
 
-实现了AOP代理，通过在编译时修改源码来实现
-配置
-依赖导入
+实现了 AOP 代理,通过在编译时修改源码来实现。
+
+## 配置
+
+依赖导入:
+
 ```xml
 <dependency>
-<groupId>org.aspectj</groupId>
-<artifactId>aspectjrt</artifactId>
-<version>1.9.25</version>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjrt</artifactId>
+    <version>1.9.25</version>
 </dependency>
 ```
 
-maven插件导入
+maven 插件导入:
+
 ```xml
 <plugin>
-<groupId>org.codehaus.mojo</groupId>
-<artifactId>aspectj-maven-plugin</artifactId>
-<version>1.16.0</version>
-<configuration>
-<complianceLevel>17</complianceLevel>
-<source>17</source>
-<target>17</target>
-<showWeaveInfo>true</showWeaveInfo>
-<verbose>true</verbose>
-<Xlint>ignore</Xlint>
-<encoding>UTF-8</encoding>
-</configuration>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>aspectj-maven-plugin</artifactId>
+    <version>1.16.0</version>
+    <configuration>
+        <complianceLevel>17</complianceLevel>
+        <source>17</source>
+        <target>17</target>
+        <showWeaveInfo>true</showWeaveInfo>
+        <verbose>true</verbose>
+        <Xlint>ignore</Xlint>
+        <encoding>UTF-8</encoding>
+    </configuration>
 </plugin>
 ```

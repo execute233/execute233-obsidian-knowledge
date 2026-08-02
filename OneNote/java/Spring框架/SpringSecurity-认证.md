@@ -108,7 +108,7 @@ private AuthenticationManager authenticationManager(UserDetailsManager manager, 
 }
 
 @Bean
-public UserDetailsManager userDetailsManager(DataSource source, PasswordEncoder encoder, DataSource dataSource) throws Exception {
+public UserDetailsManager userDetailsManager(PasswordEncoder encoder, DataSource dataSource) throws Exception {
     JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);
     // 为 UserDetailsManager 设置 AuthenticationManager 即可开启重置密码的校验
     manager.setAuthenticationManager(authenticationManager(manager, encoder));
@@ -118,7 +118,7 @@ public UserDetailsManager userDetailsManager(DataSource source, PasswordEncoder 
 
 ## 自定义验证
 
-只需要自定义实现 `UserDetailService` 或 `UserDetailManager`，添加到 Bean 当中并重写其中的方法即可：
+只需要自定义实现 `UserDetailsService` 或 `UserDetailsManager`，添加到 Bean 当中并重写其中的方法即可：
 
 ```java
 @Service

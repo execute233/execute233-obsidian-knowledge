@@ -77,7 +77,7 @@ private static final boolean compareAndSetNext(Node node, Node expect, Node upda
 对于 `AbstractQueuedSynchronizer` 类,它提供了一些可重写的方法(根据不同的锁类型和机制,可以自由定制规则,并且为独占式和非独占式锁都提供了对应的方法),以及一些已经写好的模板方法(模板方法会调用这些可重写的方法),使用此类只需要将可重写的方法进行重写,并调用提供的模板方法,从而实现锁功能。
 
 ```java
-// 独占式获取同步状态,查看同步状态是否和参数一致,如果返没有问题,那么会使用 CAS 操作设置同步状态并返回 true
+// 独占式获取同步状态,查看同步状态是否和参数一致,如果没有问题,那么会使用 CAS 操作设置同步状态并返回 true
 protected boolean tryAcquire(int arg) { throw new UnsupportedOperationException(); }
 
 // 独占式释放同步状态
