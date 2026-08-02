@@ -6,9 +6,11 @@ aliases: [SpringCache]
 
 # SpringCache
 
-实现了基于注解的缓存功能，底层可以切换不同缓存实现（EHCache、Caffeine、Redis）。
+实现了基于注解的缓存功能，底层可以切换不同缓存实现（EHCache、Caffeine、[[SQL/Redis/数据类型|Redis]]）。
 
 ## 导入依赖
+
+在 [[SpringBoot-Start]] 工程中导入：
 
 ```xml
 <dependency>
@@ -18,6 +20,8 @@ aliases: [SpringCache]
 ```
 
 ## 配置
+
+以 Redis 作为缓存实现时（Redis 操作见 [[SQL/Redis/基本操作]]）：
 
 ```yaml
 spring:
@@ -45,7 +49,7 @@ spring:
 
 | 注解 | 说明 |
 | --- | --- |
-| `@EnableCaching` | 开启注解功能，在启动类上 |
+| `@EnableCaching` | 开启注解功能，在启动类上（见 [[SpringBoot-Start]]） |
 | `@Cacheable` | 方法执行前先查询缓存是否有数据，有就用缓存否则直接调方法 |
 | `@CachePut` | 将方法的返回值放到缓存中 |
 | `@CacheEvict` | 将一条或多条数据从缓存删除 |
@@ -54,7 +58,7 @@ spring:
 示例：
 
 ```java
-@CachePut(cacheNames = "key前缀", key = "#user.id")  // 前缀::id，key 是 SpEL 表达式
+@CachePut(cacheNames = "key前缀", key = "#user.id")  // 前缀::id，key 是 SpEL 表达式，详见 [[Spring-SpEL]]
 
 @CacheEvict  // 可以使用 allEntries 属性将 cacheNames::*** 的所有键删除
 ```

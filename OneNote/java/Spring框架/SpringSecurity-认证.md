@@ -8,7 +8,7 @@ aliases: [SpringSecurity-认证]
 
 ## 基于内存验证
 
-在 Security 配置类中注册一个 Bean 即可：
+在 Security 配置类中注册一个 Bean 即可（配置类见 [[SpringSecurity-配置]]）：
 
 ```java
 @Bean
@@ -67,7 +67,7 @@ create table authorities(username varchar(50) not null, authority varchar(50) no
 create unique index ix_auth_username on authorities(username, authority);
 ```
 
-然后添加 Mybatis 和 MySQL 的依赖。
+然后添加 Mybatis 和 MySQL 的依赖（持久层框架见 [[mb使用]]）。
 
 注意要额外使用 `spring-jdbc` 和 `mybatis-spring`。
 

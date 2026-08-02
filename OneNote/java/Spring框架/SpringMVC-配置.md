@@ -14,7 +14,7 @@ MVC 详细解释如下：
 
 - **M** 是指业务模型（Model）：通俗的讲就是我们之前用于封装数据传递的实体类。
 - **V** 是指用户界面（View）：一般指的是前端页面。
-- **C** 则是控制器（Controller）：控制器就相当于 Servlet 的基本功能，处理请求，返回响应。
+- **C** 则是控制器（Controller）：控制器就相当于 Servlet 的基本功能，处理请求，返回响应（控制器详解见 [[SpringMVC-Controller]]）。
 
 ![[_assets/SpringMVC-配置/SpringMVC-配置__09-23-44-1.png]]
 
@@ -84,13 +84,13 @@ MVC 详细解释如下：
 
 ## 注解配置
 
-Tomcat 会在类路径中查找实现 `ServletContainerInitializer` 接口的类，如果发现的话，就用它来配置 Servlet 容器，Spring 提供了这个接口的实现类 `SpringServletContainerInitializer`，通过 `@HandlesTypes(WebApplicationInitializer.class)` 来设置，这个类反过来会查找实现 `WebApplicationInitializer` 的类，并将配置的任务交给他们来完成，因此直接实现接口即可：
+Tomcat 会在类路径中查找实现 `ServletContainerInitializer` 接口的类，如果发现的话，就用它来配置 Servlet 容器，Spring 提供了这个接口的实现类 `SpringServletContainerInitializer`，通过 `@HandlesTypes(WebApplicationInitializer.class)` 来设置，这个类反过来会查找实现 `WebApplicationInitializer` 的类，并将配置的任务交给他们来完成，因此直接实现接口即可（Security 的初始化器也是类似机制，见 [[SpringSecurity-配置]]）：
 
 ```java
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{WebInitializer.class};  // 基本的 Spring 配置类，一般用于业务配置
+        return new Class[]{WebInitializer.class};  // 基本的 Spring 配置类，一般用于业务配置（IoC 容器见 [[Spring-IoC]]）
     }
 
     @Override

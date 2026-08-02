@@ -10,7 +10,7 @@ aliases: [Spring整合Swagger或Knife4j]
 
 | 注解 | 用法 | 属性 |
 | --- | --- | --- |
-| `@Api` | 用在 Controller，表示对类的说明 | `tag`：标签 |
+| `@Api` | 用在 Controller（见 [[SpringMVC-Controller]]），表示对类的说明 | `tag`：标签 |
 | `@ApiOperation` | 用在方法上，说明方法的用途、作用 | `value`：方法的业务功能 |
 | `@ApiModel` | 用在 Entity、DTO、VO 等 | `description`：描述 |
 | `@ApiModelProperty` | 用在属性上，描述属性信息 | — |
@@ -46,4 +46,4 @@ public class Knife4jConfig {
 
 ### 3. 访问
 
-启动应用后访问 `http://localhost:8080/doc.html`。
+启动应用后（启动流程见 [[SpringBoot-Start]]）访问 `http://localhost:8080/doc.html`。

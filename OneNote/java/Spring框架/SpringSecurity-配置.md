@@ -32,6 +32,8 @@ public class SecurityInitializer extends AbstractSecurityWebApplicationInitializ
 }
 ```
 
+这里和 [[SpringMVC-配置]] 中的 `WebApplicationInitializer` 机制类似，都是通过 `ServletContainerInitializer` 自动发现的。
+
 ## 创建配置类
 
 创建配置类来配置 SpringSecurity：
@@ -44,7 +46,7 @@ public class SecurityConfiguration {
 }
 ```
 
-接着在根容器添加此配置文件即可：
+接着在根容器添加此配置文件即可（根容器即 [[Spring-IoC]] 中的 IoC 容器）：
 
 ```java
 @Override
@@ -52,3 +54,5 @@ protected Class<?>[] getRootConfigClasses() {
     return new Class[]{WebConfiguration.class, SecurityConfiguration.class};  // 基本的 Spring 配置类，一般用于业务配置
 }
 ```
+
+认证与授权分别见 [[SpringSecurity-认证]] 与 [[SpringSecurity-授权]]。

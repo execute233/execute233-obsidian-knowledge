@@ -8,7 +8,7 @@ aliases: [SpringMVC-other]
 
 ## RestFul
 
-一种设计风格。它的主要作用是充分并正确利用 HTTP 协议的特性，规范资源获取的 URI 路径。RESTful 风格的设计允许将参数通过 URL 拼接传到服务端，目的是让 URL 看起来更简洁实用，并且我们可以充分使用多种 HTTP 请求方式（POST / GET / PUT / DELETE），来执行相同请求地址的不同类型操作。
+一种设计风格。它的主要作用是充分并正确利用 HTTP 协议的特性，规范资源获取的 URI 路径。RESTful 风格的设计允许将参数通过 URL 拼接传到服务端，目的是让 URL 看起来更简洁实用，并且我们可以充分使用多种 HTTP 请求方式（POST / GET / PUT / DELETE），来执行相同请求地址的不同类型操作（请求映射见 [[SpringMVC-Controller]]）。
 
 我们可以直接将 index 的下一级路径作为请求参数进行处理，也就是说现在的请求参数包含在了请求路径中：
 
@@ -41,7 +41,7 @@ void postHandle(HttpServletRequest request, HttpServletResponse response, Object
 void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex);
 ```
 
-接着需要在配置类注册（实现 `WebMvcConfigurer` 的配置类）：
+接着需要在配置类注册（实现 `WebMvcConfigurer` 的配置类，配置方式见 [[SpringMVC-配置]]）：
 
 ```java
 @Override
@@ -64,7 +64,7 @@ public void addInterceptors(InterceptorRegistry registry) {
 
 ## 异常处理
 
-我们可以专门写一个异常处理的 Controller，出现指定异常可以转接到此控制器执行：
+我们可以专门写一个异常处理的 Controller，出现指定异常可以转接到此控制器执行（参数校验的异常处理见 [[SpringBoot-接口规则校验]]）：
 
 ```java
 @ControllerAdvice

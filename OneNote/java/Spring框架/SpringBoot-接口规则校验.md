@@ -8,6 +8,8 @@ aliases: [SpringBoot-接口规则校验]
 
 ## 导入依赖
 
+在 [[SpringBoot-Start]] 工程中，导入以下依赖即可开启参数校验：
+
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -17,7 +19,7 @@ aliases: [SpringBoot-接口规则校验]
 
 ## 使用
 
-`@Validated` 打在 Controller 上启用验证，我们可以使用以下注解来对参数校验：
+`@Validated` 打在 [[SpringMVC-Controller]] 上启用验证，我们可以使用以下注解来对参数校验：
 
 | 验证注解 | 验证的数据类型 | 说明 |
 | --- | --- | --- |
@@ -41,6 +43,6 @@ aliases: [SpringBoot-接口规则校验]
 
 ## 异常处理
 
-对于异常不是很友好，可以单独使用 `@ControllerAdvice` 打上类，给方法打 `@ExceptionHandler(要处理的 Controller.class)` 即可，方法参数是 `Exception`。
+对于异常不是很友好，可以单独使用 `@ControllerAdvice` 打上类（异常处理详见 [[SpringMVC-other]]），给方法打 `@ExceptionHandler(要处理的 Controller.class)` 即可，方法参数是 `Exception`。
 
 如果方法传入的参数是自定义对象需要验证，可以给参数打 `@Valid`，在自定义对象的类中的属性打注解即可。
