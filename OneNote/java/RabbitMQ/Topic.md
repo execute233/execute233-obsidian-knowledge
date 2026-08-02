@@ -6,6 +6,7 @@ aliases: [Topic]
 
 # Topic
 
+前置: [[Routing]] 模式通过精确匹配 routing key 路由消息,本篇 Topic 模式支持通配符模糊匹配。
 
 ## 路由示意
 

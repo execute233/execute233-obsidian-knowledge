@@ -6,9 +6,11 @@ aliases: [Spring-高级特性]
 
 # Spring-高级特性
 
+前置: Bean 装配基础见 [[Spring-IoC]],切面见 [[Spring-AOP面向切片]]。本篇介绍 Aware、异步、定时任务、监听器等高级特性。
+
 ## Bean Aware
 
-在 Spring 中提供了一些以 Aware 结尾的接口，实现了 Aware 接口的 bean 在被初始化之后，可以获取相应资源。
+在 Spring 中提供了一些以 Aware 结尾的接口，实现了 Aware接口的 bean 在被初始化之后，可以获取相应资源。底层实现原理见 [[Aware与Scope]]。
 
 简单来说，它就是一个标识，实现此接口的类会获得某些感知能力，Spring 容器会在 Bean 被加载时，根据类实现的感知接口，会调用类中实现的对应感知方法，有这些接口和更多的使用：
 

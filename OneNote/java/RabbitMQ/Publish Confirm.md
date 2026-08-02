@@ -13,6 +13,8 @@ RabbitMQ 了 **Publisher Confirm** 和 **Publisher Return** 两种确认机制�
 - 持久消息投递到了 MQ,并且入队完成持久化,返回 **ACK**,告知投递成功。
 - 其它情况都会返回 **NACK**,告知投递失败。
 
+前置基础: [[RabbitMQ基础]] 中介绍了消息模式和四大核心概念,本篇专注于生产端的可靠性投递确认。
+
 ## 架构示意
 
 ```
@@ -25,7 +27,7 @@ publisher  ──[ack]──▶  topic exchange  ──▶  queue1 (non durable)
 publisher  ──[return/ack]──▶  exchange2  (路由失败,回退)
 ```
 
-Publish Return 一般是代码层面的问题。
+Publish Return 一般是代码层面的问题。进阶阅读: [[可靠性]] 从消费者角度补充确认应答和消费重试。
 
 ## 配置中使用
 

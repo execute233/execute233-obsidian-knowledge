@@ -6,6 +6,8 @@ aliases: [SpringBoot-前后端分离]
 
 # SpringBoot-前后端分离
 
+前置: SpringSecurity 基础见 [[SpringSecurity-配置]],JWT 签发与验证见 [[SpringSecurity-认证]]。本篇专注于前后端分离架构下的鉴权流程。
+
 ## 基于 Session 的分离（有状态）
 
 我们发现，实际上 SpringSecurity 在登录之后，会利用 Session 机制记录用户的登录状态，这就要求我们每次请求的时候都需要携带 Cookie 才可以，因为 Cookie 中存储了用于识别的 JSESSIONID 数据。因此，要实现前后端分离，我们只要稍微修改一下就可以了，这对于小型的单端应用程序非常友好。

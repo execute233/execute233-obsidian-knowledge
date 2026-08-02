@@ -22,6 +22,8 @@ mapper.selectList(wrapper);                        // Mapper 同样支持使用 
 select id, username from user where id >= 2 order by id desc
 ```
 
+关联基础: [[MP]] 的 CRUD 操作通常只处理简单条件,复杂场景需要 QueryWrapper / LambdaQueryWrapper / UpdateWrapper 等构造器。
+
 有很多方法可以使用,如 `eq`、`ne`、`gt`、`lt`、`like`、`between`、`isNull` 等。
 
 有时候会遇到批处理的情况,比如快速删除多个指定用户:

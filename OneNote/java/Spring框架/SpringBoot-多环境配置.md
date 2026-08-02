@@ -6,6 +6,8 @@ aliases: [SpringBoot-多环境配置]
 
 # SpringBoot-多环境配置
 
+前置: SpringBoot 基础见 [[SpringBoot-Start]],日志配置见 [[SpringBoot-Log]]。
+
 由于 SpringBoot 只会读取 `application.properties` 或是 `application.yml` 文件，那么怎么才能实现自由切换呢？SpringBoot 给我们提供了一种方式，我们可以通过配置文件指定：
 
 ```yaml

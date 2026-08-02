@@ -8,6 +8,8 @@ aliases: [Spring-SpEL]
 
 SpEL 是一种强大、简洁的装配 Bean 的方式，它可以通过运行期间执行的表达式将值装配到我们的属性或构造函数当中，更可以调用 JDK 中提供的静态常量，获取外部 Properties 文件中的配置。
 
+前置基础: Bean 装配的整体机制见 [[Spring-IoC]],本篇专注于 SpEL 表达式语法。
+
 ## 外部属性注入
 
 用的是 properties 文件。

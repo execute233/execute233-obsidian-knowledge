@@ -6,6 +6,8 @@ aliases: [SpringBoot-Start]
 
 # SpringBoot-Start
 
+前置: Spring 容器原理见 [[Spring-IoC]],本篇专注于 SpringBoot 工程化整合。
+
 ## 常用模块快速整合
 
 导入 SpringBoot 直接写：
@@ -22,7 +24,7 @@ aliases: [SpringBoot-Start]
 
 比如一些常见的：
 
-- **web**：内置 Tomcat 的 SpringMVC 模块。
+- **web**：内置 Tomcat 的 SpringMVC 模块，路由处理见 [[SpringMVC-Controller]]。
   - 包含 starter、json、tomcat、spring-web、spring-webmvc。
 
 要注意的是：
@@ -32,8 +34,8 @@ aliases: [SpringBoot-Start]
 
 可以添加下面这些依赖：
 
-- `spring-boot-starter-security`
-- `mybatis-spring-boot-starter`（注意还是得要数据库相关依赖，配置数据源）
+- `spring-boot-starter-security` (SpringSecurity 集成,见 [[SpringSecurity-配置]])
+- `mybatis-spring-boot-starter` (注意还是得要数据库相关依赖，配置数据源)
 
 ## 自定义运行器
 
@@ -43,7 +45,7 @@ aliases: [SpringBoot-Start]
 
 ## 配置文件
 
-在 `resource` 文件夹中的 `application.properties`（或者 `application.yml`）。
+在 `resource` 文件夹中的 `application.properties`（或者 `application.yml`）。多环境配置见 [[SpringBoot-多环境配置]]。
 
 ## 打包运行
 

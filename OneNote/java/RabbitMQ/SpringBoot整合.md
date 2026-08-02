@@ -6,6 +6,8 @@ aliases: [SpringBoot整合]
 
 # SpringBoot整合
 
+前置基础: [[RabbitMQ基础]] 中介绍了六大消息模式,本篇专注于 SpringBoot 项目的工程化整合。
+
 导入相关依赖:
 
 ```xml

@@ -6,6 +6,8 @@ aliases: [SpringBoot-Log]
 
 # SpringBoot-Log
 
+前置: [[SpringBoot-Start]] 介绍 SpringBoot 工程基础。本篇专注于日志框架的整合与配置。
+
 ![[_assets/SpringBoot-Log/SpringBoot-Log__09-24-09-0.png]]
 
 所以，SpringBoot 为了统一日志框架的使用，做了这些事情：
@@ -24,7 +26,7 @@ spring-boot-starter-logging
 
 （此依赖项已经被包含了）
 
-然后就可以 `LoggerFactory.getLogger()` 了，也可以使用 Lombok 的 `@Slf4j`。
+然后就可以 `LoggerFactory.getLogger()` 了，也可以使用 Lombok 的 `@Slf4j`，详细见 [[logging-介绍]]。
 
 ## 配置 logback 日志
 
