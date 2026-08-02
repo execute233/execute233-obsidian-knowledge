@@ -7,7 +7,7 @@ aliases: [Netty]
 # Netty
 
 导入只需导入netty-all与io.netty
-**ByteBuf**
+### ByteBuf
 Netty并没有使用NIO中提供的ByteBuffer来进行数据装载，而是自行定义了一个ByteBuf类。
 与ByteBuffer不同之处：
 
@@ -38,7 +38,7 @@ private int maxCapacity; //最大容量,没错,这玩意能动态扩容
 
 Unpooled使用ByteBufAllocator来获取Buffer，它有两个具体实现类：
 UnpooledByteBufAllocator和PooledByteBufAllocator，一个是非池化缓冲区生成器，还有一个是池化缓冲区生成器
-**零拷贝**
+### 零拷贝
 零拷贝是一种I/O操作优化技术，可以快速高效地将数据从文件系统移动到网络接口，而不需要将其从内核空间复制到用户空间，有三种实现方法：
 
 - 使用虚拟内存
@@ -58,7 +58,7 @@ UnpooledByteBufAllocator和PooledByteBufAllocator，一个是非池化缓冲区�
 ![[_assets/Netty/Netty__09-25-02-4.png]]
 
 比如我们之前在NIO中使用的transferTo（）方法，就是利用了这种机制来实现零拷贝的。
-**Netty 工作模型**
+### Netty 工作模型
 Netty以主从Reactor多线程模型为基础，构建出了一套高效的工作模型
 
 ![[_assets/Netty/Netty__09-25-07-5.png]]
@@ -98,7 +98,7 @@ ctx.writeAndFlush（Unpooled._wrappedBuffer_（"已收到！".getBytes（））�
 }）；
 //最后绑定端口，启动
 bootstrap.bind（8080）；
-**Channel 详解**
+### Channel 详解
 Netty中也有自己对应的Channel类型
 ```csharp
 public interface Channel extends AttributeMap, ChannelOutboundInvoker, Comparable<Channel> {
