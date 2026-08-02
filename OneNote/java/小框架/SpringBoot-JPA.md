@@ -6,6 +6,8 @@ aliases: [SpringBoot-JPA]
 
 # SpringBoot-JPA
 
+JPA 规范介绍见 [[JPA介绍]],SpringBoot 项目基础搭建见 [[SpringBoot-Start]]。
+
 ## 导入
 
 导入 `spring-boot-starter-data-jpa`(默认使用 Hibernate)。

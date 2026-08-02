@@ -6,6 +6,8 @@ aliases: [langchain4j]
 
 # langchain4j
 
+langchain4j 是 Java 生态的 LLM 应用框架,与 Python 生态的 [[langchain]] 相对应,提示词编写思路可参考 [[Prompt Engineering]]。
+
 自己引入 starter 依赖
 使用
 

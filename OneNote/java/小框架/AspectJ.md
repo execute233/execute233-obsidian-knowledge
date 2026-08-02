@@ -6,7 +6,7 @@ aliases: [AspectJ]
 
 # AspectJ
 
-实现了 AOP 代理,通过在编译时修改源码来实现。
+实现了 AOP 代理,通过在编译时修改源码来实现。与 Spring 的 [[Spring-AOP面向切片]] 运行时动态代理不同,AspectJ 采用编译期织入的方式,其底层原理可参考 [[AOP与代理]]。
 
 ## 配置
 

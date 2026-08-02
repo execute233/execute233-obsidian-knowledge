@@ -6,6 +6,8 @@ aliases: [Netty]
 
 # Netty
 
+Netty 是基于 [[NIO]] 的高性能网络通信框架,底层网络协议原理见 [[TCP连接]],其线程模型与 [[JUC-线程池]] 密切相关。
+
 导入只需导入 `netty-all` 与 `io.netty`。
 
 ### ByteBuf

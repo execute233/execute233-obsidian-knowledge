@@ -6,6 +6,8 @@ aliases: [lombok]
 
 # lombok
 
+lombok 通过注解在编译期自动生成样板代码,注解的语法与元注解机制可参考 [[java8新特性]],在 Spring 项目中的集成使用见 [[SpringBoot-Start]]。
+
 ## 类属性相关
 
 自动生成 Getter 方法,修饰字段或类:
