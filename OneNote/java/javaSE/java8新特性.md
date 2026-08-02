@@ -143,3 +143,5 @@ opt.orElse(T)               // 设置默认值
 opt.orElseGet(Supplier s)   // 获取的默认值
 opt.orElseThrow(...)        // 空值时抛出异常
 ```
+
+后续版本的演进参见 [[java9~17新特性]] 与 [[java18~24新特性]]。

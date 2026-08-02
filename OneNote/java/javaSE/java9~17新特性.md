@@ -55,7 +55,7 @@ var list = new ArrayList<String>();
 
 ## 5. HTTP 客户端 API
 
-Java 11 将 HTTP 客户端 API 正式化,支持 HTTP/2 和 WebSocket:
+Java 11 将 HTTP 客户端 API 正式化,支持 HTTP/2 和 WebSocket,其底层遵循 [[computer/计算机网络/HTTP协议]]:
 
 ```java
 // 创建 HTTP 客户端
@@ -107,7 +107,7 @@ WebSocket webSocket = HttpClient.newHttpClient()
 
 ## 6. 增强的 switch
 
-可以多个匹配,也可以作为结果赋值:
+可以多个匹配,也可以作为结果赋值,在 [[java18~24新特性]] 中进一步支持了模式匹配:
 
 ```java
 // 简洁写法
@@ -166,3 +166,5 @@ public sealed class Shape
 - **文本块**(Java 13/15):使用 `"""` 三引号定义多行字符串。
 - **空指针友好提示**(Java 14):`NullPointerException` 会精确指出哪个变量为 null。
 - **ZGC / Shenandoah**(Java 11+):低延迟垃圾收集器。
+
+Lambda 与 Stream 的基础来自 [[java8新特性]]。
