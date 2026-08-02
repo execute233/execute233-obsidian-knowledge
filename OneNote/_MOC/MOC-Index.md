@@ -39,38 +39,38 @@ aliases: [知识库总览, 知识地图入口, Home]
 
 ### 网络与协议
 
-- [[computer/计算机网络/HTTP协议]]
-- [[computer/计算机网络/TCP连接]]
-- [[computer/计算机网络/UDP协议]]
-- [[computer/计算机网络/网络和通信协议]]
+- [[computer/计算机网络/HTTP协议|HTTP协议]]
+- [[computer/计算机网络/TCP连接|TCP连接]]
+- [[computer/计算机网络/UDP协议|UDP协议]]
+- [[computer/计算机网络/网络和通信协议|网络和通信协议]]
 
 ### 并发与多线程
 
-- [[java/javaSE/JUC-AQS]]
-- [[java/javaSE/JUC-JMM]]
-- [[java/javaSE/JUC-锁]]
-- [[java/javaSE/JUC-线程池]]
-- [[java/javaSE/JUC-并发容器]]
+- [[java/javaSE/JUC-AQS|JUC-AQS]]
+- [[java/javaSE/JUC-JMM|JUC-JMM]]
+- [[java/javaSE/JUC-锁|JUC-锁]]
+- [[java/javaSE/JUC-线程池|JUC-线程池]]
+- [[java/javaSE/JUC-并发容器|JUC-并发容器]]
 
 ### 数据访问
 
-- [[java/小框架/JDBC-连接数据库]]
-- [[java/Mybatis/mb使用]]
-- [[SQL/MySQL/数据库]]
-- [[SQL/Redis/基本操作]]
-- [[python/基础n件/pandas]]
+- [[java/小框架/JDBC-连接数据库|JDBC-连接数据库]]
+- [[java/Mybatis/mb使用|mb使用]]
+- [[SQL/MySQL/数据库|数据库]]
+- [[SQL/Redis/基本操作|基本操作]]
+- [[python/基础n件/pandas|pandas]]
 
 ### 机器学习
 
-- [[python/机器学习/概述]]
-- [[python/机器学习/数学概念]]
-- [[python/机器学习/线性回归]]
-- [[python/机器学习/决策树]]
-- [[python/机器学习/集成学习]]
+- [[python/机器学习/概述|概述]]
+- [[python/机器学习/数学概念|数学概念]]
+- [[python/机器学习/线性回归|线性回归]]
+- [[python/机器学习/决策树|决策树]]
+- [[python/机器学习/集成学习|集成学习]]
 
 ### LLM 生态
 
-- [[AI/LLM/Prompt Engineering]]
-- [[python/常用第三方模块/langchain]]
-- [[python/常用第三方模块/LangGraph]]
-- [[java/小框架/langchain4j]]
+- [[AI/LLM/Prompt Engineering|Prompt Engineering]]
+- [[python/常用第三方模块/langchain|langchain]]
+- [[python/常用第三方模块/LangGraph|LangGraph]]
+- [[java/小框架/langchain4j|langchain4j]]

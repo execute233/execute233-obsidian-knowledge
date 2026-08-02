@@ -6,7 +6,7 @@ aliases: [DQL数据查询]
 
 # DQL数据查询
 
-> 查询是 SQL 使用最频繁的操作,常与 [[SQL语句/DDL数据定义]]、[[SQL语句/DML数据操作]] 配合使用;Python 中对应 [[python/基础n件/pandas]] 的数据查询,聚集函数见 [[MySQL/函数]]。
+> 查询是 SQL 使用最频繁的操作,常与 [[SQL语句/DDL数据定义|DDL数据定义]]、[[SQL语句/DML数据操作|DML数据操作]] 配合使用;Python 中对应 [[python/基础n件/pandas|pandas]] 的数据查询,聚集函数见 [[MySQL/函数|函数]]。
 
 ## 单表查询
 

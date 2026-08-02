@@ -6,7 +6,7 @@ aliases: [Java与redis的交互]
 
 # Java与redis的交互
 
-> 本篇示例均调用 [[Redis/基本操作]] 中描述的命令,如 `set`、`hset`、`lpush`、`lrange` 等。涉及的 Hash/List 等数据类型见 [[Redis/数据类型]]。Redis 事务相关 API 见 [[Redis/事务和锁]]。
+> 本篇示例均调用 [[Redis/基本操作|基本操作]] 中描述的命令,如 `set`、`hset`、`lpush`、`lrange` 等。涉及的 Hash/List 等数据类型见 [[Redis/数据类型|数据类型]]。Redis 事务相关 API 见 [[Redis/事务和锁|事务和锁]]。
 
 ## Jedis 交互
 
@@ -34,7 +34,7 @@ jedis.lrange("mylist", 0, -1).forEach(System.out::println);
 jedis.close();
 ```
 
-> 与 JDBC 等 Java 与外部系统交互方式同属一类,可对照 [[java/小框架/JDBC-连接数据库]] 学习连接建立/释放模式。
+> 与 JDBC 等 Java 与外部系统交互方式同属一类,可对照 [[java/小框架/JDBC-连接数据库|JDBC-连接数据库]] 学习连接建立/释放模式。
 
 ## SpringBoot 交互
 
@@ -89,7 +89,7 @@ public class RedisAutoConfiguration {
 }
 ```
 
-> 上述自动配置类是 SpringBoot 启动机制的典型示例,详见 [[java/Spring框架/SpringBoot-Start]]。
+> 上述自动配置类是 SpringBoot 启动机制的典型示例,详见 [[java/Spring框架/SpringBoot-Start|SpringBoot-Start]]。
 
 可通过 `opsFor…` 获取对应类型(String / List / Hash / …)操作:
 
@@ -124,4 +124,4 @@ public class RedisTestService {
 }
 ```
 
-> 启用事务 (`template.multi()/exec()`) 对应 [[Redis/事务和锁]] 中的 multi/exec 机制。
+> 启用事务 (`template.multi()/exec()`) 对应 [[Redis/事务和锁|事务和锁]] 中的 multi/exec 机制。
