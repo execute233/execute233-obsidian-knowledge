@@ -4,7 +4,7 @@ tags: [SQL, SQL语句]
 aliases: [DDL数据定义]
 ---
 
-# DDL 数据定义
+# DDL数据定义
 
 ## 数据库操作
 

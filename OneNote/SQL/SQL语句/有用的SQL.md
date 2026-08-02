@@ -4,7 +4,7 @@ tags: [SQL, SQL语句]
 aliases: [有用的SQL]
 ---
 
-# 有用的 SQL
+# 有用的SQL
 
 ## 统计表中某列出现元素的数量
 

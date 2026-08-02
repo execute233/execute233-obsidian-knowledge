@@ -4,7 +4,7 @@ tags: [java, Spring框架]
 aliases: [Spring整合Swagger或Knife4j]
 ---
 
-# Spring 整合 Swagger 或 Knife4j
+# Spring整合Swagger或Knife4j
 
 ## Swagger 常用注解
 

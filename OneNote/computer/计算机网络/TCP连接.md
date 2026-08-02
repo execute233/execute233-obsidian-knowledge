@@ -4,7 +4,7 @@ tags: [computer, 计算机网络]
 aliases: [TCP连接]
 ---
 
-# TCP 连接
+# TCP连接
 
 ## 建立 TCP 连接
 

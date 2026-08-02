@@ -4,7 +4,7 @@ tags: [SQL, SQL语句]
 aliases: [DQL数据查询]
 ---
 
-# DQL 数据查询
+# DQL数据查询
 
 ## 单表查询
 

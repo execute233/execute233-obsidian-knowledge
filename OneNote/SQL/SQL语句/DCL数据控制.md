@@ -4,7 +4,7 @@ tags: [SQL, SQL语句]
 aliases: [DCL数据控制]
 ---
 
-# DCL 数据控制
+# DCL数据控制
 
 ## 创建用户
 

@@ -4,7 +4,7 @@ tags: [SQL, SQL语句]
 aliases: [DML数据操作]
 ---
 
-# DML 数据操作
+# DML数据操作
 
 ## 插入数据
 

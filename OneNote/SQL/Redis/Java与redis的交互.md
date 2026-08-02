@@ -4,7 +4,7 @@ tags: [SQL, Redis]
 aliases: [Java与redis的交互]
 ---
 
-# Java 与 redis 的交互
+# Java与redis的交互
 
 ## Jedis 交互
 
