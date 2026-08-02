@@ -8,7 +8,7 @@ aliases: [BeanFactory后处理器]
 
 ## BeanFactoryPostProcessor
 
-BeanFactory 扫描 Bean 注解的后处理器。
+BeanFactory 扫描 Bean 注解的后处理器。与之对应，作用于单个 Bean 生命周期各阶段的处理器见 [[Bean及其后处理器]]。
 
 ```java
 GenericApplicationContext context = new GenericApplicationContext();

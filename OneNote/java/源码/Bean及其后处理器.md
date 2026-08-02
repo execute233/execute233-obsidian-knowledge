@@ -8,6 +8,8 @@ aliases: [Bean及其后处理器]
 
 ## Bean 的生命周期
 
+Bean 定义注册阶段由 [[BeanFactory后处理器]] 处理，本节关注 Bean 实例化之后的生命周期回调。
+
 以下面为例:
 
 ```java

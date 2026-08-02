@@ -8,7 +8,7 @@ aliases: [Spring-Start]
 
 ## BeanFactory 与 ApplicationContext
 
-我们从 `SpringApplication.run` 返回 `ConfigurableApplicationContext` 的开始研究接口关系。
+我们从 `SpringApplication.run` 返回 `ConfigurableApplicationContext` 的开始研究接口关系。SpringBoot 工程化整合见 [[SpringBoot-Start]]。
 
 ![[_assets/Spring-Start/Spring-Start__09-26-15-0.png]]
 
@@ -128,6 +128,8 @@ for (String name : beanFactory.getBeanDefinitionNames()) {
  * bean 的后处理器有排序的逻辑
  */
 ```
+
+BeanFactory 后处理器的具体原理见 [[BeanFactory后处理器]]，Bean 后处理器见 [[Bean及其后处理器]]。
 
 ## ApplicationContext 的实现
 

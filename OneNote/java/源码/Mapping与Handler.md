@@ -64,6 +64,8 @@ initViewResolvers(context); // 视图解析器
 initFlashMapManager(context); // 用于重定向
 ```
 
+DispatcherServlet 是 SpringMVC 请求处理入口，完整的请求链路见 [[SpringMVC-Controller]]。
+
 ## RequestMappingHandlerMapping
 
 ```java
@@ -94,6 +96,8 @@ adapter.getReturnValueHandlers();
 ```
 
 ### 自定义参数解析器
+
+参数解析器的组合与解析过程见 [[参数解析器]]。
 
 ```java
 class TokenArgumentResolver implements HandlerMethodArgumentResolver {

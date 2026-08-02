@@ -15,6 +15,8 @@ Aware 接口用于注入与容器相关的信息，例如：
 - `ApplicationContextAware` 注入 ApplicationContext 容器
 - `EmbeddedValueResolverAware` 注入 `${}`
 
+Aware 属于 Spring 容器内置的回调机制，而 `@Autowired` 等注解的解析依赖 Bean 后处理器，相关原理见 [[Bean及其后处理器]] 与 [[BeanFactory后处理器]]。
+
 ### 举例
 
 ```java
@@ -64,3 +66,5 @@ class MyBean implements BeanNameAware, ApplicationContextAware, InitializingBean
 另一种方法是指定 `@Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)`。
 
 还有种方法是注入 `ObjectFactory<Object>` 对象，每次使用都利用工厂对象拿到 Object 的多例。
+
+Bean 的作用域由 IoC 容器统一管理，详见 [[Spring-IoC]]。
