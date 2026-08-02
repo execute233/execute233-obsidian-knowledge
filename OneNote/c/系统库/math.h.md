@@ -1,25 +1,35 @@
-1. double sqrt(double _x)
+---
+title: math.h
+tags: [c, math.h, 数学函数, 标准库]
+aliases: []
+---
 
-求平方根
+# math.h
 
-3. double pow(double _x, double _y)
+### double sqrt(double _x)
 
-求_x的_y次方
+求平方根。
 
-5. double tan(double _x)
+### double pow(double _x, double _y)
 
-求tan值(x为弧度制)  
-类似的还有sin(), cos()
+求 `_x` 的 `_y` 次方。
 
-7. double ceil(double _x)
+### double tan(double _x)
 
-向上取整
+求 `tan` 值（`_x` 为弧度制）。
 
-9. double floor(double _x)
+类似的还有 `sin()`、`cos()`。
 
-向下取整
+### double ceil(double _x)
 
-11. int abs(int _x)
+向上取整。
 
-取绝对值  
-类似的还有double fabs(double _x)等适应不同类型
+### double floor(double _x)
+
+向下取整。
+
+### int abs(int _x)
+
+取绝对值。
+
+类似的还有 `double fabs(double _x)` 等适应不同类型。
