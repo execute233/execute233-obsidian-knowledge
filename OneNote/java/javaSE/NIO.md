@@ -60,7 +60,6 @@ public final Buffer clear()           // 将缓冲区清空,所有的变量变�
 
 ## 通道接口层次
 
-![[_assets/NIO/NIO__09-20-40-0.png]]
 
 除了读写之外,`Channel` 还可以具有响应中断的能力:
 
@@ -110,7 +109,6 @@ public abstract class AbstractInterruptibleChannel implements Channel, Interrupt
 
 而之后的一些实现类,都是基于这些接口定义的方法去进行实现的,比如 `FileChannel`:
 
-![[_assets/NIO/NIO__09-20-42-1.png]]
 
 我们可以使用通道代替传统读取:
 
@@ -221,7 +219,6 @@ try (SocketChannel channel = SocketChannel.open(new InetSocketAddress("localhost
 
 NIO 为我们提供的网络 IO 模型:
 
-![[_assets/NIO/NIO__09-20-44-2.png]]
 
 服务端不再是一个单纯通过 `accept()` 方法来创建连接的机制了,而是根据客户端不同的状态,`Selector` 会不断轮询,只有客户端在对应的状态时,比如真正开始读写操作时,才会创建线程或进行处理(这样就不会一直阻塞等待某个客户端的 IO 操作了),而不是创建之后需要一直保持连接,即使没有任何的读写操作。这样就不会因为占着茅坑不拉屎导致线程无限制地创建下去了。
 

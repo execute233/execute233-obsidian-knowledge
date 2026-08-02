@@ -8,7 +8,6 @@ aliases: [Work Queues]
 
 ## 轮训分发消息
 
-![[_assets/Work-Queues/Work-Queues__09-21-42-0.png]]
 
 > **注意事项**:一个消息只能被处理一次,不可以处理多次。
 >
@@ -41,7 +40,6 @@ channel.basicReject(message.getEnvelope().getDeliveryTag(), false);
 
 如果消费者丢失连接并未发送 ACK,则消息会对其重新排队。
 
-![[_assets/Work-Queues/Work-Queues__09-21-45-1.png]]
 
 **4 步流程**:
 

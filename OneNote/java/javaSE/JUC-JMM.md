@@ -12,7 +12,6 @@ aliases: [JUC-JMM]
 
 为了解决缓存一致性的问题,需要各个处理器访问缓存时都遵循一些协议,在读写时要根据协议来进行操作,这类协议有 MSI、MESI(Illinois Protocol)、MOSI、Synapse、Firefly 及 Dragon Protocol 等。
 
-![[_assets/JUC-JMM/JUC-JMM__09-20-01-0.png]]
 
 JMM(Java Memory Model)内存模型规定如下:
 

@@ -6,7 +6,6 @@ aliases: [Topic]
 
 # Topic
 
-![[_assets/Topic/Topic__09-22-35-0.png]]
 
 ## 路由示意
 

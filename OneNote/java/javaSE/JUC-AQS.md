@@ -18,7 +18,6 @@ aliases: [JUC-AQS]
 
 一个锁(排他锁为例)的基本功能就是获取锁、释放锁、当锁被占用时,其他线程来争抢会进入等待队列,AQS 已经将这些基本的功能封装完成了,其中等待队列是核心内容,等待队列是由双向链表数据结构实现的,每个等待状态下的线程都可以被封装进结点中并放入双向链表中,而对于双向链表是以队列的形式进行操作的,它像这样:
 
-![[_assets/JUC-AQS/JUC-AQS__09-20-07-0.png]]
 
 AQS 中有一个 `head` 字段和一个 `tail` 字段分别记录双向链表的头结点和尾结点,而之后的一系列操作都是围绕此队列来进行的。我们先来了解一下每个结点都包含了哪些内容:
 
@@ -293,7 +292,6 @@ protected final boolean tryRelease(int releases) {
 
 综上,流程图:
 
-![[_assets/JUC-AQS/JUC-AQS__09-20-09-1.png]]
 
 ## Condition 实现原理
 
@@ -315,7 +313,6 @@ public class ConditionObject implements Condition, java.io.Serializable {
 
 这里是直接使用了 AQS 中的 `Node` 类,但是使用的是 `Node` 类中的 `nextWaiter` 字段连接节点,并且 `Node` 的 status 为 `CONDITION`:
 
-![[_assets/JUC-AQS/JUC-AQS__09-20-14-2.png]]
 
 而这里的条件队列,正是用于存储这些处于等待状态的线程。
 
@@ -362,7 +359,6 @@ public final void await() throws InterruptedException {
 - 唤醒操作本质上是将条件队列中的结点直接丢进 AQS 等待队列中,让其参与到锁的竞争中。
 - 拿到锁之后,线程才能恢复运行。
 
-![[_assets/JUC-AQS/JUC-AQS__09-20-16-3.png]]
 
 源码如下:
 
@@ -415,5 +411,3 @@ final boolean transferForSignal(Node node) {
 如果这里被提前 unpark,那么在 `await()` 方法中将可以被直接唤醒,并跳出 while 循环,直接开始争抢锁,因为前一个等待结点是被取消的状态,没有必要再等它了。
 
 所以大致流程如下:
-
-![[_assets/JUC-AQS/JUC-AQS__09-20-17-4.png]]

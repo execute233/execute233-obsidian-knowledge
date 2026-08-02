@@ -6,7 +6,6 @@ aliases: [Hello World]
 
 # Hello World
 
-![[_assets/Hello-World/Hello-World__09-21-39-0.png]]
 
 P 是生产者,C 是消费者,中间的队列是消息缓冲区。
 
