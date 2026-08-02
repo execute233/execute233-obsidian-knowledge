@@ -10,7 +10,7 @@ aliases: [JUC-AQS]
 
 它的内部实际上啥都没做,而是交给了 `Sync` 对象在进行,并且,不只是这个方法,其他的很多方法都是依靠 `Sync` 对象在进行。
 
-可以看到,公平锁和非公平锁都是继承自 `Sync`,而 `Sync` 是继承自 `AbstractQueuedSynchronizer`,简称队列同步器(AQS)。
+可以看到,公平锁和非公平锁都是继承自 `Sync`,而 `Sync` 是继承自 `AbstractQueuedSynchronizer`,简称队列同步器(AQS)。`ReentrantLock` 等 Lock 接口实现类正是基于 AQS 构建,详见 [[JUC-锁框架]]。
 
 ## 底层实现
 

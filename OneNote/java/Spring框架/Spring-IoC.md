@@ -29,7 +29,7 @@ Spring 为我们提供了一个 IoC 容器，用于去存放我们需要使用�
 
 ## Bean 配置
 
-`<bean>` 标签有以下属性：
+`<bean>` 标签有以下属性：此外，IoC 容器还提供了 BeanFactoryPostProcessor 机制用于扩展配置(详见 [[BeanFactory后处理器]])。
 
 - class：必填，全限定类名。
 - id：唯一标识符。
@@ -77,7 +77,7 @@ Spring 为我们提供了一个 IoC 容器，用于去存放我们需要使用�
 
 ## 生命周期与继承
 
-只有单例模式的 bean 才能被管理生命周期。参考上面的 `init-method`、`destroy-method`。
+只有单例模式的 bean 才能被管理生命周期。参考上面的 `init-method`、`destroy-method`。Bean 还可以实现 [[Aware与Scope]] 接口来获取容器信息和定义作用域。
 
 继承参考上面的 `parent`。
 

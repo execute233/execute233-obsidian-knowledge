@@ -39,6 +39,8 @@ Producer ──▶ Connection/Channel ──▶ Exchange ──▶ Queue ──�
 
 ## 六种消息模式
 
+最简单的入门模式是 [[Hello World]],随后可扩展到 [[Work Queues]]、[[Publish-Subscribe]]、[[Routing]]、[[Topic]] 等模式。消息可靠性详见 [[可靠性]]。
+
 | # | 模式 | 描述 |
 |---|---|---|
 | 1 | Hello World | 最简单的消息传递,一对一单发单收 |

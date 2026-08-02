@@ -6,6 +6,8 @@ aliases: [mb详解]
 
 # mb详解
 
+MyBatis 常用操作详见 [[mb使用]]。MyBatis-Plus 是在 MyBatis 基础上的增强工具,可简化 CRUD,详见 [[MP]]。
+
 ## 查询操作
 
 查询操作在 XML 配置中使用一个 select 标签进行囊括,假设我们现在需要编写一个根据 ID 查询用户的操作,首先我们需要指定它的 id,建议把 id 名称起得有代表性一点:

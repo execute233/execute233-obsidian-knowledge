@@ -6,6 +6,8 @@ aliases: [mb使用]
 
 # mb使用
 
+MyBatis 的进阶用法(动态 SQL、复杂查询)详见 [[mb详解]]。
+
 ## 配置
 
 1. 先用 SqlSessionFactoryBuilder 导入配置文件

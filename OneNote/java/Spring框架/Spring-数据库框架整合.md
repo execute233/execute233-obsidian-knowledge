@@ -8,6 +8,8 @@ aliases: [Spring-数据库框架整合]
 
 ## 整合 Mybatis 框架
 
+Spring 整合 MyBatis 的详细配置步骤可参考 [[mb使用]]。底层 JDBC 连接通过 [[JDBC-连接数据库]] 实现。
+
 将数据源交给 IoC 容器管理。
 
 首先导入 `mybatis-spring`（ver：3.0.5）和 `spring-jdbc`。

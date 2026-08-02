@@ -8,7 +8,7 @@ aliases: [NumPy]
 
 ## numpy 属性
 
-NumPy 的数组类被称作 ndarray,有以下常用的属性:
+NumPy 的数组类被称作 ndarray ([[pandas]] 的 DataFrame 底层即为 ndarray),有以下常用的属性:
 
 - `ndim` - 维度
 - `shape` - 形状,即几行几列
@@ -212,3 +212,7 @@ np.ravel()  # 一维化
 直接使用数学运算符,行列相同的话就是每个元素对应相 +-。如果形状不同,就会触发广播机制,比如:
 
 ![Exported image](_assets/numpy/numpy__11-51-38-0.png)
+
+## 与 C 数学库关系
+
+numpy 提供了比 C 标准库 [[math.h]] 更丰富的数学函数集,且基于 ndarray 批量运算。

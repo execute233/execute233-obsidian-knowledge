@@ -17,6 +17,8 @@ aliases: [Work Queues]
 
 ## 消息应答
 
+在 Work Queues 之上引入 Exchange 角色,可以实现发布订阅模式,详见 [[Publish-Subscribe]]。
+
 为了保证消息在发送过程中不丢失,引入了该机制,消费者收到消息并处理后告诉 rabbitmq 它已经处理了,可以把消息删除了。
 
 ### 自动应答

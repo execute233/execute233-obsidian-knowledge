@@ -12,7 +12,7 @@ import pandas as pd
 
 ## 数据结构和数据类型
 
-核心概念层级:
+DataFrame/Series 底层使用 [[numpy]] 数组。核心概念层级:
 
 | 层级 | 类型 | 说明 |
 | --- | --- | --- |

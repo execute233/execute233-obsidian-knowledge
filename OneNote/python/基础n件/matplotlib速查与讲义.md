@@ -6,6 +6,8 @@ aliases: [matplotlib cheatsheet]
 
 # matplotlib速查与讲义
 
+详细讲解见 [[matplotlib]]。
+
 ## 速查表
 
 ![Exported image](_assets/matplotlib速查与讲义/matplotlib速查与讲义__11-52-00-0.png)

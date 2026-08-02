@@ -20,6 +20,8 @@ AspectJ 代理并不是很广泛，它通过在编译时修改源代码来实现
 
 ## proxy 增强 — jdk
 
+Spring AOP 框架层调用入口详见 [[Spring-AOP面向切片]]。
+
 注意 jdk 代理只能针对接口代理。
 
 ```java

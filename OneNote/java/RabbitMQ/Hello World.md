@@ -7,7 +7,7 @@ aliases: [Hello World]
 # Hello World
 
 
-P 是生产者,C 是消费者,中间的队列是消息缓冲区。
+P 是生产者,C 是消费者,中间的队列是消息缓冲区。扩展到多消费者的场景详见 [[Work Queues]]。
 
 ## 生产者与消费者
 

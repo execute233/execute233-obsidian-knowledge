@@ -194,6 +194,8 @@ try (RandomAccessFile f = new RandomAccessFile("test.txt", "rw");
 
 ## 多路复用网络通信
 
+NIO 提供了基于 `Channel` 和 `Selector` 的多路复用 IO 模型,而 [[Netty]] 则是基于 NIO 的高级网络通信框架,封装了上述底层细节。
+
 比如以下代码使用了 Channel 方式实现了网络通信:
 
 ```java
@@ -216,6 +218,8 @@ try (SocketChannel channel = SocketChannel.open(new InetSocketAddress("localhost
 ```
 
 ## 选择器与 IO 多路复用
+
+NIO 的多路复用模型与传统的 [[computer/计算机网络/TCP连接]] 三次握手机制结合,可以构建高性能网络服务器。
 
 NIO 为我们提供的网络 IO 模型:
 

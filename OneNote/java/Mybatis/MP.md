@@ -37,3 +37,6 @@ public interface UserMapper extends BaseMapper<User> {
     // 使用方式与 JPA 极为相似,也一样预设了大量的方法
 }
 ```
+
+MP 提供的 CRUD 接口详见 [[MP-接口]]，复杂条件查询使用 [[MP-条件构造器]]。
+```

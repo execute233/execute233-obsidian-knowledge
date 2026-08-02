@@ -6,7 +6,7 @@ aliases: [JUC-锁框架]
 
 # JUC-锁框架
 
-在 JDK 5 之后,并发包中新增了 `Lock` 接口(以及相关实现类)用来实现锁功能,`Lock` 接口提供了与 `synchronized` 关键字类似的同步功能,但需要在使用时手动获取锁和释放锁。
+在 JDK 5 之后,并发包中新增了 `Lock` 接口(以及相关实现类)用来实现锁功能,`Lock` 接口提供了与 `synchronized` 关键字类似的同步功能,但需要在使用时手动获取锁和释放锁。`ReentrantLock` 的内部实现是基于 [[JUC-AQS]] 队列同步器的。
 
 ## Lock 与 Condition 接口
 

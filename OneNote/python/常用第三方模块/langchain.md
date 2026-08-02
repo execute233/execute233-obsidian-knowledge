@@ -6,6 +6,8 @@ aliases: [LangChain]
 
 # langchain
 
+提示词模板参考 [[AI/LLM/Prompt Engineering]]。图状态化扩展见 [[LangGraph]]。
+
 ## 概述
 
 一般使用 `langchain` 包，如果要用第三方 Chat 模型的话使用 `langchain-<模型名>`。

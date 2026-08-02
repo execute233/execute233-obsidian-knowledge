@@ -6,6 +6,8 @@ aliases: [JDBC-连接数据库]
 
 # JDBC-连接数据库
 
+JDBC 是 Java 操作 [[SQL/MySQL/数据库]] 的标准 API。JDBC 执行 SQL 查询的应用场景详见 [[SQL/SQL语句/DQL数据查询]]。
+
 ## 从 Maven 导入
 
 ```xml
@@ -56,6 +58,8 @@ int rows = statement.executeUpdate("insert into user (name) values ('test')");
 ```
 
 ## 通用执行方法
+
+需要注意 `Statement` 拼接 SQL 字符串存在注入风险,详见 [[JDBC-SQL注入]]。事务控制遵循 ACID 原则,详见 [[JDBC-事务操作]]。
 
 ```java
 // 直接使用 execute,如果得到 ResultSet 对象则返回 true,更新计数或无结果则为 false

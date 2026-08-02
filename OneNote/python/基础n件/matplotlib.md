@@ -6,6 +6,8 @@ aliases: [Matplotlib, pyplot]
 
 # matplotlib
 
+pandas plot() 接口基于 matplotlib 实现,详见 [[pandas]]。速查参见 [[matplotlib速查与讲义]]。
+
 ## 图像绘制流程
 
 ```python

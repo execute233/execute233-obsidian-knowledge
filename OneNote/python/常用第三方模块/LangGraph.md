@@ -6,6 +6,8 @@ aliases: [langgraph]
 
 # LangGraph
 
+LangGraph 是 langchain 的图状态化扩展,详见 [[langchain]]。
+
 先不引入 LLM,来看最简单的来理解:
 
 ```python

@@ -6,6 +6,8 @@ aliases: [Spring-AOP面向切片]
 
 # Spring-AOP面向切片
 
+Spring AOP 的底层实现机制是动态代理(JDK Proxy / CGLIB),详见 [[AOP与代理]]。
+
 首先要导入 pom，一般是：
 
 ```xml
@@ -99,6 +101,8 @@ XML 文件应该是这样：
 有这些接口可以使用：`MethodInterceptor`（环绕方法）、`MethodBeforeAdvice`、`AfterReturningAdvice`、`ThrowsAdvice`。
 
 ## 注解实现 AOP
+
+Spring 注解 AOP 基于 [[AspectJ]] 语法,使用 `@AspectJ` 注解声明切面。
 
 首先在 `@Configuration` 修饰的类启用注解 AOP 支持，打上 `@EnableAspectJAutoProxy`。
 

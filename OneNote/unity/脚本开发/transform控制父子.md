@@ -6,6 +6,8 @@ aliases: [transform控制父子]
 
 # transform控制父子
 
+`transform` 是 Unity 中操作物体位置/旋转/缩放的核心组件,生命周期方法(`Update`/`Start`)见 [[unity/脚本开发/初步认识]];获取物体的方式见 [[unity/脚本开发/游戏物体的获取]]。
+
 ```cs
 void Start()
 {

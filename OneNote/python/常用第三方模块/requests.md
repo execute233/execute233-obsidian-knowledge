@@ -6,6 +6,8 @@ aliases: [Requests]
 
 # requests
 
+requests 是 Python 的 HTTP 客户端,HTTP 协议细节见 [[HTTP协议]]。
+
 ## Quickly Start
 
 ### requests.各种类型的请求()

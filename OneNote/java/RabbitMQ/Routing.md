@@ -10,7 +10,7 @@ aliases: [Routing]
 
 消息的发送方在向 Exchange 发送消息时,也必须指定消息的 RoutingKey。
 
-Exchange 不再把消息交给每一个绑定的队列,而是根据消息的 RoutingKey 进行判断,只有队列的 RoutingKey 与消息的 RoutingKey 完全一致,才会接收到消息。
+Exchange 不再把消息交给每一个绑定的队列,而是根据消息的 RoutingKey 进行判断,只有队列的 RoutingKey 与消息的 RoutingKey 完全一致,才会接收到消息。需要通配符路由可使用 [[Topic]] 模式。
 
 ## 路由示意
 
