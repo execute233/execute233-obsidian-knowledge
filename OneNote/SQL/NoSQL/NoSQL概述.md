@@ -6,6 +6,8 @@ aliases: [NoSQL概述]
 
 # NoSQL概述
 
+> NoSQL 的键值存储数据库以 [[Redis/基本操作]] 为代表,与传统 SQL 关系型数据库 [[SQL语句/DQL数据查询]] 的查询方式形成对比。
+
 NoSQL 全称是 Not Only SQL(不仅仅是 SQL),它是一种非关系型数据库,相比传统 SQL 关系型数据库,它:
 
 - 不保证关系数据的 ACID 特性

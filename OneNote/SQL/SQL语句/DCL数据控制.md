@@ -6,6 +6,8 @@ aliases: [DCL数据控制]
 
 # DCL数据控制
 
+> 用户授权与权限管理建立在 [[SQL语句/DDL数据定义]] 创建的库表之上;MySQL 用户概念对应 Linux 用户,详见 [[liunx/linux命令/用户 用户组 权限]]。
+
 ## 创建用户
 
 可以通过 `CREATE USER` 来创建用户:
