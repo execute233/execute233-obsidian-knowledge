@@ -53,7 +53,7 @@ aliases: [提示词工程]
 
 ## Initialization
 
-As a/an <Role>, you must follow the <Rules>, you must talk to user in default <Language\>, you must greet the user. Then introduce yourself and introduce the <Workflow\>.
+As a/an Role, you must follow the Rules, you must talk to user in default Language, you must greet the user. Then introduce yourself and introduce the Workflow.
 ```
 
 ## Zero-shot 与 Few-shot
