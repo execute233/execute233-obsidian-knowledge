@@ -8,17 +8,51 @@ aliases: [LangChain]
 
 ## 概述
 
-一般使用 `langchain` 包,如果要用第三方 Chat 模型的话使用 `langchain-<模型名>`。
+一般使用 `langchain` 包，如果要用第三方 Chat 模型的话使用 `langchain-<模型名>`。
 
 ## 模型对话
 
-可以直接使用或者 template:
+可以直接使用或者 template：
 
-![Exported image](_assets/langchain/langchain__11-47-11-0.png)
+```python
+import os
+os.environ["OPENAI_API_KEY"]  = "your-api-key-here"
+os.environ["OPENAI_BASE_URL"] = "https://api.deepseek.com"
 
-![Exported image](_assets/langchain/langchain__11-47-13-1.png)
+model = ChatOpenAI(
+    model="deepseek-v4-flash",
+    temperature=0.1,
+    max_tokens=1000,
+)
+r = model.invoke("你好，你是什么模型？")
+print(r)
+```
 
-可使用以下方式来让输出结果为字符串而不是 ChatMessage:
+```python
+import os
+os.environ["OPENAI_API_KEY"]  = "your-api-key-here"
+os.environ["OPENAI_BASE_URL"] = "https://api.deepseek.com"
+
+model = ChatOpenAI(
+    model="deepseek-v4-flash",
+    temperature=0.1,
+    max_tokens=1000,
+)
+prompt = ChatPromptTemplate.from_messages([
+    {
+        "role": "system",
+        "content": "你是一个 AI 助手"
+    }, {
+        "role": "user",
+        "content": "{input}"
+    }
+])
+chain = prompt | model
+r = chain.invoke({"input": "大模型的 RAG 是什么？"})
+print(r)
+```
+
+可使用以下方式来让输出结果为字符串而不是 ChatMessage：
 
 ```python
 output_parser = JsonOutputParser()
@@ -54,10 +88,10 @@ prompt_template = """
 你是一个问答机器人。
 你的任务是根据下述给定的已知信息回答用户问题。
 确保你的回复完全依据下述已知信息。不要编造答案。
-如果下述已知信息不足以回答用户的问题,请直接回复"我无法回答您的问题"。
-已知信息:
+如果下述已知信息不足以回答用户的问题，请直接回复"我无法回答您的问题"。
+已知信息：
 {info}
-用户问:
+用户问：
 {question}
 请用中文回答用户问题。
 """
