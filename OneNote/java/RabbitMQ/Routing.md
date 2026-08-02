@@ -6,7 +6,20 @@ aliases: [Routing]
 
 # Routing
 
-![[_assets/Routing/Routing__09-21-57-0.png]]
+队列与交换机的绑定,不能是任意绑定了,而是要指定一个 RoutingKey(路由 key)。
+
+消息的发送方在向 Exchange 发送消息时,也必须指定消息的 RoutingKey。
+
+Exchange 不再把消息交给每一个绑定的队列,而是根据消息的 RoutingKey 进行判断,只有队列的 RoutingKey 与消息的 RoutingKey 完全一致,才会接收到消息。
+
+## 路由示意
+
+```
+       error  ──────────▶  Queue1  ──▶  C1
+P ──▶  X  ───info ───────▶  Queue2  ──▶  C2
+       error  ──────────▶
+       warning───────────▶
+```
 
 类型 `DIRECT`。
 

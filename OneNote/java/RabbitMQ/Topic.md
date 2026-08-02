@@ -8,6 +8,24 @@ aliases: [Topic]
 
 ![[_assets/Topic/Topic__09-22-35-0.png]]
 
+## 路由示意
+
+```
+                    *.orange.*   ─▶  Q1  ─▶  C1
+P  ──▶  X  ────  *.*.rabbite   ─▶  Q2  ─▶  C2
+         type=topic
+              └────  Lazy.#      ─▶  Q2  ─▶  C2
+```
+
+Topic Exchange 使用通配符 routing key:
+
+| 通配符 | 含义 |
+|---|---|
+| `*` | 匹配恰好 1 个单词 |
+| `#` | 匹配 0 个或多个单词 |
+
+routing key 必须用 `.` 分隔单词,通配符用于单词之间。
+
 类型 `TOPIC`。
 
 类似于 Routing,这个的 routing key 是可以进行模糊匹配的,`*` 代表某个字符,`#` 代表 0 个或多个字符,这个要在 `.` 前面后面使用才有效。

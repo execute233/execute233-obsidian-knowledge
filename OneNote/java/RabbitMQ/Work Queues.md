@@ -10,6 +10,10 @@ aliases: [Work Queues]
 
 ![[_assets/Work-Queues/Work-Queues__09-21-42-0.png]]
 
+> **注意事项**:一个消息只能被处理一次,不可以处理多次。
+>
+> **生产者、队列、消费者** 三者关系是竞争的关系。
+
 使用多个消费者即可。
 
 ## 消息应答
@@ -38,6 +42,13 @@ channel.basicReject(message.getEnvelope().getDeliveryTag(), false);
 如果消费者丢失连接并未发送 ACK,则消息会对其重新排队。
 
 ![[_assets/Work-Queues/Work-Queues__09-21-45-1.png]]
+
+**4 步流程**:
+
+1. 消息 1/2/3 投递到 queue,P → C1/C2。
+2. C1 失去连接、未 ack,消息 1 留在 queue。
+3. 消息 1 重新入队,由 C2 消费。
+4. queue 状态恢复正常,C1 仍未 ack(消息丢失场景)。
 
 ## 持久化
 

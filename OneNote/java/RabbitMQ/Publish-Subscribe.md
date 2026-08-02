@@ -6,7 +6,24 @@ aliases: [Publish-Subscribe]
 
 # Publish-Subscribe
 
-![[_assets/Publish-Subscribe/Publish-Subscribe__09-21-49-0.png]]
+## 1. 模式说明
+
+```
+P  ──▶  X (Exchange)  ──▶  Queue1  ──▶  C1
+                   └──▶  Queue2  ──▶  C2
+```
+
+在订阅模型中,多了一个 Exchange 角色,而且过程略有变化:
+
+- **P**:生产者,也就是要发送消息的程序,但是不再发送到队列中,而是发给 X(交换机)。
+- **C**:消费者,消息的接收者,会一直等待消息到来。
+- **Queue**:消息队列,接收消息、缓存消息。
+- **Exchange**:交换机(X)。一方面,接收生产者发送的消息。另一方面,知道如何处理消息,例如递交给某个特别队列、递交给所有队列、或是将消息丢弃。到底如何操作,取决于 Exchange 的类型。Exchange 有常见以下 3 种类型:
+  - **Fanout**:广播,将消息交给所有绑定到交换机的队列。
+  - **Direct**:定向,把消息交给符合指定 routing key 的队列。
+  - **Topic**:通配符,把消息交给符合 routing pattern(路由模式)的队列。
+
+**Exchange**(交换机)只负责转发消息,不具备存储消息的能力,因此如果没有任何队列与 Exchange 绑定,或者没有符合路由规则的队列,那么消息会丢失!
 
 类型 `FANOUT`。
 
