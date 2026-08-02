@@ -6,7 +6,7 @@ aliases: []
 
 # 库-net-http
 
-HTTP 协议背景见 [[computer/计算机网络/HTTP协议]];基于 TCP,见 [[computer/计算机网络/TCP连接]];`http` 第三方库对比见 [[go/go基础/库-http]];gin 框架基于此包,见 [[go/gin/路由]] / [[go/gin/请求]] / [[go/gin/bind绑定器]]。
+HTTP 协议背景见 [[computer/计算机网络/HTTP协议|HTTP协议]];基于 TCP,见 [[computer/计算机网络/TCP连接|TCP连接]];`http` 第三方库对比见 [[go/go基础/库-http|库-http]];gin 框架基于此包,见 [[go/gin/路由|路由]] / [[go/gin/请求|请求]] / [[go/gin/bind绑定器|bind绑定器]]。
 
 ## HTTP 客户端
 

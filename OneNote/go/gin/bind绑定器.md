@@ -6,7 +6,7 @@ aliases: []
 
 # bind绑定器
 
-请求处理见 [[go/gin/请求]];路由定义见 [[go/gin/路由]];HTTP body 读取见 [[go/go基础/库-net-http]];结构体标签见 [[go/go基础/中级]]。
+请求处理见 [[go/gin/请求|请求]];路由定义见 [[go/gin/路由|路由]];HTTP body 读取见 [[go/go基础/库-net-http|库-net-http]];结构体标签见 [[go/go基础/中级|中级]]。
 
 本质上绑定数据到对象,有这些方式。
 

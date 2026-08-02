@@ -6,7 +6,7 @@ aliases: []
 
 # 库-fmt
 
-格式化输出常涉及类型转换,见 [[go/go基础/库-strconv]];日志输出见 [[go/go基础/库-log]];时间格式化字符串见 [[go/go基础/库-time]]。
+格式化输出常涉及类型转换,见 [[go/go基础/库-strconv|库-strconv]];日志输出见 [[go/go基础/库-log|库-log]];时间格式化字符串见 [[go/go基础/库-time|库-time]]。
 
 ## 向控制台输出
 

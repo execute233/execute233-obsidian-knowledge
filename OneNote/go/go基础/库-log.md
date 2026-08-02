@@ -6,7 +6,7 @@ aliases: []
 
 # 库-log
 
-基础格式化输出见 [[go/go基础/库-fmt]];日志中常记录时间,见 [[go/go基础/库-time]];命令行标志见 [[go/go基础/库-flag]]。
+基础格式化输出见 [[go/go基础/库-fmt|库-fmt]];日志中常记录时间,见 [[go/go基础/库-time|库-time]];命令行标志见 [[go/go基础/库-flag|库-flag]]。
 
 ## log
 
