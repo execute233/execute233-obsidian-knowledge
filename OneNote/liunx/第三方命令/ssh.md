@@ -6,6 +6,8 @@ aliases: [ssh]
 
 # ssh
 
+ssh 基于 TCP,见 [[computer/计算机网络/TCP连接]];sshd 服务管理见 [[liunx/linux命令/系统操作相关]]。
+
 ## 隧道转发
 
 ### 本地端口转发

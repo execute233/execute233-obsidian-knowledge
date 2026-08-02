@@ -6,6 +6,8 @@ aliases: []
 
 # stdio.h
 
+stdio.h 提供标准 IO,字符串 IO 见 [[c/基本/字符串]],格式化输出规则见 [[c/基本/变量]] 中的格式控制符。
+
 ## std 输入
 
 ### int scanf(char * format, * target…)

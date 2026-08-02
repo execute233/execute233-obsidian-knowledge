@@ -6,6 +6,8 @@ aliases: []
 
 # Go Modules
 
+环境搭建见 [[go/go基础/环境搭建]];HTTP 客户端会引入第三方包,见 [[go/go基础/库-http]]。
+
 ## go mod 命令
 
 | 命令 | 说明 |

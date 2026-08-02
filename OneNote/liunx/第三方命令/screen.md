@@ -6,6 +6,8 @@ aliases: [screen]
 
 # screen
 
+后台进程管理见 [[liunx/linux命令/系统操作相关]]。
+
 ```bash
 screen [-opts] [cmd [args]]
 ```

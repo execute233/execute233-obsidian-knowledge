@@ -6,6 +6,8 @@ aliases: []
 
 # string.h
 
+字符串基础见 [[c/基本/字符串]];字符串 IO 配合 [[c/系统库/stdio.h]] 使用。
+
 ### size_t strlen(const char * _Str)
 
 计算传入的字符串长度，包括 `\0` 字符。

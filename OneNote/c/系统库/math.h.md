@@ -6,6 +6,8 @@ aliases: []
 
 # math.h
 
+数学函数作用于基本数据类型,见 [[c/基本/基本数据类型]];`time` 函数类似地在 [[c/系统库/time.h]] 中。
+
 ### double sqrt(double _x)
 
 求平方根。

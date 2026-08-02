@@ -6,6 +6,8 @@ aliases: []
 
 # 库-log
 
+基础格式化输出见 [[go/go基础/库-fmt]];日志中常记录时间,见 [[go/go基础/库-time]];命令行标志见 [[go/go基础/库-flag]]。
+
 ## log
 
 log 包提供了各种方法,如 `Print` 系列、`Fatal` 系列、和 `Panic` 系列。
