@@ -10,36 +10,81 @@ aliases: []
 
 `Print` 函数直接输出内容,`Printf` 函数支持格式化输出字符串,`Println` 函数会在输出内容的结尾添加一个换行符。
 
-![Exported image](_assets/%E5%BA%93-fmt/%E5%BA%93-fmt__13-00-25-0.png)
+```go
+func Print(a ...interface{}) (n int, err error)
+func Printf(format string, a ...interface{}) (n int, err error)
+func Println(a ...interface{}) (n int, err error)
+```
 
 ## 向 Writer 输出
 
-![Exported image](_assets/%E5%BA%93-fmt/%E5%BA%93-fmt__13-00-27-1.png)
+```go
+func Fprint(w io.Writer, a ...interface{}) (n int, err error)
+func Fprintf(w io.Writer, format string, a ...interface{}) (n int, err error)
+func Fprintln(w io.Writer, a ...interface{}) (n int, err error)
+```
 
 ## 向字符串输出
 
-![Exported image](_assets/%E5%BA%93-fmt/%E5%BA%93-fmt__13-00-28-2.png)
+```go
+func Sprint(a ...interface{}) string
+func Sprintf(format string, a ...interface{}) string
+func Sprintln(a ...interface{}) string
+```
 
 还有格式化字符串为错误的:
 
-![Exported image](_assets/%E5%BA%93-fmt/%E5%BA%93-fmt__13-00-32-3.png)
+```go
+func Errorf(format string, a ...interface{}) error
+```
 
 ## 获取输入
 
 `Scan` 从标准输入扫描文本,读取由空白符分隔的值保存到传递给本函数的参数中,换行符视为空白符。
 
-![Exported image](_assets/%E5%BA%93-fmt/%E5%BA%93-fmt__13-00-33-4.png)
+```go
+func Scan(a ...interface{}) (n int, err error)
+```
 
 `Scanf` 从标准输入扫描文本,根据 `format` 参数指定的格式去读取由空白符分隔的值保存到传递给本函数的参数中。
 
-![Exported image](_assets/%E5%BA%93-fmt/%E5%BA%93-fmt__13-00-35-5.png)
+```go
+func Scanf(format string, a ...interface{}) (n int, err error)
+```
 
 类似 `Scan`,它在遇到换行时才停止扫描。最后一个数据后面必须有换行或者到达结束位置。
 
-![Exported image](_assets/%E5%BA%93-fmt/%E5%BA%93-fmt__13-00-36-6.png)
-![Exported image](_assets/%E5%BA%93-fmt/%E5%BA%93-fmt__13-00-38-7.png)
-![Exported image](_assets/%E5%BA%93-fmt/%E5%BA%93-fmt__13-00-39-8.png)
-![Exported image](_assets/%E5%BA%93-fmt/%E5%BA%93-fmt__13-00-40-9.png)
+```go
+func Scanln(a ...interface{}) (n int, err error)
+```
+
+有时候我们想完整获取输入的内容,而输入的内容可能包含空格,这种情况下可以使用 bufio 包来实现。示例代码如下:
+
+```go
+func bufioDemo() {
+    reader := bufio.NewReader(os.Stdin) // 从标准输入生成读对象
+    fmt.Print("请输入内容: ")
+    text, _ := reader.ReadString('\n') // 读到换行
+    text = strings.TrimSpace(text)
+    fmt.Printf("%#v\n", text)
+}
+```
+
+这几个函数功能分别类似于 fmt.Scan、fmt.Scanf、fmt.Scanln 三个函数,只不过它们不是从标准输入中读取数据而是从 io.Reader 中读取数据。
+
+```go
+func Fscan(r io.Reader, a ...interface{}) (n int, err error)
+func Fscanln(r io.Reader, a ...interface{}) (n int, err error)
+func Fscanf(r io.Reader, format string, a ...interface{}) (n int, err error)
+```
+
+这几个函数功能分别类似于 fmt.Scan、fmt.Scanf、fmt.Scanln 三个函数,只不过它们不是从标准输入中读取数据而是从指定字符串中读取数据。
+
+```go
+func Sscan(str string, a ...interface{}) (n int, err error)
+func Sscanln(str string, a ...interface{}) (n int, err error)
+func Sscanf(str string, format string, a ...interface{}) (n int, err error)
+```
 
 ## 格式化占位符
 

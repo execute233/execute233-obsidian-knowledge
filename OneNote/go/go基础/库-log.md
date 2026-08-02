@@ -16,32 +16,59 @@ log 包提供了各种方法,如 `Print` 系列、`Fatal` 系列、和 `Panic` �
 
 log 标准库中的 `Flags` 函数会返回标准 logger 的输出配置,而 `SetFlags` 函数用来设置标准 logger 的输出配置。
 
-![Exported image](_assets/%E5%BA%93-log/%E5%BA%93-log__13-01-02-0.png)
+```go
+func Flags() int
+func SetFlags(flag int)
+```
 
 ## flag 选项
 
 提供了以下 flag 选项。
 
-![Exported image](_assets/%E5%BA%93-log/%E5%BA%93-log__13-01-04-1.png)
+```go
+const (
+    // 控制输出日志信息的细节,不能控制输出的顺序和格式。
+    // 输出的日志在每一项后会有一个冒号分隔:例如2009/01/23 01:23:23.123123 /a/b/c/d.go:23: message
+    Ldate         = 1 << iota             // 日期:2009/01/23
+    Ltime                                 // 时间:01:23:23
+    Lmicroseconds                         // 微秒级别的时间:01:23:23.123123(用于增强Ltime位)
+    Llongfile                             // 文件全路径名+行号:/a/b/c/d.go:23
+    Lshortfile                            // 文件名+行号:d.go:23(会覆盖掉Llongfile)
+    LUTC                                  // 使用UTC时间
+    LstdFlags     = Ldate | Ltime         // 标准logger的初始值
+)
+```
 
 可以这样使用:
 
-![Exported image](_assets/%E5%BA%93-log/%E5%BA%93-log__13-01-05-2.png)
+```go
+func main() {
+    log.SetFlags(log.Llongfile | log.Lmicroseconds | log.Ldate)
+    log.Println("这是一条很普通的日志。")
+}
+```
 
 ## 配置日志前缀
 
 提供了关于日志信息前缀的两个方法:`Prefix` 查看标准 logger 的输出前缀,`SetPrefix` 函数用来设置输出前缀。
 
-![Exported image](_assets/%E5%BA%93-log/%E5%BA%93-log__13-01-08-3.png)
+```go
+func Prefix() string
+func SetPrefix(prefix string)
+```
 
 ## 配置日志输出位置
 
 用来设置标准 logger 的输出目的地,默认是标准错误输出。
 
-![Exported image](_assets/%E5%BA%93-log/%E5%BA%93-log__13-01-10-4.png)
+```go
+func SetOutput(w io.Writer)
+```
 
 ## 创建 logger
 
 库中还提供了一个创建新 logger 对象的构造函数,支持我们创建自己的 logger 实例。
 
-![Exported image](_assets/%E5%BA%93-log/%E5%BA%93-log__13-01-11-5.png)
+```go
+func New(out io.Writer, prefix string, flag int) *Logger
+```

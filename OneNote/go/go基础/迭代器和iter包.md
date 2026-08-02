@@ -8,7 +8,18 @@ aliases: []
 
 ## Push 迭代器(标准迭代器)
 
-![Exported image](_assets/%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8Citer%E5%8C%85/%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8Citer%E5%8C%85__13-02-06-0.png)
+```go
+// All 返回一个迭代器,迭代集合中的所有元素
+func (s *Set[E]) All() iter.Seq[E] {
+    return func(yield func(E) bool) {
+        for v := range s.m {
+            if !yield(v) {
+                return
+            }
+        }
+    }
+}
+```
 
 使用迭代器就可以使用 `for/range` 写法。
 
@@ -16,7 +27,11 @@ aliases: []
 
 标准库里有把标准迭代器转为 Pull 迭代器的方法。
 
-![Exported image](_assets/%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8Citer%E5%8C%85/%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8Citer%E5%8C%85__13-02-08-1.png)
+```go
+func Pull[V any](seq Seq[V]) (next func() (V, bool), stop func())
+
+func Pull2[K, V any](seq Seq2[K, V]) (next func() (K, V, bool), stop func())
+```
 
 返回两个函数:
 
@@ -25,4 +40,27 @@ aliases: []
 
 下面是一个示例,将一个迭代器中的两个连续值对作为一个元素,返回一个新的迭代器。
 
-![Exported image](_assets/%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8Citer%E5%8C%85/%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8Citer%E5%8C%85__13-02-16-2.png)
+```go
+// Pairs 返回一个迭代器,遍历 seq 中连续的值对。
+func Pairs[V any](seq iter.Seq[V]) iter.Seq2[V, V] {
+    return func(yield func(V, V) bool) {
+        next, stop := iter.Pull(seq)
+        defer stop()
+        for {
+            v1, ok1 := next()
+            if !ok1 {
+                return
+            }
+            v2, ok2 := next()
+            // If ok2 is false, v2 should be the
+            // zero value; yield one last pair.
+            if !yield(v1, v2) {
+                return
+            }
+            if !ok2 {
+                return
+            }
+        }
+    }
+}
+```

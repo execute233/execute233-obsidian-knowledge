@@ -12,7 +12,9 @@ aliases: []
 
 `Atoi()` 函数用于将字符串类型的整数转换为 int 类型。
 
-![Exported image](_assets/%E5%BA%93-strconv/%E5%BA%93-strconv__13-01-37-0.png)
+```go
+func Atoi(s string) (i int, err error)
+```
 
 `Itoa()` 函数用于将 int 类型数据转换为对应的字符串表示。
 

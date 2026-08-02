@@ -44,8 +44,34 @@ flag.TypeVar(指针, flag 名, 默认值, 帮助信息)
 
 ## 其它函数
 
-![Exported image](_assets/%E5%BA%93-flag/%E5%BA%93-flag__13-00-55-0.png)
+```go
+flag.Args()   //返回命令行参数后的其他参数,以[]string类型
+flag.NArg()   //返回命令行参数后的其他参数个数
+flag.NFlag()  //返回使用的命令行参数个数
+```
 
 ## 示例
 
-![Exported image](_assets/%E5%BA%93-flag/%E5%BA%93-flag__13-00-56-1.png)
+```go
+func main() {
+    //定义命令行参数方式1
+    var name string
+    var age int
+    var married bool
+    var delay time.Duration
+    flag.StringVar(&name, "name", "张三", "姓名")
+    flag.IntVar(&age, "age", 18, "年龄")
+    flag.BoolVar(&married, "married", false, "婚否")
+    flag.DurationVar(&delay, "d", 0, "延迟的时间间隔")
+
+    //解析命令行参数
+    flag.Parse()
+    fmt.Println(name, age, married, delay)
+    //返回命令行参数后的其他参数
+    fmt.Println(flag.Args())
+    //返回命令行参数后的其他参数个数
+    fmt.Println(flag.NArg())
+    //返回使用的命令行参数个数
+    fmt.Println(flag.NFlag())
+}
+```
