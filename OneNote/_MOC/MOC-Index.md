@@ -72,5 +72,5 @@ aliases: [知识库总览, 知识地图入口, Home]
 
 - [[AI/LLM/Prompt Engineering|Prompt Engineering]]
 - [[python/常用第三方模块/langchain|langchain]]
-- [[python/常用第三方模块/LangGraph|LangGraph]]
+- [[python/LangGraph/00-课程总览|LangGraph 课程]]
 - [[java/小框架/langchain4j|langchain4j]]

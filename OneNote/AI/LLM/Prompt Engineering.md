@@ -8,7 +8,7 @@ aliases: [提示词工程]
 
 ## 提示词框架
 
-一个提示词是由指令、上下文、输入数据和输出指示这几个要素中的一个或多个组成的，这其实就为如何编写提示词提供了一个基础框架，最初在 [Prompt Engineering Guide](https://www.promptingguide.ai/introduction/elements) 中总结的。提示词工程的落地实现可参考 [[python/常用第三方模块/langchain|langchain]] 与 [[java/小框架/langchain4j|langchain4j]]，复杂流程编排见 [[python/常用第三方模块/LangGraph|LangGraph]]。
+一个提示词是由指令、上下文、输入数据和输出指示这几个要素中的一个或多个组成的，这其实就为如何编写提示词提供了一个基础框架，最初在 [Prompt Engineering Guide](https://www.promptingguide.ai/introduction/elements) 中总结的。提示词工程的落地实现可参考 [[python/常用第三方模块/langchain|langchain]] 与 [[java/小框架/langchain4j|langchain4j]]，复杂流程编排见 [[python/LangGraph/00-课程总览|LangGraph 课程]]。
 
 ### CRISPE 框架
 
