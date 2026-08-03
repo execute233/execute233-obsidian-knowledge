@@ -8,6 +8,8 @@ aliases: []
 
 HTTP 客户端基础见 [[go/go基础/库-net-http|库-net-http]];包管理见 [[go/go基础/Go Modules|Go Modules]];文件操作见 [[go/go基础/文件操作|文件操作]]。
 
+## 服务端示例
+
 启动 server 比较简单:
 
 ```go
