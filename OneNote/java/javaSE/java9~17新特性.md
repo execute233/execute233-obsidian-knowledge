@@ -55,7 +55,7 @@ var list = new ArrayList<String>();
 
 ## 5. HTTP 客户端 API
 
-Java 11 将 HTTP 客户端 API 正式化,支持 HTTP/2 和 WebSocket,其底层遵循 [[computer/计算机网络/HTTP协议]]:
+Java 11 将 HTTP 客户端 API 正式化,支持 HTTP/2 和 WebSocket,其底层遵循 [[computer/计算机网络/HTTP协议|HTTP协议]]:
 
 ```java
 // 创建 HTTP 客户端

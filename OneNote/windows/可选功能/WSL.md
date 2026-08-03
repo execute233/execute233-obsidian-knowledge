@@ -6,7 +6,7 @@ aliases: [WSL]
 
 # WSL
 
-适用于 Linux 的 Windows 子系统（WSL）是 Windows 的一项功能，可用于在 Windows 计算机上运行 Linux 环境，而无需单独的虚拟机或双重启动。WSL 内的文件系统布局与 Linux 一致，详见 [[liunx/基础知识/文件系统]]；日常文件操作命令见 [[liunx/linux命令/文件操作]]。
+适用于 Linux 的 Windows 子系统（WSL）是 Windows 的一项功能，可用于在 Windows 计算机上运行 Linux 环境，而无需单独的虚拟机或双重启动。WSL 内的文件系统布局与 Linux 一致，详见 [[liunx/基础知识/文件系统|文件系统]]；日常文件操作命令见 [[liunx/linux命令/文件操作|文件操作]]。
 
 更多参考 [Windows Subsystem for Linux](https://learn.microsoft.com/zh-cn/windows/wsl/) 文档 | Microsoft Learn。
 

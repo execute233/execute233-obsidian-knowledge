@@ -6,7 +6,7 @@ aliases: [JDBC-事务操作]
 
 # JDBC-事务操作
 
-JDBC 基础 API 详见 [[JDBC-连接数据库]]。数据库事务的 ACID 原理详见 [[SQL/MySQL/事务]]。
+JDBC 基础 API 详见 [[JDBC-连接数据库]]。数据库事务的 ACID 原理详见 [[SQL/MySQL/事务|事务]]。
 
 在开始之前,我们还是回顾一下事务机制。首先事务遵循一个 ACID 原则:
 

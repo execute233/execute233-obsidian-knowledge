@@ -6,7 +6,7 @@ aliases: [JDBC-连接数据库]
 
 # JDBC-连接数据库
 
-JDBC 是 Java 操作 [[SQL/MySQL/数据库]] 的标准 API。JDBC 执行 SQL 查询的应用场景详见 [[SQL/SQL语句/DQL数据查询]]。
+JDBC 是 Java 操作 [[SQL/MySQL/数据库|数据库]] 的标准 API。JDBC 执行 SQL 查询的应用场景详见 [[SQL/SQL语句/DQL数据查询|DQL数据查询]]。
 
 ## 从 Maven 导入
 

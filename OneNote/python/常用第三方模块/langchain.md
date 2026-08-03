@@ -6,7 +6,7 @@ aliases: [LangChain]
 
 # langchain
 
-提示词模板参考 [[AI/LLM/Prompt Engineering]]。图状态化扩展见 [[LangGraph]]。
+提示词模板参考 [[AI/LLM/Prompt Engineering|Prompt Engineering]]。图状态化扩展见 [[LangGraph]]。
 
 ## 概述
 

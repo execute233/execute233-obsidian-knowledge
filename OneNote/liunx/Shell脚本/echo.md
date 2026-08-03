@@ -6,7 +6,7 @@ aliases: [echo]
 
 # echo
 
-格式输出对比见 [[liunx/Shell脚本/printf]];输出到文件涉及 [[liunx/Shell脚本/输入-输出重定向]]。
+格式输出对比见 [[liunx/Shell脚本/printf|printf]];输出到文件涉及 [[liunx/Shell脚本/输入-输出重定向|输入-输出重定向]]。
 
 ## 常用选项
 

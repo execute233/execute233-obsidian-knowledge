@@ -21,7 +21,7 @@ aliases: [SpringCache]
 
 ## 配置
 
-以 Redis 作为缓存实现时（Redis 操作见 [[SQL/Redis/基本操作]]）：
+以 Redis 作为缓存实现时（Redis 操作见 [[SQL/Redis/基本操作|基本操作]]）：
 
 ```yaml
 spring:

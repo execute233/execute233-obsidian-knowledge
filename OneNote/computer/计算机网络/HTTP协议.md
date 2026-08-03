@@ -6,7 +6,7 @@ aliases: [HTTP协议]
 
 # HTTP协议
 
-HTTP 是 [[computer/计算机网络/网络和通信协议]] 中定义的应用层（第 7 层）协议，HTTP/1.x 基于 [[computer/计算机网络/TCP连接]]，HTTP/3 基于改进版 UDP（QUIC）。
+HTTP 是 [[computer/计算机网络/网络和通信协议|网络和通信协议]] 中定义的应用层（第 7 层）协议，HTTP/1.x 基于 [[computer/计算机网络/TCP连接|TCP连接]]，HTTP/3 基于改进版 UDP（QUIC）。
 
 HTTP 请求头部包含请求行、请求头部、空行和请求数据四个部分组成。
 

@@ -6,7 +6,7 @@ aliases: [printf]
 
 # printf
 
-类似 echo 输出见 [[liunx/Shell脚本/echo]];格式化涉及变量见 [[liunx/Shell脚本/变量]]。
+类似 echo 输出见 [[liunx/Shell脚本/echo|echo]];格式化涉及变量见 [[liunx/Shell脚本/变量|变量]]。
 
 跟 C 语言的差不多,用法:
 

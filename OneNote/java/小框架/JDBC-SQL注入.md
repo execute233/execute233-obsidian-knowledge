@@ -6,7 +6,7 @@ aliases: [JDBC-SQL注入]
 
 # JDBC-SQL注入
 
-JDBC 基础 API 详见 [[JDBC-连接数据库]]。SQL 注入的防御与 [[SQL/SQL语句/DQL数据查询]] 的写法密切相关。
+JDBC 基础 API 详见 [[JDBC-连接数据库]]。SQL 注入的防御与 [[SQL/SQL语句/DQL数据查询|DQL数据查询]] 的写法密切相关。
 
 为了防止 SQL 注入,可使用 `PreparedStatement`:
 

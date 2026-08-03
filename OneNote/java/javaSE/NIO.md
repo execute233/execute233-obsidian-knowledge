@@ -219,7 +219,7 @@ try (SocketChannel channel = SocketChannel.open(new InetSocketAddress("localhost
 
 ## 选择器与 IO 多路复用
 
-NIO 的多路复用模型与传统的 [[computer/计算机网络/TCP连接]] 三次握手机制结合,可以构建高性能网络服务器。
+NIO 的多路复用模型与传统的 [[computer/计算机网络/TCP连接|TCP连接]] 三次握手机制结合,可以构建高性能网络服务器。
 
 NIO 为我们提供的网络 IO 模型:
 
