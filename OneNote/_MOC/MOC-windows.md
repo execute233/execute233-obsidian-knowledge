@@ -9,3 +9,7 @@ aliases: [Windows 总览, Windows 知识地图]
 ## 可选功能
 
 - [[WSL]]
+
+## PowerShell
+
+- [[01-PowerShell入门与核心思维]]

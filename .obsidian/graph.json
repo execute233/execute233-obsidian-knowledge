@@ -5,8 +5,93 @@
   "showAttachments": false,
   "hideUnresolved": false,
   "showOrphans": true,
-  "collapse-color-groups": true,
-  "colorGroups": [],
+  "collapse-color-groups": false,
+  "colorGroups": [
+    {
+      "query": "path:OneNote/AI/**",
+      "color": {
+        "a": 1,
+        "rgb": 10711510
+      }
+    },
+    {
+      "query": "path:OneNote/python",
+      "color": {
+        "a": 1,
+        "rgb": 3502757
+      }
+    },
+    {
+      "query": "path:OneNote/go  ",
+      "color": {
+        "a": 1,
+        "rgb": 44504
+      }
+    },
+    {
+      "query": "path:OneNote/java  ",
+      "color": {
+        "a": 1,
+        "rgb": 11563545
+      }
+    },
+    {
+      "query": "path:OneNote/kotlin  ",
+      "color": {
+        "a": 1,
+        "rgb": 11107327
+      }
+    },
+    {
+      "query": "path:OneNote/web  ",
+      "color": {
+        "a": 1,
+        "rgb": 4307075
+      }
+    },
+    {
+      "query": "path:OneNote/c  ",
+      "color": {
+        "a": 1,
+        "rgb": 5592405
+      }
+    },
+    {
+      "query": "path:OneNote/unity  ",
+      "color": {
+        "a": 1,
+        "rgb": 7558621
+      }
+    },
+    {
+      "query": "path:OneNote/SQL  ",
+      "color": {
+        "a": 1,
+        "rgb": 16503182
+      }
+    },
+    {
+      "query": "path:OneNote/liunx  ",
+      "color": {
+        "a": 1,
+        "rgb": 9035857
+      }
+    },
+    {
+      "query": "path:OneNote/computer path:OneNote/build_tools  ",
+      "color": {
+        "a": 1,
+        "rgb": 540577
+      }
+    },
+    {
+      "query": "file:MOC",
+      "color": {
+        "a": 1,
+        "rgb": 16735443
+      }
+    }
+  ],
   "collapse-display": true,
   "showArrow": false,
   "textFadeMultiplier": 0,
@@ -17,6 +102,6 @@
   "repelStrength": 10,
   "linkStrength": 1,
   "linkDistance": 250,
-  "scale": 0.22920135941749056,
+  "scale": 0.32133638605035814,
   "close": true
 }

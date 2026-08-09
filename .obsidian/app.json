@@ -1,5 +1,9 @@
 {
   "newLinkFormat": "relative",
   "trashOption": "local",
-  "promptDelete": false
+  "promptDelete": false,
+  "ignorePatterns": [
+    ".pi-subagents/",
+    ".trash/"
+  ]
 }
