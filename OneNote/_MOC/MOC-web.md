@@ -36,7 +36,7 @@ aliases: [Web 总览, Web 知识地图]
 - [[@import]]
 - [[@mixin与@include]]
 - [[@extend]]
-- [[函数]]
+- [[../web/Sass/Sass函数]]
 
 ## TS
 
@@ -52,7 +52,7 @@ aliases: [Web 总览, Web 知识地图]
 - [[生命周期]]
 - [[组件]]
 - [[组件通信]]
-- [[路由]]
+- [[../web/Vue/Vue路由]]
 - [[Pinia]]
 - [[其它常用API]]
 - [[Vue3新组件]]
