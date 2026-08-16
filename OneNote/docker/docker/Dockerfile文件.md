@@ -1,5 +1,4 @@
 ---
-
 title: Dockerfile
 tags: [docker]
 aliases: [Dockerfile, Dockerfile学习笔记, Docker镜像构建]
@@ -7,11 +6,22 @@ aliases: [Dockerfile, Dockerfile学习笔记, Docker镜像构建]
 
 # Dockerfile
 
-## Dockerfile 是什么？
+> [!abstract]
+> Dockerfile 是一个文本文件，描述 Docker 镜像如何构建。
+>
+> * `FROM` 选择基础镜像
+> * `WORKDIR` 设置容器内工作目录
+> * `COPY` 把文件复制进镜像
+> * `RUN` 在构建镜像时执行命令
+> * `CMD` 指定容器启动后的默认命令
+>
+> 编写思路通常是：选基础镜像 → 设工作目录 → 复制依赖 → 安装依赖 → 复制代码 → 声明端口 → 设置启动命令。
 
-Dockerfile 是一个用于描述 **Docker 镜像构建过程** 的文本文件。
+---
 
-可以简单理解为：
+# 1. Dockerfile 是什么
+
+Dockerfile 是一个用于描述 Docker 镜像构建过程的文本文件。
 
 ```text
 Dockerfile
@@ -19,14 +29,6 @@ Dockerfile
 Image 镜像
     ↓ docker run
 Container 容器
-```
-
-也可以把它理解成：
-
-```text
-Dockerfile = 制作镜像的配方
-Image      = 按照配方制作出来的成品
-Container  = 把镜像运行起来后的实例
 ```
 
 假设有一个 Python 项目：
@@ -44,9 +46,7 @@ my-app/
 docker build -t my-app .
 ```
 
-构建镜像。
-
-然后执行：
+构建镜像，然后执行：
 
 ```bash
 docker run my-app
@@ -54,9 +54,17 @@ docker run my-app
 
 启动容器。
 
+也可以理解为：
+
+```text
+Dockerfile = 制作镜像的配方
+Image      = 按配方做出来的成品
+Container  = 把镜像运行起来后的实例
+```
+
 ---
 
-## Dockerfile 基本结构
+# 2. Dockerfile 基本结构
 
 一个简单的 Python Dockerfile：
 
@@ -92,7 +100,7 @@ CMD ["python", "app.py"]
 
 ---
 
-## FROM
+# 3. `FROM`
 
 `FROM` 用于指定基础镜像。
 
@@ -110,49 +118,27 @@ FROM ubuntu:24.04
 
 ---
 
-## WORKDIR
+# 4. `WORKDIR`
 
 `WORKDIR` 用于设置容器中的工作目录。
-
-例如：
 
 ```dockerfile
 WORKDIR /app
 ```
 
-之后执行：
+之后执行 `COPY`、`RUN`、`CMD` 时都以 `/app` 为当前工作目录。
 
-```dockerfile
-COPY . .
-RUN python test.py
-CMD ["python", "app.py"]
-```
-
-都会以 `/app` 为当前工作目录。
-
-可以近似理解为 Linux 中：
+可以近似理解为 Linux 中的：
 
 ```bash
 cd /app
 ```
 
-推荐：
-
-```dockerfile
-WORKDIR /app
-```
-
-而不是：
-
-```dockerfile
-RUN cd /app
-```
-
-因为不同的 `RUN` 属于不同的构建步骤。
+推荐使用 `WORKDIR /app`，而不是 `RUN cd /app`，因为不同 `RUN` 属于不同的构建步骤。
 
 ---
 
-## COPY
+# 5. `COPY`
 
 `COPY` 用于把文件复制进镜像。
 
@@ -168,13 +154,7 @@ COPY 源路径 目标路径
 COPY app.py /app/app.py
 ```
 
-如果已经设置：
-
-```dockerfile
-WORKDIR /app
-```
-
-那么：
+如果已经设置了 `WORKDIR /app`，那么：
 
 ```dockerfile
 COPY . .
@@ -197,11 +177,9 @@ COPY . .
 
 ---
 
-## RUN
+# 6. `RUN`
 
-`RUN` 用于在 **构建镜像时执行命令**。
-
-例如：
+`RUN` 用于在构建镜像时执行命令。
 
 ```dockerfile
 RUN pip install flask
@@ -225,170 +203,94 @@ Ubuntu：
 RUN apt-get update
 ```
 
-需要记住：
-
-```text
-RUN
- ↓
-docker build 时执行
-```
-
-例如：
-
-```bash
-docker build -t my-app .
-```
-
-执行构建时，Docker 才会运行 Dockerfile 中的：
-
-```dockerfile
-RUN pip install -r requirements.txt
-```
+`RUN` 在 `docker build` 时执行。
 
 ---
 
-## CMD
+# 7. `CMD`
 
-`CMD` 用于指定 **容器启动后的默认命令**。
-
-例如：
+`CMD` 用于指定容器启动后的默认命令。
 
 ```dockerfile
 CMD ["python", "app.py"]
 ```
 
-当执行：
-
-```bash
-docker run my-app
-```
-
-实际上会运行：
+执行 `docker run my-app` 时实际运行：
 
 ```bash
 python app.py
 ```
 
-推荐使用这种形式：
+推荐使用 Exec Form：
 
 ```dockerfile
 CMD ["python", "app.py"]
 ```
 
-而不是：
+而不是 Shell Form：
 
 ```dockerfile
 CMD python app.py
 ```
 
-前者称为 Exec Form。
-
 ---
 
-## RUN 和 CMD 的区别
-
-这是 Dockerfile 中非常重要的区别。
+# 8. `RUN` VS `CMD`
 
 | 指令    | 执行时间           | 用途   |
 | ----- | -------------- | ---- |
 | `RUN` | `docker build` | 构建镜像 |
 | `CMD` | `docker run`   | 启动应用 |
 
-例如：
-
-```dockerfile
-RUN pip install flask
-```
-
-表示：
-
-```text
-制作镜像的时候安装 Flask
-```
-
-而：
-
-```dockerfile
-CMD ["python", "app.py"]
-```
-
-表示：
-
-```text
-容器启动的时候运行 app.py
-```
-
 记忆：
 
 ```text
-RUN = 构建时运行
-
-CMD = 容器启动时运行
+RUN  = 构建时运行
+CMD  = 容器启动时运行
 ```
 
 ---
 
-## ENTRYPOINT
+# 9. `ENTRYPOINT`
 
 `ENTRYPOINT` 用于定义容器的固定入口程序。
 
-例如：
-
 ```dockerfile
 ENTRYPOINT ["python"]
-```
-
-然后：
-
-```dockerfile
 CMD ["app.py"]
 ```
 
-组合以后相当于：
+组合后相当于：
 
 ```bash
 python app.py
 ```
 
-如果执行：
-
-```bash
-docker run my-app test.py
-```
-
-那么最终会执行：
+执行 `docker run my-app test.py` 时：
 
 ```bash
 python test.py
 ```
 
-因此可以简单理解：
+因此：
 
 ```text
 ENTRYPOINT = 固定执行程序
-
-CMD = 默认参数
+CMD        = 默认参数
 ```
 
 ---
 
-## ENV
+# 10. `ENV`
 
 `ENV` 用来定义环境变量。
 
-例如：
-
 ```dockerfile
 ENV APP_ENV=production
-```
-
-或者：
-
-```dockerfile
 ENV PORT=8000
 ```
 
-Python 中可以读取：
+Python 中读取：
 
 ```python
 import os
@@ -397,7 +299,7 @@ env = os.getenv("APP_ENV")
 print(env)
 ```
 
-运行容器时还可以覆盖：
+运行时可覆盖：
 
 ```bash
 docker run -e APP_ENV=development my-app
@@ -405,17 +307,15 @@ docker run -e APP_ENV=development my-app
 
 ---
 
-## ARG
+# 11. `ARG`
 
-`ARG` 用来定义 **镜像构建参数**。
-
-例如：
+`ARG` 用来定义镜像构建参数。
 
 ```dockerfile
 ARG VERSION=1.0
 ```
 
-构建时：
+构建时传入：
 
 ```bash
 docker build \
@@ -423,72 +323,38 @@ docker build \
   -t my-app .
 ```
 
-可以理解为：
-
-```text
-ARG = docker build 使用
-
-ENV = docker run 后的程序使用
-```
-
 简单对比：
 
 | 特性                 | ARG | ENV |
 | ------------------ | --- | --- |
 | 构建阶段使用             | ✅   | ✅   |
-| 容器运行阶段默认存在         | ❌   | ✅   |
+| 容器运行阶段默认存在        | ❌   | ✅   |
 | `--build-arg` 修改   | ✅   | ❌   |
 | `docker run -e` 修改 | ❌   | ✅   |
 
-不要使用 `ARG` 或 `ENV` 保存密码、Token、API Key 等敏感数据。
+不要用 `ARG` 或 `ENV` 保存密码、Token、API Key 等敏感数据。
 
 ---
 
-## EXPOSE
+# 12. `EXPOSE`
 
 `EXPOSE` 用于声明应用监听的端口。
 
-例如：
-
 ```dockerfile
 EXPOSE 8000
 ```
 
-表示应用预计监听：
-
-```text
-8000
-```
-
-但需要注意：
-
-```dockerfile
-EXPOSE 8000
-```
-
-并不会自动完成宿主机端口映射。
-
-运行时仍然通常需要：
+但 `EXPOSE 8000` 不会自动完成宿主机端口映射，运行时通常仍然需要：
 
 ```bash
 docker run -p 8000:8000 my-app
 ```
 
-表示：
-
-```text
-宿主机 8000
-      ↓
-容器 8000
-```
-
 ---
 
-## USER
+# 13. `USER`
 
 `USER` 用于指定容器中的运行用户。
-
-例如：
 
 ```dockerfile
 RUN useradd -m appuser
@@ -496,9 +362,7 @@ RUN useradd -m appuser
 USER appuser
 ```
 
-生产环境中通常不建议应用一直以 `root` 用户运行。
-
-例如：
+生产中通常不建议应用一直以 `root` 运行。完整示例：
 
 ```dockerfile
 FROM python:3.12-slim
@@ -516,37 +380,28 @@ CMD ["python", "app.py"]
 
 ---
 
-## ADD 与 COPY
+# 14. `ADD` 与 `COPY`
 
-Dockerfile 中还有：
-
-```dockerfile
-ADD
-```
-
-普通文件复制优先使用：
+普通文件复制优先使用 `COPY`：
 
 ```dockerfile
 COPY . /app
 ```
 
+只有确实需要 `ADD` 的额外能力（如自动解压远程包）时才使用 `ADD`。
+
 简单记忆：
 
 ```text
-普通文件复制
-    ↓
-COPY
-
-确实需要 ADD 的额外能力
-    ↓
-ADD
+普通文件复制 → COPY
+确实需要 ADD 的额外能力 → ADD
 ```
 
-绝大多数项目中使用 `COPY` 就够了。
+绝大多数项目使用 `COPY` 就够了。
 
 ---
 
-# Build Context
+# 15. Build Context
 
 执行：
 
@@ -554,17 +409,7 @@ ADD
 docker build -t my-app .
 ```
 
-最后面的：
-
-```text
-.
-```
-
-代表：
-
-```text
-Build Context
-```
+最后面的 `.` 代表 Build Context。
 
 例如：
 
@@ -576,49 +421,15 @@ project/
 └── src/
 ```
 
-进入：
+进入 `project/` 后执行构建，那么 `project` 就是本次构建的 Build Context。
 
-```bash
-cd project
-```
-
-执行：
-
-```bash
-docker build -t my-app .
-```
-
-那么 `project` 就是本次构建的 Build Context。
-
-Dockerfile：
-
-```dockerfile
-COPY app.py /app/
-```
-
-可以读取：
-
-```text
-project/app.py
-```
+Dockerfile 中 `COPY app.py /app/` 可以读取 `project/app.py`，但读不到 Build Context 之外的文件。
 
 ---
 
-# .dockerignore
+# 16. `.dockerignore`
 
-项目中通常应该创建：
-
-```text
-.dockerignore
-```
-
-它的作用类似：
-
-```text
-.gitignore
-```
-
-例如：
+通常应创建 `.dockerignore`，作用类似 `.gitignore`：
 
 ```dockerignore
 .git
@@ -636,23 +447,13 @@ build
 .vscode
 ```
 
-这样可以避免一些无关文件进入 Docker 构建上下文。
-
-尤其需要注意：
-
-```text
-.env
-```
-
-通常应该排除，避免密码、Token 等敏感数据被复制进镜像。
+尤其需要排除 `.env`，避免密码、Token 等敏感数据被复制进镜像。
 
 ---
 
-# Docker Layer
+# 17. Docker Layer
 
-Docker 镜像可以理解为由多个 Layer 组成。
-
-例如：
+Docker 镜像由多个 Layer 组成。例如：
 
 ```dockerfile
 FROM python:3.12-slim
@@ -668,7 +469,7 @@ COPY . .
 CMD ["python", "app.py"]
 ```
 
-可以粗略理解成：
+可以粗略理解为：
 
 ```text
 Python 基础镜像
@@ -684,15 +485,13 @@ COPY 项目代码
 CMD
 ```
 
-Docker 构建时会尽可能复用缓存。
-
-因此 Dockerfile 的指令顺序会影响构建速度。
+Docker 构建时会尽可能复用缓存，因此 Dockerfile 指令顺序会影响构建速度。
 
 ---
 
-# Docker 构建缓存
+# 18. Docker 构建缓存
 
-例如下面这种写法：
+例如：
 
 ```dockerfile
 COPY . .
@@ -700,23 +499,9 @@ COPY . .
 RUN pip install -r requirements.txt
 ```
 
-如果只修改：
+如果只修改 `app.py`，`COPY . .` 会发生变化，后续 `RUN pip install` 也可能重新执行。
 
-```text
-app.py
-```
-
-`COPY . .` 就发生了变化。
-
-后面的：
-
-```dockerfile
-RUN pip install -r requirements.txt
-```
-
-也可能重新执行。
-
-更好的写法是：
+更好的写法：
 
 ```dockerfile
 COPY requirements.txt .
@@ -748,7 +533,7 @@ COPY . .
 
 ---
 
-# Python Dockerfile 示例
+# 19. Python Dockerfile 示例
 
 项目：
 
@@ -801,7 +586,7 @@ docker run -d \
 
 ---
 
-# Node.js Dockerfile 示例
+# 20. Node.js Dockerfile 示例
 
 项目：
 
@@ -832,33 +617,19 @@ EXPOSE 3000
 CMD ["npm", "start"]
 ```
 
-构建：
+构建并运行：
 
 ```bash
 docker build -t node-app .
-```
 
-运行：
-
-```bash
 docker run -p 3000:3000 node-app
 ```
 
 ---
 
-# Multi-stage Build
+# 21. Multi-stage Build
 
-Multi-stage Build 即：
-
-```text
-多阶段构建
-```
-
-一个 Dockerfile 中可以出现多个：
-
-```dockerfile
-FROM
-```
+Multi-stage Build 即多阶段构建，一个 Dockerfile 中可以出现多个 `FROM`。
 
 典型流程：
 
@@ -872,20 +643,9 @@ FROM
 复制到运行环境
 ```
 
-这样最终镜像不需要保留：
-
-```text
-编译器
-构建工具
-项目源码
-开发依赖
-```
-
----
+最终镜像不需要保留编译器、构建工具、项目源码和开发依赖。
 
 ## Go 多阶段构建
-
-例如：
 
 ```dockerfile
 FROM golang:1.24 AS builder
@@ -910,43 +670,19 @@ COPY --from=builder /app/server ./server
 CMD ["./server"]
 ```
 
-第一个阶段：
+第一个阶段在 `golang` 镜像中下载依赖并编译 `server`。第二个阶段从 `alpine` 镜像复制 server 并运行。
 
-```text
-golang 镜像
-    ↓
-下载依赖
-    ↓
-编译 server
-```
-
-第二个阶段：
-
-```text
-alpine 镜像
-    ↓
-复制 server
-    ↓
-运行 server
-```
-
-关键：
+关键指令：
 
 ```dockerfile
 COPY --from=builder /app/server ./server
 ```
 
-表示：
-
-```text
-从 builder 阶段
-复制 /app/server
-到当前镜像
-```
+表示从 `builder` 阶段复制产物到当前镜像。
 
 ---
 
-# RUN 多条命令
+# 22. 合并 `RUN` 多条命令
 
 例如：
 
@@ -970,69 +706,45 @@ RUN apt-get update \
 
 ---
 
-# 常见错误
+# 23. 常见错误
 
-## 把 CMD 当成 RUN
-
-错误：
+## 把 `CMD` 当成 `RUN`
 
 ```dockerfile
 CMD pip install -r requirements.txt
 ```
 
-这意味着容器每次启动时安装依赖。
-
-应该写：
+这意味着容器每次启动时安装依赖。应改为：
 
 ```dockerfile
 RUN pip install -r requirements.txt
 ```
 
----
-
-## 使用 RUN 启动应用
-
-错误：
+## 用 `RUN` 启动应用
 
 ```dockerfile
 RUN python app.py
 ```
 
-因为 `RUN` 是：
-
-```text
-docker build
-```
-
-阶段执行。
-
-应该：
+`RUN` 在 `docker build` 阶段执行。应改为：
 
 ```dockerfile
 CMD ["python", "app.py"]
 ```
 
----
-
-## 认为 EXPOSE 会自动映射端口
-
-Dockerfile：
+## 认为 `EXPOSE` 会自动映射端口
 
 ```dockerfile
 EXPOSE 8000
 ```
 
-运行时通常还是需要：
+运行时通常仍需：
 
 ```bash
 docker run -p 8000:8000 my-app
 ```
 
----
-
-## 直接 COPY 所有文件
-
-不推荐：
+## 直接 `COPY . .` 然后 `npm install`
 
 ```dockerfile
 COPY . .
@@ -1050,11 +762,11 @@ RUN npm ci
 COPY . .
 ```
 
-这样可以更好地利用 Docker 构建缓存。
+这样能更好地利用 Docker 构建缓存。
 
 ---
 
-# Dockerfile 常用指令速查
+# 24. Dockerfile 常用指令速查
 
 | 指令           | 作用      |
 | ------------ | ------- |
@@ -1072,12 +784,12 @@ COPY . .
 
 ---
 
-# Dockerfile 编写思路
+# 25. Dockerfile 编写思路
 
-写 Dockerfile 时可以按照以下问题思考：
+写 Dockerfile 时按以下问题思考：
 
 ```text
-1. 我的应用需要什么基础环境？
+1. 应用需要什么基础环境？
 
 2. 应用放在哪个目录？
 
@@ -1112,7 +824,7 @@ CMD ["启动命令"]
 
 ---
 
-# Dockerfile 通用模板
+# 26. Dockerfile 通用模板
 
 ```dockerfile
 FROM <base-image>
@@ -1168,45 +880,7 @@ CMD ["npm", "start"]
 
 ---
 
-# 核心记忆
-
-```text
-FROM
-↓
-从哪个基础镜像开始
-
-WORKDIR
-↓
-在哪里工作
-
-COPY
-↓
-复制哪些文件
-
-RUN
-↓
-构建镜像时执行什么
-
-ENV
-↓
-设置什么环境变量
-
-EXPOSE
-↓
-应用监听什么端口
-
-USER
-↓
-以什么用户运行
-
-ENTRYPOINT
-↓
-容器固定执行什么程序
-
-CMD
-↓
-容器默认如何启动
-```
+# 27. 核心记忆
 
 最初只需要牢牢记住：
 
@@ -1220,15 +894,56 @@ CMD
 
 基本就可以开始自己编写 Dockerfile 了。
 
+之后逐步加入：
+
+```text
+ENV       设置环境变量
+EXPOSE    声明端口
+USER      指定运行用户
+ENTRYPOINT 容器固定入口
+```
+
+---
+
+# 28. 本课需要掌握
+
+* [ ] 理解 Dockerfile / Image / Container 三者关系
+* [ ] 能用 `FROM` 选择基础镜像
+* [ ] 能用 `WORKDIR`、`COPY`、`RUN`、`CMD` 编写简单 Dockerfile
+* [ ] 理解 `RUN` 与 `CMD` 的执行时机区别
+* [ ] 理解 `ENTRYPOINT` 与 `CMD` 的关系
+* [ ] 理解 `ARG` 与 `ENV` 的区别
+* [ ] 理解 `EXPOSE` 不会自动映射宿主机端口
+* [ ] 理解 `.dockerignore` 的作用
+* [ ] 理解 Docker Layer 与构建缓存
+* [ ] 能写出 Python / Node.js Dockerfile
+* [ ] 理解 Multi-stage Build 适合编译型语言
+
+---
+
+# 下一课
+
+下一节：
+
+[[docker-compose]]
+
+重点：
+
+* `services` / `image` / `build`
+* `ports` / `expose`
+* `networks` 与 Service Name DNS
+* `volumes` 与 Bind Mount
+* `depends_on` 与 `healthcheck`
+* `environment` / `env_file` / `.env`
+* `profiles`
+* `docker compose up / down / logs / exec`
+* 多 Compose 文件
+
 ---
 
 # 相关笔记
 
 * [[Docker]]
-* [[Docker镜像与容器]]
-* [[Docker网络管理]]
-* [[Docker数据卷]]
-* [[Docker Compose]]
-* [[Docker Build Context]]
-* [[Docker Multi-stage Build]]
-* [[Docker镜像优化]]
+* [[docker-compose]]
+* [[docker-build-context]]
+* [[docker-multi-stage-build]]
