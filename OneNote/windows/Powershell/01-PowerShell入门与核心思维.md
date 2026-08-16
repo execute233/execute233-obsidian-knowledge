@@ -795,18 +795,6 @@ $p.CPU
 $p.WorkingSet64
 ```
 
-这种：
-
-```text
-对象.属性
-```
-
-对于 Java 开发者应该非常熟悉：
-
-```java
-object.field
-```
-
 ---
 
 # 16. Select-Object：选择属性
@@ -940,22 +928,6 @@ $_ = Process B
 $_ = Process C
 检查 $_.CPU
 ```
-
-如果主人熟悉 Java Stream，可以把：
-
-```powershell
-Where-Object {
-    $_.CPU -GT 10
-}
-```
-
-理解为：
-
-```java
-.filter(process -> process.getCpu() > 10)
-```
-
-是不是一下就亲切很多了？🌸
 
 ---
 
