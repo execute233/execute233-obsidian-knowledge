@@ -38,6 +38,14 @@ aliases: [Web 总览, Web 知识地图]
 - [[@extend]]
 - [[../web/Sass/Sass函数]]
 
+## Tailwind
+
+- [[00-课程总览|Tailwind CSS v4 系统课程]]
+
+## Astro
+
+- [[00-课程总览|Astro v7 系统课程]]
+
 ## TS
 
 - [[安装与配置]]
