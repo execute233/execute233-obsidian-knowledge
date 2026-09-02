@@ -3,7 +3,6 @@ title: Docker Compose
 tags: [docker]
 aliases: [Docker Compose, Docker多容器编排, Compose]
 ---
-
 # Docker Compose
 
 > [!abstract]
@@ -687,10 +686,6 @@ services:
 ```
 
 现在 `web` 会等到 `db` 健康后才启动。
-
----
-
-# 31. depends_on condition
 
 支持的 condition：
 
