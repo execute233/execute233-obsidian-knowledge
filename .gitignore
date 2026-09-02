@@ -33,3 +33,7 @@ copilot/Copilot-Indexed-Files-*.md
 # ===== OneNote 导出的图片(根目录临时贴图,从未被脚本处理过) =====
 Exported image *.png
 Exported image *.jpeg
+
+# ===== 设计文档与实现计划 (不提交) =====
+docs/specs/
+docs/plans/
