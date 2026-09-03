@@ -6,7 +6,9 @@ aliases: [CSS 基本]
 
 # CSS 简介与引入
 
-CSS（Cascading Style Sheets，层叠样式表）是用于描述 HTML 元素如何显示的语言，核心目的是把**内容**（HTML）与**表现**（样式）分离。CSS3 是现行主流版本，已被现代浏览器广泛支持。
+CSS（Cascading Style Sheets，层叠样式表）是用于描述 HTML 元素如何显示的语言，核心目的是把**内容**（HTML）与**表现**（样式）分离。
+
+现代 CSS 已无版本号——不再有 CSS3/CSS4，W3C 改为按模块独立开发发布（如「CSS 颜色模块第五版」）。
 
 ## 基本语法
 
