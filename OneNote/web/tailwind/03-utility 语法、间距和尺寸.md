@@ -151,7 +151,7 @@ v4 的 important 修饰符推荐放在整个类名末尾，例如 <code>hover:bg
 
     <div class="min-w-0">
       <h2 class="truncate text-lg font-semibold text-slate-950">
-        Jie Wu
+        execute233
       </h2>
       <p class="mt-1 truncate text-sm text-slate-500">
         AI Agent 与全栈开发
