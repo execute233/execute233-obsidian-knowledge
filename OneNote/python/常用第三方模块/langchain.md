@@ -18,7 +18,7 @@ aliases: [LangChain]
 
 ```python
 import os
-os.environ["OPENAI_API_KEY"]  = "your-api-key-here"
+os.environ["OPENAI_API_KEY"]  = os.getenv("OPENAI_API_KEY", "your-api-key-here")
 os.environ["OPENAI_BASE_URL"] = "https://api.deepseek.com"
 
 model = ChatOpenAI(
@@ -32,7 +32,7 @@ print(r)
 
 ```python
 import os
-os.environ["OPENAI_API_KEY"]  = "your-api-key-here"
+os.environ["OPENAI_API_KEY"]  = os.getenv("OPENAI_API_KEY", "your-api-key-here")
 os.environ["OPENAI_BASE_URL"] = "https://api.deepseek.com"
 
 model = ChatOpenAI(

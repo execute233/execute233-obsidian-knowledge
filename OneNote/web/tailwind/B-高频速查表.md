@@ -44,16 +44,16 @@ aliases: ["附录 B：高频速查表"]
 
 ## 外观
 
-| 目标 | 常用 utility |
-|---|---|
-| 背景/文字 | <code>bg-*</code>、<code>text-*</code> |
-| 边框 | <code>border</code>、<code>border-*</code> |
-| 圆角 | <code>rounded-*</code> |
-| 焦点环 | <code>ring-*</code>、<code>outline-*</code> |
-| 阴影 | <code>shadow-*</code>、<code>inset-shadow-*</code> |
-| 透明 | <code>opacity-*</code> 或颜色 <code>/数字</code> |
-| 图片 | <code>object-cover</code>、<code>object-contain</code> |
-| 滤镜 | <code>blur-*</code>、<code>grayscale</code>、<code>backdrop-blur-*</code> |
+| 目标    | 常用 utility                                                              |
+| ----- | ----------------------------------------------------------------------- |
+| 背景/文字 | <code>bg-*</code>、<code>text-*</code>                                   |
+| 边框    | <code>border</code>、<code>border-*</code>                               |
+| 圆角    | <code>rounded-*</code>                                                  |
+| 焦点环   | <code>ring-*</code>、<code>outline-*</code>                              |
+| 阴影    | <code>shadow-*</code>、<code>inset-shadow-*</code>                       |
+| 透明    | <code>opacity-*</code> 或颜色 <code>/数字</code>                             |
+| 图片    | <code>object-cover</code>、<code>object-contain</code>                   |
+| 滤镜    | <code>blur-*</code>、<code>grayscale</code>、<code>backdrop-blur-*</code> |
 
 ## 响应式与状态
 
