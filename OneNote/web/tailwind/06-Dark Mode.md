@@ -1,12 +1,12 @@
 ---
-title: 第 9 课：Dark Mode
-tags: [Tailwind, CSS, frontend, 课程-9]
-aliases: ["第 9 课", "第 9 课：Dark Mode"]
+title: Dark Mode
+tags: [Tailwind, CSS, frontend]
+aliases: ["Dark Mode"]
 ---
 
-# 第九课：Dark Mode
+# Dark Mode
 
-## 9.1 默认行为
+## 6.1 默认行为
 
 <code>dark:</code> 可以应用于任何 utility：
 
@@ -18,7 +18,7 @@ aliases: ["第 9 课", "第 9 课：Dark Mode"]
 
 默认情况下，dark variant 使用 <code>prefers-color-scheme</code>。如果只需要跟随系统，无需自定义。
 
-## 9.2 手动切换
+## 6.2 手动切换
 
 如果需要用户主动选择，在全局 CSS 中覆盖 dark variant：
 
@@ -44,7 +44,7 @@ aliases: ["第 9 课", "第 9 课：Dark Mode"]
 
 来源：[Dark mode 官方文档](https://tailwindcss.com/docs/dark-mode)。
 
-## 9.3 Vue 三态主题：light / dark / system
+## 6.3 Vue 三态主题：light / dark / system
 
 <code>src/composables/useTheme.ts</code>：
 
@@ -152,7 +152,7 @@ const options: Array<{ value: Theme; label: string }> = [
 > [!note] SSR 提醒
 > 该 composable 面向普通客户端 Vite 应用。若以后放进 Astro SSR、Nuxt 或其他服务端渲染环境，需要保护 <code>window</code>、<code>localStorage</code> 和 <code>document</code> 的访问，并尽量在服务器或页面 head 中提前决定主题。
 
-## 9.4 避免首屏闪烁
+## 6.4 避免首屏闪烁
 
 应用 JS 挂载后才添加 <code>dark</code>，可能先显示浅色再闪到深色。将最短的主题初始化脚本放入页面 head，使它在首次绘制前同步执行：
 
@@ -170,7 +170,7 @@ const options: Array<{ value: Theme; label: string }> = [
 
 真实项目还应根据 CSP 选择 nonce、外部脚本或服务端渲染 class。
 
-## 9.5 深色模式不是机械反色
+## 6.5 深色模式不是机械反色
 
 逐项考虑：
 

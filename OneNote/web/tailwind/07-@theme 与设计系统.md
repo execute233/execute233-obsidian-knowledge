@@ -1,12 +1,12 @@
 ---
-title: 第 10 课：@theme 与设计系统
-tags: [Tailwind, CSS, frontend, 课程-10]
-aliases: ["第 10 课", "第 10 课：@theme 与设计系统"]
+title: @theme 与设计系统
+tags: [Tailwind, CSS, frontend]
+aliases: ["@theme 与设计系统"]
 ---
 
-# 第十课：@theme 与设计系统
+# @theme 与设计系统
 
-## 10.1 theme variable 不只是 CSS variable
+## 7.1 theme variable 不只是 CSS variable
 
 <code>@theme</code> 中的变量既会成为原生 CSS variable，也会影响哪些 utility 或 variants 存在：
 
@@ -28,7 +28,7 @@ aliases: ["第 10 课", "第 10 课：@theme 与设计系统"]
 
 普通 <code>:root</code> 变量不会自动创建 utility。官方因此要求 <code>@theme</code> 位于顶层。参考[Theme variables](https://tailwindcss.com/docs/theme)。
 
-## 10.2 重要命名空间
+## 7.2 重要命名空间
 
 | namespace | 生成或影响 |
 |---|---|
@@ -47,7 +47,7 @@ aliases: ["第 10 课", "第 10 课：@theme 与设计系统"]
 | <code>--ease-*</code> | easing |
 | <code>--animate-*</code> | animation |
 
-## 10.3 建立项目 token
+## 7.3 建立项目 token
 
 ~~~css
 @import "tailwindcss";
@@ -82,7 +82,7 @@ aliases: ["第 10 课", "第 10 课：@theme 与设计系统"]
 较差：login-blue、homepage-shadow、left-card-radius
 ~~~
 
-## 10.4 语义 token 与主题切换
+## 7.4 语义 token 与主题切换
 
 为了让组件不必到处同时写浅色和深色 palette，可以让语义变量随主题变化，再把它们映射为 Tailwind 颜色：
 
@@ -125,7 +125,7 @@ aliases: ["第 10 课", "第 10 课：@theme 与设计系统"]
 
 使用 <code>@theme inline</code> 可让生成的 utility 直接引用右侧变量值，适合这种变量映射。
 
-## 10.5 扩展、覆盖和重置
+## 7.5 扩展、覆盖和重置
 
 扩展默认主题：
 
@@ -166,7 +166,7 @@ aliases: ["第 10 课", "第 10 课：@theme 与设计系统"]
 
 最后一种是强约束设计系统的做法，不适合作为刚入门时的默认选择，因为大量默认 utility 会消失。
 
-## 10.6 什么时候把任意值提升为 token
+## 7.6 什么时候把任意值提升为 token
 
 满足任意两项时，通常值得提升：
 
@@ -178,7 +178,7 @@ aliases: ["第 10 课", "第 10 课：@theme 与设计系统"]
 
 只出现一次的布局修正无需强行进入主题。
 
-## 10.7 分享主题
+## 7.7 分享主题
 
 主题可以独立为 CSS 文件：
 

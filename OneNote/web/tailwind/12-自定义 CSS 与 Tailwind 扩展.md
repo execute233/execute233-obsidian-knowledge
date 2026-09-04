@@ -1,10 +1,10 @@
 ---
-title: 第 12 课：自定义 CSS 与 Tailwind 扩展
-tags: [Tailwind, CSS, frontend, 课程-12]
-aliases: ["第 12 课", "第 12 课：自定义 CSS 与 Tailwind 扩展"]
+title: 自定义 CSS 与 Tailwind 扩展
+tags: [Tailwind, CSS, frontend]
+aliases: ["自定义 CSS 与 Tailwind 扩展"]
 ---
 
-# 第十二课：自定义 CSS 与 Tailwind 扩展
+# 自定义 CSS 与 Tailwind 扩展
 
 ## 12.1 决策顺序
 

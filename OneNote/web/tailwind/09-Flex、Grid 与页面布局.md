@@ -1,12 +1,12 @@
 ---
-title: 第 5 课：Flex、Grid 与页面布局
-tags: [Tailwind, CSS, frontend, 课程-5]
-aliases: ["第 5 课", "第 5 课：Flex、Grid 与页面布局"]
+title: Flex、Grid 与页面布局
+tags: [Tailwind, CSS, frontend]
+aliases: ["Flex、Grid 与页面布局"]
 ---
 
-# 第五课：Flex、Grid 与页面布局
+# Flex、Grid 与页面布局
 
-## 5.1 先选布局模型
+## 9.1 先选布局模型
 
 | 场景 | 优先考虑 |
 |---|---|
@@ -17,7 +17,7 @@ aliases: ["第 5 课", "第 5 课：Flex、Grid 与页面布局"]
 
 Tailwind 不替你选择布局模型，它只是把 CSS 映射为短类名。
 
-## 5.2 Flex 高频组合
+## 9.2 Flex 高频组合
 
 水平居中并分隔：
 
@@ -56,7 +56,7 @@ Tailwind 不替你选择布局模型，它只是把 CSS 映射为短类名。
 - <code>min-w-0</code> 允许内容区真正收缩。
 - 优先用 <code>gap-*</code> 表达子元素间距，通常比给每个子项加 margin 更稳定。
 
-## 5.3 Grid 高频组合
+## 9.3 Grid 高频组合
 
 固定列数：
 
@@ -85,7 +85,7 @@ Tailwind 不替你选择布局模型，它只是把 CSS 映射为短类名。
 
 最后一种写法使用任意值直接表达原生 Grid，适合真正由可用空间驱动的列表。
 
-## 5.4 position、inset 与层级
+## 9.4 position、inset 与层级
 
 角标：
 
@@ -113,7 +113,7 @@ Tailwind 不替你选择布局模型，它只是把 CSS 映射为短类名。
 
 <code>inset-0</code> 同时设置四个方向为 0；<code>z-50</code> 只在正确的 stacking context 中有效。若 z-index “不听话”，应检查父元素是否因 transform、opacity、isolation 等创建了新的 stacking context。
 
-## 5.5 溢出、图片和比例
+## 9.5 溢出、图片和比例
 
 横向滚动表格：
 
@@ -137,7 +137,7 @@ Tailwind 不替你选择布局模型，它只是把 CSS 映射为短类名。
 </section>
 ~~~
 
-## 5.6 应用外壳
+## 9.6 应用外壳
 
 ~~~vue
 <template>

@@ -1,12 +1,12 @@
 ---
-title: 第 7 课：状态与结构 variants
-tags: [Tailwind, CSS, frontend, 课程-7]
-aliases: ["第 7 课", "第 7 课：状态与结构 variants"]
+title: 状态与结构 variants
+tags: [Tailwind, CSS, frontend]
+aliases: ["状态与结构 variants"]
 ---
 
-# 第七课：状态与结构 variants
+# 状态与结构 variants
 
-## 7.1 基本交互状态
+## 4.1 基本交互状态
 
 ~~~html
 <button
@@ -39,7 +39,7 @@ aliases: ["第 7 课", "第 7 课：状态与结构 variants"]
 
 v4 的 <code>hover:</code> 默认放在 <code>@media (hover: hover)</code> 中，因此只在主要输入设备真的支持 hover 时触发。不要依赖“触摸一下触发 hover”来完成关键功能。来源：[v4 Upgrade guide](https://tailwindcss.com/docs/upgrade-guide#hover-styles-on-mobile)。
 
-## 7.2 结构状态
+## 4.2 结构状态
 
 ~~~html
 <ul>
@@ -60,7 +60,7 @@ v4 的 <code>hover:</code> 默认放在 <code>@media (hover: hover)</code> 中�
 <div class="empty:hidden">...</div>
 ~~~
 
-## 7.3 group：由父元素状态影响子元素
+## 4.3 group：由父元素状态影响子元素
 
 ~~~html
 <a
@@ -87,7 +87,7 @@ v4 的 <code>hover:</code> 默认放在 <code>@media (hover: hover)</code> 中�
 </div>
 ~~~
 
-## 7.4 peer：由同级表单状态影响后续元素
+## 4.4 peer：由同级表单状态影响后续元素
 
 ~~~html
 <label class="block">
@@ -107,7 +107,7 @@ v4 的 <code>hover:</code> 默认放在 <code>@media (hover: hover)</code> 中�
 
 <code>peer</code> 基于 CSS 后续同级选择器，因此目标通常必须写在 peer 元素之后，不能反向影响前面的兄弟节点。
 
-## 7.5 has、data 与 aria
+## 4.5 has、data 与 aria
 
 父元素中包含 checked 控件时：
 
@@ -144,7 +144,7 @@ v4 的 <code>hover:</code> 默认放在 <code>@media (hover: hover)</code> 中�
 
 ARIA 不是为了“触发 CSS”才添加的。它首先应准确表达可访问状态，Tailwind 只是复用这个真实状态。
 
-## 7.6 任意 variant 和后代
+## 4.6 任意 variant 和后代
 
 你不控制 Markdown 或第三方 HTML 时：
 
@@ -162,7 +162,7 @@ ARIA 不是为了“触发 CSS”才添加的。它首先应准确表达可访�
 
 <code>&</code> 表示当前元素，下划线代表选择器中的空格。复杂到难以阅读时，应转为清晰的自定义 CSS。
 
-## 7.7 用户环境 variants
+## 4.7 用户环境 variants
 
 ~~~html
 <div class="transition motion-reduce:transition-none"></div>

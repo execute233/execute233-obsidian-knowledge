@@ -1,10 +1,10 @@
 ---
-title: 第 11 课：Vue 中的组件化
-tags: [Tailwind, CSS, frontend, 课程-11]
-aliases: ["第 11 课", "第 11 课：Vue 中的组件化"]
+title: Vue 中的组件化
+tags: [Tailwind, CSS, frontend]
+aliases: ["Vue 中的组件化"]
 ---
 
-# 第十一课：Vue 中的组件化
+# Vue 中的组件化
 
 ## 11.1 长 class 并不自动等于坏代码
 

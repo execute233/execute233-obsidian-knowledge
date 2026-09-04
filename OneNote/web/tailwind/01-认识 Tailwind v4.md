@@ -1,10 +1,10 @@
 ---
-title: 第 1 课：认识 Tailwind v4
-tags: [Tailwind, CSS, frontend, 课程-1]
-aliases: ["第 1 课", "第 1 课：认识 Tailwind v4"]
+title: 认识 Tailwind v4
+tags: [Tailwind, CSS, frontend]
+aliases: ["认识 Tailwind v4"]
 ---
 
-# 第一课：认识 Tailwind v4
+# 认识 Tailwind v4
 
 ## 1.1 Tailwind 到底是什么
 
@@ -108,7 +108,7 @@ dark:md:hover:bg-sky-700/80!
 
 Tailwind v4 在 2025-01-22 发布，官方将其描述为一次重写。入门时最重要的变化是：
 
-- 一行 <code>@import "tailwindcss";</code> 取代 v3 的三条 <code>@tailwind</code> 指令。
+- 一行 <code>@import "tailwindcss";</code> 完成所有引入。
 - 默认自动检测源码，不再要求先写 <code>content</code> 数组。
 - 通过 <code>@theme</code> 在 CSS 中配置设计令牌。
 - 提供第一方 <code>@tailwindcss/vite</code> 插件。
@@ -138,7 +138,7 @@ Vite 输出静态 CSS
 1. <code>bg-red-500</code> 能生成，是因为完整字符串出现在源码中。
 2. <code>"bg-" + color + "-500"</code> 通常不能生成，因为完整类名从未出现在源码文本中。
 
-源码检测会在第十三课深入学习。
+源码检测详见[[13-源码检测、冲突与调试|源码检测、冲突与调试]]。
 
 ## 1.6 Preflight
 

@@ -1,10 +1,10 @@
 ---
-title: 第 3 课：utility 语法、间距和尺寸
-tags: [Tailwind, CSS, frontend, 课程-3]
-aliases: ["第 3 课", "第 3 课：utility 语法、间距和尺寸"]
+title: utility 语法、间距和尺寸
+tags: [Tailwind, CSS, frontend]
+aliases: ["utility 语法、间距和尺寸"]
 ---
 
-# 第三课：utility 语法、间距和尺寸
+# utility 语法、间距和尺寸
 
 ## 3.1 从 CSS 属性推导 utility
 
