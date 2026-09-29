@@ -124,18 +124,14 @@ pnpm build
 pnpm preview
 ~~~
 
-手动检查：
+上线前手动检查：
 
-- [ ] 所有路由都能打开；
-- [ ] 404、redirect、动态路由正确；
-- [ ] 无意外 hydration；
-- [ ] 浏览器控制台无错误；
-- [ ] 所有图片尺寸稳定；
-- [ ] 键盘可操作；
-- [ ] 手机、平板、桌面布局正常；
-- [ ] 客户端导航后脚本仍工作；
-- [ ] 秘密没有出现在客户端源码或 Network 响应；
-- [ ] 动态页面在目标 Adapter 上工作。
+- 所有路由都能打开；404、redirect、动态路由正确。
+- 无意外 hydration；浏览器控制台无错误。
+- 所有图片尺寸稳定；键盘可操作。
+- 手机、平板、桌面布局正常；客户端导航后脚本仍工作。
+- 秘密没有出现在客户端源码或 Network 响应。
+- 动态页面在目标 Adapter 上工作。
 
 ### 18.5 性能检查
 
@@ -162,3 +158,7 @@ pnpm preview
 | Route Caching | cache provider 与 runtime 支持 |
 
 官方依据：[Deployment overview](https://docs.astro.build/en/guides/deploy/) · [Adapters](https://docs.astro.build/en/guides/on-demand-rendering/#server-adapters)
+
+---
+
+课程到此结束。排错见 [[B-常见问题与排错|常见问题与排错]]，速查见 [[A-Astro v7 速查表|Astro v7 速查表]]；回到课程开头 [[00-课程总览|课程总览]]。

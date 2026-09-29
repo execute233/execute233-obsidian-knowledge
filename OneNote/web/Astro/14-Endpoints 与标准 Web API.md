@@ -71,11 +71,14 @@ Astro 支持导出 <code>GET</code>、<code>POST</code>、<code>PUT</code>、<co
 | 自动验证表单 / JSON | 手动 | 推荐 |
 | 类型安全调用 | 自行建立 | 自动生成 |
 
-### 14.4 安全清单
+### 14.4 安全要点
 
-- [ ] 所有输入都验证。
-- [ ] 验证 content-type 和 body 大小。
-- [ ] 做身份认证与权限检查。
-- [ ] 返回正确 HTTP status。
-- [ ] 不在响应中泄露堆栈和秘密。
-- [ ] 对公开写接口考虑 CSRF、CORS、rate limit。
+公开接口必须做到：
+
+| 要点 | 说明 |
+|---|---|
+| 输入验证 | 所有输入都验证 |
+| 请求约束 | 验证 content-type 与 body 大小 |
+| 认证授权 | 做身份认证与权限检查 |
+| 响应 | 返回正确 HTTP status，不泄露堆栈和秘密 |
+| 公开写接口 | 考虑 CSRF、CORS、rate limit |
