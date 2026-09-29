@@ -58,25 +58,25 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
 我们可以在这样的接口里写上有规则的名称,这样的有规则名称会自动转为 SQL 语句,比如有以下这些方式:
 
-| 属性 | 拼接方法名称示例 | 执行语句 |
-|---|---|---|
-| Distinct | `findDistinctByLastnameAndFirstname` | `select distinct … where x.lastname = ?1 and x.firstname = ?2` |
-| And | `findByLastnameAndFirstname` | `… where x.lastname = ?1 and x.firstname = ?2` |
-| Or | `findByLastnameOrFirstname` | `… where x.lastname = ?1 or x.firstname = ?2` |
-| Is, Equals | `findByFirstname`, `findByFirstnameIs`, `findByFirstnameEquals` | `… where x.firstname = ?1` |
-| Between | `findByStartDateBetween` | `… where x.startDate between ?1 and ?2` |
-| LessThan | `findByAgeLessThan` | `… where x.age < ?1` |
-| LessThanEqual | `findByAgeLessThanEqual` | `… where x.age <= ?1` |
-| GreaterThan | `findByAgeGreaterThan` | `… where x.age > ?1` |
-| GreaterThanEqual | `findByAgeGreaterThanEqual` | `… where x.age >= ?1` |
-| After | `findByStartDateAfter` | `… where x.startDate > ?1` |
-| Before | `findByStartDateBefore` | `… where x.startDate < ?1` |
-| IsNull, Null | `findByAge(Is)Null` | `… where x.age is null` |
-| IsNotNull, NotNull | `findByAge(Is)NotNull` | `… where x.age is not null` |
-| Like | `findByFirstnameLike` | `… where x.firstname like ?1` |
-| NotLike | `findByFirstnameNotLike` | `… where x.firstname not like ?1` |
-| StartingWith | `findByFirstnameStartingWith` | `… where x.firstname like ?1 (参数与附加 % 绑定)` |
-| EndingWith | `findByFirstnameEndingWith` | `… where x.firstname like ?1 (参数与附加 % 绑定)` |
+| 属性                 | 拼接方法名称示例                                                        | 执行语句                                                           |
+| ------------------ | --------------------------------------------------------------- | -------------------------------------------------------------- |
+| Distinct           | `findDistinctByLastnameAndFirstname`                            | `select distinct … where x.lastname = ?1 and x.firstname = ?2` |
+| And                | `findByLastnameAndFirstname`                                    | `… where x.lastname = ?1 and x.firstname = ?2`                 |
+| Or                 | `findByLastnameOrFirstname`                                     | `… where x.lastname = ?1 or x.firstname = ?2`                  |
+| Is, Equals         | `findByFirstname`, `findByFirstnameIs`, `findByFirstnameEquals` | `… where x.firstname = ?1`                                     |
+| Between            | `findByStartDateBetween`                                        | `… where x.startDate between ?1 and ?2`                        |
+| LessThan           | `findByAgeLessThan`                                             | `… where x.age < ?1`                                           |
+| LessThanEqual      | `findByAgeLessThanEqual`                                        | `… where x.age <= ?1`                                          |
+| GreaterThan        | `findByAgeGreaterThan`                                          | `… where x.age > ?1`                                           |
+| GreaterThanEqual   | `findByAgeGreaterThanEqual`                                     | `… where x.age >= ?1`                                          |
+| After              | `findByStartDateAfter`                                          | `… where x.startDate > ?1`                                     |
+| Before             | `findByStartDateBefore`                                         | `… where x.startDate < ?1`                                     |
+| IsNull, Null       | `findByAge(Is)Null`                                             | `… where x.age is null`                                        |
+| IsNotNull, NotNull | `findByAge(Is)NotNull`                                          | `… where x.age is not null`                                    |
+| Like               | `findByFirstnameLike`                                           | `… where x.firstname like ?1`                                  |
+| NotLike            | `findByFirstnameNotLike`                                        | `… where x.firstname not like ?1`                              |
+| StartingWith       | `findByFirstnameStartingWith`                                   | `… where x.firstname like ?1 (参数与附加 % 绑定)`                     |
+| EndingWith         | `findByFirstnameEndingWith`                                     | `… where x.firstname like ?1 (参数与附加 % 绑定)`                     |
 
 ## 关联查询
 
