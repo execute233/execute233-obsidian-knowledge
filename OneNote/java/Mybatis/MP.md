@@ -39,4 +39,3 @@ public interface UserMapper extends BaseMapper<User> {
 ```
 
 MP 提供的 CRUD 接口详见 [[MP-接口]]，复杂条件查询使用 [[MP-条件构造器]]。
-```

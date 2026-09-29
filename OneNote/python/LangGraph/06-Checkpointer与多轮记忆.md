@@ -147,8 +147,6 @@ for snapshot in graph.get_state_history(config):
 | 适合 | 对话历史、中断恢复、容错 | 用户偏好、事实、共享知识 |
 | 定位方式 | `thread_id` | namespace 与 key |
 
-```
-
 ## 6.7 thread_id 设计
 
 推荐：
@@ -174,7 +172,7 @@ thread_id = user_id
 
 业务层仍需校验当前用户是否拥有对应会话。
 
-## 6.7 InMemorySaver 的局限
+## 6.8 InMemorySaver 的局限
 
 - 进程重启后丢失；
 - 多实例不共享；
