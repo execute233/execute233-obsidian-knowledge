@@ -793,22 +793,6 @@ Remove / Move / Stop
 
 ---
 
-# 44. 本课需要掌握
-
-* [ ] 知道 `cd`/`ls` 是 `Set-Location`/`Get-ChildItem` 的别名
-* [ ] 理解 `$PWD`、`$HOME`、`$PSScriptRoot`
-* [ ] 熟练使用 `Get-ChildItem`、`New-Item`、`Copy-Item`、`Move-Item`、`Remove-Item`、`Rename-Item`
-* [ ] 理解绝对路径与相对路径
-* [ ] 知道 `Join-Path` 比字符串拼接更稳
-* [ ] 能用 `-Recurse` / `-Filter` 搜索文件
-* [ ] 能用 `Where-Object` 按属性过滤
-* [ ] 知道 `Get-Content` 的 `-Tail` / `-Wait`
-* [ ] 理解 PowerShell Provider 的概念
-* [ ] 能浏览 `Env:`、`HKCU:`、`Variable:`、`Alias:`
-* [ ] 形成 Get / Test / -WhatIf / 执行的自动化习惯
-
----
-
 # 下一课
 
 下一节：

@@ -622,21 +622,6 @@ Select-Object 投影
 
 ---
 
-# 28. 本课需要掌握
-
-* [ ] 知道 PowerShell 是什么，与 CMD / Bash 的核心区别
-* [ ] 理解"对象 vs 文本"是 PowerShell 的根本思维
-* [ ] 知道 `Cmdlet` 与 `Verb-Noun` 命名规则
-* [ ] 能用 `Get-Command` / `Get-Help` / `Get-Member` 自学命令
-* [ ] 理解 Pipeline 传递的是对象
-* [ ] 知道 `$_` 的作用
-* [ ] 能用 `Select-Object` / `Where-Object` / `Sort-Object`
-* [ ] 理解 Alias 与完整 Cmdlet 的关系
-* [ ] 知道 Windows PowerShell 与 PowerShell 7 的差别
-* [ ] 能写出第一组 Java 进程 / 内存 Top / Windows 服务查询
-
----
-
 # 下一课
 
 下一节：

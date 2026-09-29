@@ -1577,31 +1577,6 @@ enabled Services
 
 ---
 
-# 47. 本课需要掌握
-
-* [ ] 理解 systemd 是 `PID 1`
-* [ ] 知道如何确认 WSL 2 是否运行 systemd
-* [ ] 理解 `Unit`
-* [ ] 理解 `.service`
-* [ ] 理解 `active` 与 `enabled`
-* [ ] 理解 `start` 与 `enable`
-* [ ] 会使用 `enable --now`
-* [ ] 理解 `restart` 与 `reload`
-* [ ] 会使用 `systemctl status`
-* [ ] 会使用 `systemctl cat`
-* [ ] 知道自定义 Unit 应放 `/etc/systemd/system`
-* [ ] 理解 `[Unit]`、`[Service]`、`[Install]`
-* [ ] 理解 `ExecStart`
-* [ ] 理解 `Restart=`
-* [ ] 理解 `Requires`、`Wants`、`After`
-* [ ] 修改 Unit 后知道执行 `daemon-reload`
-* [ ] 会使用 `journalctl -u`
-* [ ] 会使用 `journalctl -f`
-* [ ] 理解 User Service
-* [ ] 理解 WSL 生命周期与 systemd 生命周期不是一回事
-
----
-
 # 下一课
 
 下一节：

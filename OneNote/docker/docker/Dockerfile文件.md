@@ -905,22 +905,6 @@ ENTRYPOINT 容器固定入口
 
 ---
 
-# 28. 本课需要掌握
-
-* [ ] 理解 Dockerfile / Image / Container 三者关系
-* [ ] 能用 `FROM` 选择基础镜像
-* [ ] 能用 `WORKDIR`、`COPY`、`RUN`、`CMD` 编写简单 Dockerfile
-* [ ] 理解 `RUN` 与 `CMD` 的执行时机区别
-* [ ] 理解 `ENTRYPOINT` 与 `CMD` 的关系
-* [ ] 理解 `ARG` 与 `ENV` 的区别
-* [ ] 理解 `EXPOSE` 不会自动映射宿主机端口
-* [ ] 理解 `.dockerignore` 的作用
-* [ ] 理解 Docker Layer 与构建缓存
-* [ ] 能写出 Python / Node.js Dockerfile
-* [ ] 理解 Multi-stage Build 适合编译型语言
-
----
-
 # 下一课
 
 下一节：

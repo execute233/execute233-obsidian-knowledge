@@ -1138,30 +1138,6 @@ Windows
 
 ---
 
-# 32. 本课需要掌握
-
-* [ ] 理解 Docker Desktop WSL 2 Backend 架构
-* [ ] 理解 Ubuntu 与 `docker-desktop` 的区别
-* [ ] 理解 Docker CLI 与 Docker Engine 的区别
-* [ ] 知道为什么不应该额外安装第二套 Docker Engine
-* [ ] 会启用 WSL Integration
-* [ ] 会使用 `docker info` 验证 Engine
-* [ ] 理解当前 Docker Desktop 不应依赖 `docker-desktop-data`
-* [ ] 理解为什么项目推荐放 `~/projects`
-* [ ] 理解 WSL Bind Mount 性能
-* [ ] 理解 `inotify` 与 Linux 文件系统的关系
-* [ ] 理解 Bind Mount 与 Named Volume 的数据位置差异
-* [ ] 理解 Windows / WSL / Docker 三层网络
-* [ ] 会使用 `host.docker.internal`
-* [ ] 理解 Docker 资源受 WSL VM 配置影响
-* [ ] 理解 Resource Saver 与 `wsl --shutdown` 的区别
-* [ ] 知道 Docker 数据存储在独立 VHDX 中
-* [ ] 理解 VS Code + WSL + Docker 的推荐工作流
-* [ ] 理解 Dev Containers 所在层级
-* [ ] 知道 WSL 2 Backend 可以支持 NVIDIA GPU Container
-
----
-
 # 下一课
 
 [[WSL2磁盘管理]]

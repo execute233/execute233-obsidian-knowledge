@@ -1579,21 +1579,6 @@ Service 名就是 DNS 主机名
 
 ---
 
-# 83. 学习检查清单
-
-* [ ] 能写 `compose.yaml` 启动多容器应用
-* [ ] 能用 `image` 和 `build` 配置镜像
-* [ ] 能用 `ports` 做端口映射
-* [ ] 知道容器之间使用 Service Name 作为 DNS
-* [ ] 能用 `volumes` 持久化数据
-* [ ] 能用 `depends_on` + `healthcheck` 控制启动顺序
-* [ ] 能用 `.env` + `${VAR}` 做变量插值
-* [ ] 能用 `profiles` 区分可选服务
-* [ ] 能用 `docker compose up / down / logs / exec / ps` 日常操作
-* [ ] 能用 `compose.override.yaml` 区分开发与生产
-
----
-
 # 84. 推荐学习路线
 
 ```text

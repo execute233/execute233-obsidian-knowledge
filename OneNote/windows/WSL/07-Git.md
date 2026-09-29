@@ -1282,29 +1282,6 @@ Runtime
 
 ---
 
-# 41. 本课需要掌握
-
-* [ ] 理解 Windows Git 与 WSL Git 是两套环境
-* [ ] 知道 WSL Global Config 位于 `~/.gitconfig`
-* [ ] 会使用 `--show-origin --show-scope`
-* [ ] Repository 优先放 `~/projects`
-* [ ] 理解为什么不要混用 Windows Git / WSL Git
-* [ ] 会生成 Ed25519 SSH Key
-* [ ] 理解 Public Key / Private Key
-* [ ] 会使用 `ssh-agent`
-* [ ] 会使用 `ssh -T git@github.com`
-* [ ] 理解 SSH 与 HTTPS + GCM 两种认证模型
-* [ ] 理解 `CRLF` / `LF`
-* [ ] 理解 `.gitattributes`
-* [ ] 理解 `core.autocrlf=input`
-* [ ] 理解 `core.fileMode`
-* [ ] 理解 `core.ignoreCase`
-* [ ] 理解 Git Hooks 运行环境
-* [ ] 会使用 `includeIf` 管理多 Identity
-* [ ] 能配置多个 SSH Account
-
----
-
 # 下一课
 
 下一节：

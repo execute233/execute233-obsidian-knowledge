@@ -1412,26 +1412,6 @@ Docker：
 
 ---
 
-# 38. 本课需要掌握
-
-* [ ] 理解 VS Code WSL 的 Client / Server 架构
-* [ ] 知道 VS Code 应安装在 Windows
-* [ ] 理解 VS Code Server 运行在 WSL
-* [ ] 会使用 `code .`
-* [ ] 会通过 Command Palette 连接 WSL
-* [ ] 理解 Terminal 实际运行在 WSL
-* [ ] 理解 Local Extension 与 WSL Extension
-* [ ] 理解 Runtime 应安装在 WSL
-* [ ] 理解 Git 应与 Repository 保持同一环境
-* [ ] 理解 Remote Settings
-* [ ] 理解 Debugger 在 WSL 执行应用
-* [ ] 知道 `~/.vscode-server`
-* [ ] 知道 `server-env-setup` 的用途
-* [ ] 能通过 `which` 排查 Toolchain 混用
-* [ ] 理解 WSL + Dev Container 的层级关系
-
----
-
 # 下一课
 
 下一节：
