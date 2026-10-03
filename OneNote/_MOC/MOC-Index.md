@@ -10,7 +10,7 @@ aliases: [知识库总览, 知识地图入口, Home]
 
 ## 编程语言
 
-- [[MOC-java]] — Java (71 篇: javaSE / Spring框架 / Mybatis / RabbitMQ / 小框架 / 源码 / 设计模式)
+- [[MOC-java]] — Java (89 篇: javaSE / Spring框架 / 微服务 / Nacos / Mybatis / RabbitMQ / 小框架 / 源码 / 设计模式)
 - [[MOC-python]] — Python (25 篇: 基础 / 基础n件 / 常用模块 / 机器学习)
 - [[MOC-c]] — C (21 篇: 基本 / 中级 / 数据结构 / 系统库 / 高级 / 编译)
 - [[MOC-go]] — Go (18 篇: go基础 / gin)

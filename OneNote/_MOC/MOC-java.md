@@ -48,6 +48,27 @@ Java 主题所有笔记的索引入口。
 - [[SpringSecurity-配置]]
 - [[Spring整合Swagger或Knife4j]]
 
+## Nacos
+
+- [[OneNote/java/微服务/nacos/00-课程总览|Nacos 课程总览]]
+- [[OneNote/java/微服务/nacos/01-Nacos概念与版本基线|概念与版本基线]]
+- [[OneNote/java/微服务/nacos/02-Windows单机部署与鉴权|Windows 单机部署与鉴权]]
+- [[OneNote/java/微服务/nacos/03-服务模型与实例生命周期|服务模型与实例生命周期]]
+- [[OneNote/java/微服务/nacos/04-SpringCloud服务注册与调用|Spring Cloud 服务注册与调用]]
+- [[OneNote/java/微服务/nacos/05-配置中心与动态刷新|配置中心与动态刷新]]
+- [[OneNote/java/微服务/nacos/06-环境隔离与配置治理|环境隔离与配置治理]]
+- [[OneNote/java/微服务/nacos/07-JavaSDK与v3OpenAPI|Java SDK 与 v3 OpenAPI]]
+- [[OneNote/java/微服务/nacos/08-集群部署与外置数据库|集群部署与外置数据库]]
+- [[OneNote/java/微服务/nacos/09-通信机制与一致性原理|通信机制与一致性原理]]
+- [[OneNote/java/微服务/nacos/10-运维监控与故障排查|运维监控与故障排查]]
+- [[OneNote/java/微服务/nacos/11-Nacos3AI管理中心|Nacos 3 AI 管理中心]]
+- [[OneNote/java/微服务/nacos/12-MCP注册发现与工具调用|MCP 注册发现与工具调用]]
+- [[OneNote/java/微服务/nacos/13-Prompt版本发布与读取实操|Prompt 版本发布与读取实操]]
+- [[OneNote/java/微服务/nacos/14-版本升级与旧文纠偏|版本升级与旧文纠偏]]
+- [[OneNote/java/微服务/nacos/A-速查表|Nacos 速查表]]
+- [[OneNote/java/微服务/nacos/B-常见问题|Nacos 常见问题]]
+- [[OneNote/java/微服务/nacos/官方资料索引|Nacos 官方资料索引]]
+
 ## Mybatis
 
 - [[MP]]
