@@ -8,9 +8,6 @@ aliases: [Nacos Prompt实操, Nacos提示词管理]
 
 Nacos Prompt 管理把提示词模板变成有版本、标签和发布状态的资源，应用查询后再填充变量并调用模型。
 
-> [!abstract]
-> 本课重点：草稿与发布；固定版本和标签读取；变量渲染；版本回退。
-
 ## 创建第一版
 
 在 Nacos 3.2.4 Console 的 AI 管理中心 → Prompt 管理中，选择 <code>public</code>，创建资源：
@@ -35,25 +32,20 @@ Nacos Prompt 管理把提示词模板变成有版本、标签和发布状态的�
 
 ## 按版本查询
 
-先使用 [[07-JavaSDK与v3OpenAPI|API 课]] 的登录方法得到 <code>$nacosApi</code> 和 <code>$nacosHeaders</code>。账号需对目标 Prompt 有读取权限和可见性。
+先使用 [[07-JavaSDK与v3OpenAPI|API 课]] 的登录方法得到 <code>nacosApi</code> 与访问 Token。账号需对目标 Prompt 有读取权限和可见性。
 
-```powershell
-$prompt = Invoke-RestMethod -Uri "$nacosApi/v3/client/ai/prompt?namespaceId=public&promptKey=order-summary&version=1.0.0" `
-    -Headers $nacosHeaders
-if ($prompt.code -ne 0) { throw $prompt.message }
-$prompt.data.version
-$prompt.data.template
+```bash
+curl -sS "$nacosApi/v3/client/ai/prompt?namespaceId=public&promptKey=order-summary&version=1.0.0" \
+    -H 'accessToken: <NACOS_ACCESS_TOKEN>'
 ```
 
 运行时查询返回 <code>promptKey</code>、<code>version</code>、<code>template</code>、<code>variables</code>、<code>md5</code> 等字段。先判断请求成功，再读取内容。
 
 ## 按标签查询
 
-```powershell
-$prompt = Invoke-RestMethod -Uri "$nacosApi/v3/client/ai/prompt?namespaceId=public&promptKey=order-summary&label=latest" `
-    -Headers $nacosHeaders
-if ($prompt.code -ne 0) { throw $prompt.message }
-$prompt.data.version
+```bash
+curl -sS "$nacosApi/v3/client/ai/prompt?namespaceId=public&promptKey=order-summary&label=latest" \
+    -H 'accessToken: <NACOS_ACCESS_TOKEN>'
 ```
 
 | 读取方式 | 适合场景 | 变化来源 |
@@ -66,12 +58,7 @@ $prompt.data.version
 
 ## Java 查询与渲染
 
-沿用商品工程的 WebMVC 依赖，创建 <code>src/main/java/com/example/prompt/PromptDemo.java</code>，在 IDE 中独立运行。当前终端设置 <code>NACOS_ACCESS_TOKEN</code>，或者在 IDE 运行配置中填入测试会话 Token；Token 不保存到项目配置。
-
-```powershell
-$env:NACOS_ACCESS_TOKEN = $nacosHeaders.accessToken
-$env:NACOS_HTTP_BASE_URL = 'http://<NACOS_HOST>:8848/nacos' # 替换主机地址
-```
+沿用商品工程的 WebMVC 依赖，创建 <code>src/main/java/com/example/prompt/PromptDemo.java</code>，在 IDE 中独立运行。
 
 ```java
 package com.example.prompt;
@@ -83,8 +70,8 @@ import org.springframework.web.client.RestClient;
 public class PromptDemo {
     public static void main(String[] args) {
         var client = RestClient.builder()
-                .baseUrl(System.getenv("NACOS_HTTP_BASE_URL"))
-                .defaultHeader("accessToken", System.getenv("NACOS_ACCESS_TOKEN"))
+                .baseUrl("<NACOS_HTTP_BASE_URL>")
+                .defaultHeader("accessToken", "<NACOS_ACCESS_TOKEN>")
                 .build();
         Map<String, Object> response = client.get()
                 .uri("/v3/client/ai/prompt?namespaceId=public&promptKey=order-summary&label=latest")

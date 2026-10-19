@@ -8,9 +8,6 @@ aliases: [Nacos MCP实操, Java MCP注册发现]
 
 本课把一个 Java MCP 工具注册到 Nacos，再由 Java 客户端发现地址并调用，完成不依赖模型 API 的验证闭环。
 
-> [!abstract]
-> 本课重点：官方 Java MCP SDK；本机 Streamable HTTP；控制台注册；Nacos 发现与工具调用。
-
 ## 实验选择
 
 | 项目 | 本课选择 |
@@ -128,7 +125,7 @@ nacos.console.ai.mcp.import.allowed-private-addresses=<MCP_TARGET_IP_OR_CIDR>
 
 ## Java 发现并调用
 
-创建 <code>src/main/java/com/example/mcp/McpDiscoveryDemo.java</code>。它是独立 main，不需要被商品应用组件扫描；在 IDE 中运行，环境变量配置与第 4 课相同。
+创建 <code>src/main/java/com/example/mcp/McpDiscoveryDemo.java</code>。它是独立 main，不需要被商品应用组件扫描；在 IDE 中运行，地址与凭据的占位符与第 4 课相同。
 
 ```java
 package com.example.mcp;
@@ -144,10 +141,10 @@ import io.modelcontextprotocol.spec.McpSchema;
 public class McpDiscoveryDemo {
     public static void main(String[] args) throws Exception {
         Properties p = new Properties();
-        p.setProperty(PropertyKeyConst.SERVER_ADDR, System.getenv("NACOS_SERVER_ADDR"));
+        p.setProperty(PropertyKeyConst.SERVER_ADDR, "<NACOS_SERVER_ADDR>");
         p.setProperty(PropertyKeyConst.NAMESPACE, "public");
-        p.setProperty(PropertyKeyConst.USERNAME, System.getenv("NACOS_USERNAME"));
-        p.setProperty(PropertyKeyConst.PASSWORD, System.getenv("NACOS_PASSWORD"));
+        p.setProperty(PropertyKeyConst.USERNAME, "<NACOS_USERNAME>");
+        p.setProperty(PropertyKeyConst.PASSWORD, "<NACOS_PASSWORD>");
         var ai = AiFactory.createAiService(p);
         try {
             var detail = ai.getMcpServer("product-mcp", "1.0.0");

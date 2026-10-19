@@ -8,22 +8,6 @@ aliases: [Nacos SpringCloud实战, Nacos RestClient负载均衡]
 
 Spring Cloud Alibaba 把 Nacos 接入 Spring Cloud 的服务注册与发现体系，调用方再通过 LoadBalancer 选择实例。
 
-> [!abstract]
-> 本课重点：Boot 4 依赖组合；服务注册与双实例调用；RestClient、OpenFeign 与降级。
-
-## 版本与工程
-
-本课固定官方版本表中的组合，Nacos Server 使用 <code>3.2.4</code>：
-
-| 组件 | 版本 / 选择 |
-| --- | --- |
-| JDK | <code>17+</code>；本课代码使用 Java 17 语法 |
-| Spring Boot | <code>4.0.0</code> |
-| Spring Cloud | <code>2025.1.0</code> |
-| Spring Cloud Alibaba | <code>2025.1.0.0</code> |
-| BOM 管理的 Nacos Client | <code>3.1.1</code> |
-| HTTP 客户端 | Spring <code>RestClient</code> |
-
 示例用商品 / 订单两个服务演示调用链。这里采用 **Boot 4 依赖组合**，父 POM、Spring Cloud 和 Alibaba BOM 使用本课列出的同一组合；架构基础见 [[分布式基础|分布式基础]]。
 
 创建两个独立 Maven 工程 <code>service-product</code>、<code>service-order</code>，或者在新的 Boot 4 多模块工程中建立这两个模块。
@@ -48,20 +32,24 @@ Spring Cloud Alibaba 把 Nacos 接入 Spring Cloud 的服务注册与发现体�
     <groupId>com.example</groupId>
     <artifactId>service-product</artifactId>
     <version>1.0.0</version>
-    <properties><java.version>17</java.version></properties>
+    <properties>
+	    <java.version>17</java.version>
+    </properties>
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>2025.1.0</version>
-                <type>pom</type><scope>import</scope>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>2025.1.0.0</version>
-                <type>pom</type><scope>import</scope>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -90,8 +78,6 @@ Spring Cloud Alibaba 把 Nacos 接入 Spring Cloud 的服务注册与发现体�
 </project>
 ```
 
-Boot 4 示例使用 <code>spring-boot-starter-webmvc</code>。Starter 不单独写版本，Client 也不手工覆盖成 Server 的 <code>3.2.4</code>。
-
 ## 商品服务
 
 创建 <code>src/main/resources/application.yml</code>：
@@ -105,23 +91,13 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: ${NACOS_SERVER_ADDR}
+        server-addr: '<NACOS_SERVER_ADDR>'
         namespace: public
         group: DEFAULT_GROUP
-        username: ${NACOS_USERNAME}
-        password: ${NACOS_PASSWORD}
+        username: '<NACOS_USERNAME>'
+        password: '<NACOS_PASSWORD>'
         ephemeral: true
 ```
-
-在 [[02-Windows单机部署与鉴权|部署课]] 的控制台为学习账号授权；在启动应用的 PowerShell 中设置当前会话凭据：
-
-```powershell
-$env:NACOS_USERNAME = Read-Host 'Nacos业务账号'
-$env:NACOS_PASSWORD = Read-Host 'Nacos业务密码' -MaskInput
-$env:NACOS_SERVER_ADDR = '<NACOS_HOST>:8848' # 替换主机地址，使用Server主端口
-```
-
-输入值只保留在当前进程环境；应用启动后会继承。每个新终端都要设置，不把真实密码写入 YAML。
 
 创建 <code>src/main/java/com/example/product/ProductApplication.java</code>：
 
@@ -207,31 +183,33 @@ public class OrderApplication {
 
 分别在两个工程目录执行：
 
-```powershell
+```bash
 mvn clean package
-java -jar '.\target\service-product-1.0.0.jar'
+java -jar target/service-product-1.0.0.jar
 ```
 
 订单工程启动 <code>service-order-1.0.0.jar</code>。先访问商品接口，再调用订单接口：
 
-```powershell
-Invoke-RestMethod -Uri 'http://<PRODUCT_HOST>:9001/products/1'
-Invoke-RestMethod -Uri 'http://<ORDER_HOST>:9010/orders/demo'
+```bash
+curl 'http://<PRODUCT_HOST>:9001/products/1'
+curl 'http://<ORDER_HOST>:9010/orders/demo'
 ```
 
 控制台应在 <code>public / DEFAULT_GROUP</code> 中显示两个逻辑服务。订单响应包含商品服务的 <code>port=9001</code>。
 
-在第三个已配置凭据的终端启动第二个商品实例：
+在第三个终端启动第二个商品实例：
 
-```powershell
-java -jar '.\target\service-product-1.0.0.jar' --server.port=9002
+```bash
+java -jar target/service-product-1.0.0.jar --server.port=9002
 ```
 
 反复调用订单接口，观察 <code>9001</code> 与 <code>9002</code> 的响应。停止一个商品进程后，等待发现视图更新，再验证剩余实例；更新期间出现短暂失败不等于注册中心一定故障。
 
 ## OpenFeign 声明式调用与降级
 
-如果希望用接口声明替代手写 HTTP 调用，在**订单工程**加入下面的依赖；版本仍由 Spring Cloud BOM 管理：
+OpenFeign 用接口声明 HTTP 调用，Sentinel 提供降级适配；在 <code>@FeignClient</code> 的 <code>fallback</code> 属性上指定接口实现类，集中处理调用失败。
+
+在**订单工程**加入下面的依赖。OpenFeign 版本由 Spring Cloud BOM 管理，Sentinel 版本由本课的 Spring Cloud Alibaba <code>2025.1.0.0</code> BOM 管理：
 
 ```xml
 <dependency>
@@ -239,10 +217,12 @@ java -jar '.\target\service-product-1.0.0.jar' --server.port=9002
     <artifactId>spring-cloud-starter-openfeign</artifactId>
 </dependency>
 <dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
 </dependency>
 ```
+
+OpenFeign 依赖提供声明式调用，Sentinel Starter 配合 Feign 适配开关让 <code>fallback</code> 生效。
 
 创建 <code>com/example/order/ProductClient.java</code>：
 
@@ -253,41 +233,36 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "service-product", fallbackFactory = ProductFallbackFactory.class)
+@FeignClient(name = "service-product", fallback = ProductFallback.class)
 public interface ProductClient {
     @GetMapping("/products/{id}")
     String product(@PathVariable("id") long id);
 }
 ```
 
-在订单启动类上添加 <code>@EnableFeignClients(clients = ProductClient.class)</code>，导入 <code>org.springframework.cloud.openfeign.EnableFeignClients</code>。在订单配置中显式开启 CircuitBreaker：
+在订单启动类上添加 <code>@EnableFeignClients(clients = ProductClient.class)</code>，导入 <code>org.springframework.cloud.openfeign.EnableFeignClients</code>。在订单的 <code>application.yml</code> 中开启 Sentinel 对 Feign 的适配：
 
 ```yaml
-spring:
-  cloud:
-    openfeign:
-      circuitbreaker:
-        enabled: true
+feign:
+  sentinel:
+    enabled: true
 ```
 
-创建 <code>com/example/order/ProductFallbackFactory.java</code>：
+创建 <code>com/example/order/ProductFallback.java</code>，实现客户端接口，并用 <code>@Component</code> 注册为 Spring Bean：
 
 ```java
 package com.example.order;
 
-import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 @Component
-public class ProductFallbackFactory implements FallbackFactory<ProductClient> {
+public class ProductFallback implements ProductClient {
     @Override
-    public ProductClient create(Throwable cause) {
-        return id -> {
-            throw new ResponseStatusException(
-                    HttpStatus.SERVICE_UNAVAILABLE, "商品服务暂不可用", cause);
-        };
+    public String product(long id) {
+        throw new ResponseStatusException(
+                HttpStatus.SERVICE_UNAVAILABLE, "商品服务暂不可用");
     }
 }
 ```
@@ -311,7 +286,9 @@ String feignOrder() {
 访问 <code>http://&lt;ORDER_HOST&gt;:9010/orders/feign-demo</code> 验证正常调用。测试环境停止全部商品实例后，观察调用失败与降级返回的 HTTP 503；不要用虚构商品数据冒充成功结果。
 
 > [!note]
-> 仅声明 <code>fallbackFactory</code> 不代表降级链已启用，还需要相应 CircuitBreaker 实现和开关。超时、熔断阈值和重试策略按业务配置；Nacos 只提供发现能力，不自动完成这些调用保护。
+> Sentinel Starter、<code>feign.sentinel.enabled=true</code> 和注册为 Spring Bean 的降级实现类缺一不可。处理调用异常不需要先启动 Sentinel 控制台；限流或熔断后的降级需要相应规则，开关不会自动生成规则。Nacos 只提供服务发现能力。
+
+官方说明：[Sentinel OpenFeign 适配](https://sca.aliyun.com/docs/2025.x/user-guide/sentinel/advanced-guide/#openfeign)。
 
 ## 权重与集群优先
 

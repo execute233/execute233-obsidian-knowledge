@@ -52,7 +52,7 @@ Java 主题所有笔记的索引入口。
 
 - [[OneNote/java/微服务/nacos/00-课程总览|Nacos 课程总览]]
 - [[OneNote/java/微服务/nacos/01-Nacos概念与版本基线|概念与版本基线]]
-- [[OneNote/java/微服务/nacos/02-Windows单机部署与鉴权|Windows 单机部署与鉴权]]
+- [[OneNote/java/微服务/nacos/02-单机部署与鉴权|单机部署与鉴权]]
 - [[OneNote/java/微服务/nacos/03-服务模型与实例生命周期|服务模型与实例生命周期]]
 - [[OneNote/java/微服务/nacos/04-SpringCloud服务注册与调用|Spring Cloud 服务注册与调用]]
 - [[OneNote/java/微服务/nacos/05-配置中心与动态刷新|配置中心与动态刷新]]

@@ -8,9 +8,6 @@ aliases: [Nacos JavaSDK, Nacos v3接口]
 
 Java SDK 负责运行时长连接和恢复，v3 HTTP API 适合明确资源的读取、调试以及管理自动化。
 
-> [!abstract]
-> 本课重点：SDK 连接参数；查询与监听；运行面 / 管理面；PowerShell 发布与读取。
-
 ## 接口选择
 
 | 接口 | 面向对象 | 典型行为 |
@@ -29,13 +26,13 @@ Java SDK 负责运行时长连接和恢复，v3 HTTP API 适合明确资源的�
 
 ```java
 Properties p = new Properties();
-p.setProperty(PropertyKeyConst.SERVER_ADDR, System.getenv("NACOS_SERVER_ADDR"));
+p.setProperty(PropertyKeyConst.SERVER_ADDR, "<NACOS_SERVER_ADDR>");
 p.setProperty(PropertyKeyConst.NAMESPACE, "public");
-p.setProperty(PropertyKeyConst.USERNAME, System.getenv("NACOS_USERNAME"));
-p.setProperty(PropertyKeyConst.PASSWORD, System.getenv("NACOS_PASSWORD"));
+p.setProperty(PropertyKeyConst.USERNAME, "<NACOS_USERNAME>");
+p.setProperty(PropertyKeyConst.PASSWORD, "<NACOS_PASSWORD>");
 ```
 
-以上是方法内片段，需导入 <code>java.util.Properties</code> 和 <code>com.alibaba.nacos.api.PropertyKeyConst</code>。先按第 4 课设置地址和凭据环境变量；没有设置时不能把 <code>null</code> 传给 <code>Properties</code>。
+以上是方法内片段，需导入 <code>java.util.Properties</code> 和 <code>com.alibaba.nacos.api.PropertyKeyConst</code>。把尖括号占位符替换为自己的地址与凭据；实际项目用配置或密钥管理注入，不把明文写进代码库。
 
 ## 查询和订阅服务
 
@@ -58,7 +55,6 @@ try {
 }
 ```
 
-所需类型：<code>NacosFactory</code> 在 <code>com.alibaba.nacos.api</code>；<code>NamingService</code> 在 <code>api.naming</code>；<code>EventListener</code>、<code>NamingEvent</code> 在 <code>api.naming.listener</code>；<code>Instance</code> 在 <code>api.naming.pojo</code>。片段放进允许抛异常的方法中。
 
 <code>selectOneHealthyInstance</code> 执行 SDK 的实例选择；没有可用实例时处理异常，不能假设始终返回地址。长期应用复用 SDK 对象，不为每个业务请求重建连接。
 
@@ -86,44 +82,33 @@ try {
 }
 ```
 
-所需类型：<code>ConfigService</code> 在 <code>com.alibaba.nacos.api.config</code>，<code>Listener</code> 在 <code>api.config.listener</code>，<code>Executor</code> 在 <code>java.util.concurrent</code>。示例不打印完整配置，实际回调应做解析、校验和安全替换。
 
 <code>getConfigAndSignListener</code> 把初始查询与监听登记组合起来，优于在业务代码中随意先读再监听。它也不是跨服务的原子配置事务。
 
-## PowerShell 登录
+## 终端登录
 
-在当前终端输入有目标资源权限的账号：
+在有目标资源权限的账号下，先取访问 Token：
 
-```powershell
-$nacosApi = 'http://<NACOS_HOST>:8848/nacos' # 替换为自己的Server HTTP入口
-$nacosUser = Read-Host 'Nacos账号'
-$nacosPassword = Read-Host 'Nacos密码' -MaskInput
-$login = Invoke-RestMethod -Method Post -Uri "$nacosApi/v3/auth/user/login" `
-    -Body @{ username = $nacosUser; password = $nacosPassword }
-$nacosHeaders = @{ accessToken = $login.accessToken }
+```bash
+nacosApi='http://<NACOS_HOST>:8848/nacos' # 替换为自己的 Server HTTP 入口
+curl -sS -X POST "$nacosApi/v3/auth/user/login" \
+    -d 'username=<NACOS_USERNAME>' -d 'password=<NACOS_PASSWORD>'
 ```
 
-默认 Nacos 鉴权插件的登录响应直接包含 <code>accessToken</code> 和 <code>tokenTtl</code>。Token 到期重新登录；不要把 Token 或完整登录响应输出到共享日志。
+默认 Nacos 鉴权插件的登录响应直接包含 <code>accessToken</code> 和 <code>tokenTtl</code>。Token 到期重新登录；不要把 Token 或完整登录响应输出到共享日志。后续命令把 <code>&lt;NACOS_ACCESS_TOKEN&gt;</code> 换成这里返回的 Token。
 
 ## 发布与读取配置
 
 发布是管理操作，需要写权限。下面使用独立学习资源，避免覆盖商品服务的 YAML：
 
-```powershell
-$publish = Invoke-RestMethod -Method Post -Uri "$nacosApi/v3/admin/cs/config" `
-    -Headers $nacosHeaders -Body @{
-        namespaceId = 'public'
-        groupName = 'DEFAULT_GROUP'
-        dataId = 'quickstart.txt'
-        content = 'Hello Nacos 3.2.4'
-        type = 'text'
-    }
-if ($publish.code -ne 0) { throw $publish.message }
+```bash
+curl -sS -X POST "$nacosApi/v3/admin/cs/config" \
+    -H 'accessToken: <NACOS_ACCESS_TOKEN>' \
+    -d 'namespaceId=public' -d 'groupName=DEFAULT_GROUP' \
+    -d 'dataId=quickstart.txt' -d 'content=Hello Nacos 3.2.4' -d 'type=text'
 
-$query = Invoke-RestMethod -Uri "$nacosApi/v3/client/cs/config?namespaceId=public&groupName=DEFAULT_GROUP&dataId=quickstart.txt" `
-    -Headers $nacosHeaders
-if ($query.code -ne 0) { throw $query.message }
-$query.data.content
+curl -sS "$nacosApi/v3/client/cs/config?namespaceId=public&groupName=DEFAULT_GROUP&dataId=quickstart.txt" \
+    -H 'accessToken: <NACOS_ACCESS_TOKEN>'
 ```
 
 | 事项 | 注意点 |
@@ -138,10 +123,9 @@ $query.data.content
 
 在商品应用已启动后查询：
 
-```powershell
-$instances = Invoke-RestMethod -Uri "$nacosApi/v3/client/ns/instance/list?namespaceId=public&groupName=DEFAULT_GROUP&serviceName=service-product" `
-    -Headers $nacosHeaders
-$instances.data
+```bash
+curl -sS "$nacosApi/v3/client/ns/instance/list?namespaceId=public&groupName=DEFAULT_GROUP&serviceName=service-product" \
+    -H 'accessToken: <NACOS_ACCESS_TOKEN>'
 ```
 
 手工 POST 注册的临时实例仍需续约，不能用于替代正常 SDK 生命周期。诊断全量服务、客户端或订阅者时，使用 Admin API / Maintainer SDK。

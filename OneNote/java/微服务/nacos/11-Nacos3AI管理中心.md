@@ -8,9 +8,6 @@ aliases: [Nacos AI Registry, Nacos3新特性]
 
 AI 管理中心把 MCP Server、Agent、Prompt、Skill 和 AgentSpec 作为独立资源管理，提供发现、版本和发布治理。
 
-> [!abstract]
-> 本课重点：五类资源；运行时角色；发布生命周期；与微服务模型的关系。
-
 ## 资源类型
 
 | 资源 | 保存什么 | 应用怎样使用 |

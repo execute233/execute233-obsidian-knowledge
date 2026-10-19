@@ -54,24 +54,25 @@ aliases: [Nacos端口速查, Nacos参数速查]
 | <code>refreshEnabled</code> | import 条目的动态刷新开关 |
 | <code>spring.cloud.loadbalancer.nacos.enabled</code> | 是否使用 Nacos 选择策略 |
 
-Discovery / Config 的用户名与密码分别用环境变量配置。连接地址填写主端口，不填写 <code>8080</code> 或浏览器页面路径。
+Discovery / Config 的用户名与密码分别填写自己的账号；连接地址填主端口，不填 <code>8080</code> 或浏览器页面路径。示例中的尖括号占位符替换为真实值，实际项目用配置或密钥管理注入。
 
-## PowerShell 操作
+## 常用命令
 
 先定义 <code>$nacosDir</code> 为实际发行包目录：
 
-```powershell
-& "$nacosDir\bin\startup.cmd" -m standalone
-Test-NetConnection -ComputerName '<NACOS_HOST>' -Port 9848
-Get-Content -LiteralPath "$nacosDir\logs\nacos.log" -Tail 50 -Wait
+```bash
+sh "$nacosDir/bin/startup.sh" -m standalone
+nc -zv '<NACOS_HOST>' 9848
+tail -n 50 -f "$nacosDir/logs/nacos.log"
 ```
 
 | 操作 | 说明 |
 | --- | --- |
-| <code>startup.cmd -m standalone</code> | 本机单机；从 PowerShell 直接调用脚本 |
-| <code>startup.cmd -m cluster</code> | 集群；先配置数据库、成员与身份 |
+| <code>startup.sh -m standalone</code> | 本机单机；Linux / macOS 脚本 |
+| <code>startup.sh -m cluster</code> | 集群；先配置数据库、成员与身份 |
+| <code>startup.cmd -m standalone</code> | Windows 脚本，参数相同 |
 | <code>-f microservice</code> | 只加载 Config / Naming，AI 课不能使用 |
-| <code>shutdown.cmd</code> | Windows 脚本可能结束多个 Nacos 进程 |
+| <code>shutdown.sh</code> | 脚本可能结束多个 Nacos 进程 |
 
 ## 身份与版本
 
